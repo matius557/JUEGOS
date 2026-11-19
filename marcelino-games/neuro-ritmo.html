@@ -1,0 +1,1057 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!-- INTRO: PROF. LIC. MARCELINO GAMES -->
+<div id="mgIntro" role="button" aria-label="Prof. Lic. Marcelino Games presenta. Tocá para continuar">
+<style>
+#mgIntro{position:fixed;inset:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:20px;color:#fff;background:radial-gradient(ellipse at 50% 42%,#2a1748 0%,#0d0818 62%,#050309 100%);cursor:pointer;overflow:hidden;transition:opacity .7s ease,filter .7s ease;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+#mgIntro.mg-out{opacity:0;filter:blur(6px);pointer-events:none}
+#mgIntro .mg-rays{position:absolute;left:50%;top:42%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;background:repeating-conic-gradient(from 0deg,#f5c45a12 0 6deg,transparent 6deg 18deg);animation:mgSpin 18s linear infinite;pointer-events:none}
+#mgIntro .mg-badge{position:relative;width:min(34vmin,180px);animation:mgPop 1s cubic-bezier(.2,1.5,.4,1) both;filter:drop-shadow(0 10px 25px #000c) drop-shadow(0 0 28px #f5c45a40)}
+#mgIntro .mg-badge svg{width:100%;height:auto;display:block}
+#mgIntro .mg-prof{position:relative;font:700 clamp(11px,2.4vmin,15px) "Courier New",monospace;letter-spacing:6px;color:#c9b6f2;animation:mgUp .6s .45s both}
+#mgIntro .mg-name{position:relative;font:900 clamp(26px,7vmin,54px)/1 Georgia,"Times New Roman",serif;letter-spacing:3px;background:linear-gradient(180deg,#fff6d8,#f5c45a 55%,#b9821c);-webkit-background-clip:text;background-clip:text;color:transparent;animation:mgUp .7s .6s both}
+#mgIntro .mg-games{position:relative;font:700 clamp(13px,3vmin,20px) "Courier New",monospace;letter-spacing:14px;padding-left:14px;color:#8ff0d8;animation:mgUp .6s .8s both}
+#mgIntro .mg-pres{position:relative;margin-top:8px;font:12px "Courier New",monospace;letter-spacing:3px;color:#9a8fb6;text-transform:uppercase;animation:mgUp .6s 1.15s both}
+#mgIntro .mg-tap{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);font:10px "Courier New",monospace;letter-spacing:2px;color:#7c7298;animation:mgUp .5s 1.6s both}
+@keyframes mgPop{0%{opacity:0;transform:scale(.3) rotate(-25deg)}100%{opacity:1;transform:none}}
+@keyframes mgUp{from{opacity:0;transform:translateY(14px)}}
+@keyframes mgSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#mgIntro *{animation:none!important}}
+</style>
+<div class="mg-rays"></div>
+<div class="mg-badge"><svg viewBox="0 0 200 200" aria-hidden="true">
+<defs><linearGradient id="mgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c2"/><stop offset=".5" stop-color="#f5c45a"/><stop offset="1" stop-color="#9c6a12"/></linearGradient>
+<radialGradient id="mgCore" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#4a2c86"/><stop offset="1" stop-color="#1a0f33"/></radialGradient></defs>
+<circle cx="100" cy="100" r="92" fill="url(#mgCore)" stroke="url(#mgGold)" stroke-width="8"/>
+<circle cx="100" cy="100" r="78" fill="none" stroke="#f5c45a" stroke-width="1.5" opacity=".6" stroke-dasharray="3 5"/>
+<g transform="translate(100 64)" stroke-width="3" stroke-linecap="round" fill="none"><path d="M-22 -8C-8 -2 8 -14 22 -8" stroke="#8ff0d8"/><path d="M-22 8C-8 2 8 14 22 8" stroke="#ed7db8"/><path d="M-14 -6V6M0 -8V8M14 -6V6" stroke="#f5c45a" stroke-width="2"/></g>
+<text x="100" y="138" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="66" fill="url(#mgGold)">M</text>
+<path d="M58 158h84" stroke="#f5c45a" stroke-width="2" opacity=".6"/>
+</svg></div>
+<div class="mg-prof">PROF. LIC.</div>
+<div class="mg-name">MARCELINO</div>
+<div class="mg-games">GAMES</div>
+<p class="mg-pres">presenta</p>
+<div class="mg-tap">TOCÁ PARA SALTAR</div>
+<script>
+(function(){var el=document.getElementById('mgIntro'),done=false;
+function go(e){if(done)return;done=true;if(e){e.stopPropagation();if(e.preventDefault)e.preventDefault();}el.classList.add('mg-out');setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},750);}
+el.addEventListener('pointerdown',go);el.addEventListener('click',function(e){e.stopPropagation();});
+setTimeout(go,3000);})();
+</script>
+</div>
+<!-- /INTRO -->
+
+<title>Neuro Ritmo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: una sola pantalla con aspecto de preparado histológico teñido (rosa eosina + tinta violeta); menú, juego, final y ranking se alternan */
+:root{
+  --eosin:#F6D3DF;
+  --eosin-deep:#EAB0C6;
+  --slide:#FFF6F9;
+  --hema:#2E1747;
+  --nissl:#6A3FB0;
+  --muted:#6E5079;
+  --pulse:#FFCF33;
+  --stop:#C92F48;
+  --f-display:"Bungee","Arial Black",Impact,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme: light;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{
+  margin:0;background:var(--eosin);color:var(--hema);font-family:var(--f-body);font-size:16px;line-height:1.45;overflow-x:hidden;
+  background-image:
+    radial-gradient(circle at 30% 35%, rgba(106,63,176,.13) 0 5px, transparent 6px),
+    radial-gradient(circle at 70% 75%, rgba(106,63,176,.09) 0 8px, transparent 9px),
+    radial-gradient(circle at 50% 50%, rgba(234,176,198,.55) 0 28px, transparent 29px);
+  background-size:84px 84px,128px 128px,176px 176px;
+}
+.app{
+  min-height:100%;box-sizing:border-box;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:16px;
+  display:flex;flex-direction:column;align-items:center;
+}
+.screen{width:100%;max-width:980px;display:flex;flex-direction:column;gap:18px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--nissl);outline-offset:3px}
+
+/* ---------- Botones ---------- */
+.btn{
+  border:3px solid var(--hema);background:var(--slide);border-radius:14px;padding:12px 18px;
+  font-family:var(--f-display);font-size:15px;letter-spacing:.03em;
+  box-shadow:0 5px 0 var(--hema);transition:transform .08s, box-shadow .08s;
+}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--hema)}
+.btn.primary{background:var(--pulse)}
+.btn.danger{background:var(--stop);color:var(--slide)}
+.btn.ghost{background:transparent;box-shadow:none}
+.btn.ghost:active{transform:none}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* ---------- Menú ---------- */
+.brand{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding-top:6px}
+.brand h1{font-family:var(--f-display);font-weight:400;font-size:clamp(40px,11vw,84px);line-height:.95;margin:0;letter-spacing:.01em;text-wrap:balance}
+.brand h1 span{color:var(--nissl)}
+.brand p{margin:0;color:var(--muted);font-weight:700}
+.ap{width:min(420px,90%);height:56px}
+.ap path{fill:none;stroke:var(--hema);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.ap .spark{stroke:var(--pulse);stroke-width:7;stroke-dasharray:14 400;animation:run 2.4s linear infinite}
+@keyframes run{from{stroke-dashoffset:14}to{stroke-dashoffset:-400}}
+
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.lvl{
+  text-align:left;border:3px solid var(--hema);border-radius:18px;background:var(--slide);padding:16px;
+  display:flex;flex-direction:column;gap:10px;box-shadow:0 6px 0 var(--hema);transition:transform .08s, box-shadow .08s;min-width:0;
+}
+.lvl:active{transform:translateY(5px);box-shadow:0 1px 0 var(--hema)}
+.lvl .top{display:flex;align-items:center;gap:12px}
+.lvl .num{font-family:var(--f-display);font-size:30px;width:52px;height:52px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--pulse);border:3px solid var(--hema)}
+.lvl:nth-child(2) .num{background:#8EDBF0}
+.lvl:nth-child(3) .num{background:var(--stop);color:var(--slide)}
+.lvl h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:18px;line-height:1.1}
+.lvl small{color:var(--muted);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;font-weight:700;border:2px solid var(--hema);border-radius:999px;padding:2px 9px;background:var(--tint,var(--eosin))}
+
+.panel{background:var(--slide);border:3px solid var(--hema);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel h2{margin:0;font-family:var(--f-display);font-weight:400;font-size:18px;letter-spacing:.02em}
+.opt{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.opt > b{min-width:92px}
+.seg{display:inline-flex;border:3px solid var(--hema);border-radius:12px;overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:8px 12px;font-weight:700}
+.seg button + button{border-left:3px solid var(--hema)}
+.seg button[aria-pressed="true"]{background:var(--hema);color:var(--slide)}
+.check{display:flex;gap:8px;align-items:center;font-weight:700}
+.check input{width:22px;height:22px;accent-color:var(--nissl)}
+.mp3box{display:flex;flex-direction:column;gap:10px;border-top:2px dashed var(--eosin-deep);padding-top:12px}
+.hint{margin:0;color:var(--muted);font-size:14px}
+input[type=range]{accent-color:var(--nissl);width:min(260px,100%)}
+.file{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+.file input{max-width:100%}
+
+/* ---------- Juego ---------- */
+#game{min-height:calc(100dvh - 32px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));justify-content:space-between}
+.hud{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hud .lv{font-family:var(--f-display);font-size:16px}
+.hud .pills{display:flex;gap:8px}
+.pill{border:2px solid var(--hema);border-radius:999px;padding:3px 11px;font-weight:700;background:var(--slide);font-variant-numeric:tabular-nums}
+.caption{margin:0;text-align:center;font-weight:700;font-size:clamp(15px,2.6vw,20px);min-height:1.5em;text-wrap:balance}
+.stage{position:relative;width:100%;max-width:min(980px,118dvh);align-self:center}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6px,1.6vw,16px)}
+.cell{
+  --tint:var(--eosin);position:relative;aspect-ratio:1/1.12;border:3px solid var(--hema);border-radius:clamp(10px,2vw,20px);
+  background:var(--slide);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6%;box-sizing:border-box;
+  transition:transform .09s ease-out, background-color .09s, opacity .2s;min-width:0;
+}
+.cell .ic{width:78%;height:auto;flex:1 1 auto;min-height:0}
+.cell .lb{font-family:var(--f-display);font-size:clamp(11px,2.7vw,26px);line-height:1;white-space:nowrap}
+.cell.pre .ic,.cell.pre .lb{opacity:0;transform:scale(.4)}
+.cell .ic,.cell .lb{transition:opacity .15s, transform .18s cubic-bezier(.3,1.6,.5,1)}
+.cell.on{background:var(--pulse);transform:scale(1.08);box-shadow:0 0 0 3px var(--hema),0 8px 0 var(--hema);z-index:2}
+.cell.done{opacity:.5}
+.cell.nolabel .lb{display:none}
+
+.ic{stroke:var(--hema);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.ic .t{fill:var(--tint)}
+.ic .w{fill:var(--slide)}
+.ic .k{fill:var(--hema);stroke:none}
+.ic .d{stroke-width:3;stroke-dasharray:5 7}
+
+.overlay{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.overlay span{
+  font-family:var(--f-display);font-size:clamp(44px,13vw,140px);color:var(--pulse);
+  -webkit-text-stroke:3px var(--hema);paint-order:stroke fill;text-shadow:0 7px 0 var(--hema);
+  animation:pop .45s cubic-bezier(.3,1.6,.5,1) both;
+}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.nudge{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap}
+.nudge .btn{padding:6px 10px;font-size:12px}
+
+/* ---------- Final ---------- */
+.result{align-items:center;text-align:center;padding-top:5vh}
+.result h2{font-family:var(--f-display);font-weight:400;font-size:clamp(32px,8vw,64px);line-height:1;margin:0;text-wrap:balance}
+.result p{margin:0;font-size:18px;max-width:52ch}
+.namebox{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:100%}
+.namebox input,.addrow input,.addrow select{
+  border:3px solid var(--hema);border-radius:12px;padding:11px 14px;background:var(--slide);min-width:0;
+}
+.namebox input{flex:1 1 220px;max-width:360px;font-size:18px}
+
+/* ---------- Ranking ---------- */
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.head h2{font-family:var(--f-display);font-weight:400;font-size:clamp(26px,6vw,40px);margin:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{border:3px solid var(--hema);border-radius:999px;background:var(--slide);padding:5px 13px;font-weight:700}
+.tabs button[aria-pressed="true"]{background:var(--hema);color:var(--slide)}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.list li{display:grid;grid-template-columns:44px minmax(0,1fr) auto auto;gap:10px;align-items:center;background:var(--slide);border:3px solid var(--hema);border-radius:14px;padding:8px 10px}
+.list .pos{font-family:var(--f-display);font-size:20px;text-align:center;font-variant-numeric:tabular-nums}
+.list .nm{font-weight:700;font-size:18px;overflow-wrap:anywhere}
+.list .meta{font-size:13px;color:var(--muted)}
+.list .lvtag{font-family:var(--f-display);font-size:12px;border:2px solid var(--hema);border-radius:8px;padding:3px 7px;background:var(--pulse);white-space:nowrap}
+.list .lvtag.l2{background:#8EDBF0}
+.list .lvtag.l3{background:var(--stop);color:var(--slide)}
+.list .del{border:2px solid var(--hema);background:transparent;border-radius:9px;padding:4px 9px;font-weight:700;font-size:13px}
+.list .del.arm{background:var(--stop);color:var(--slide)}
+.list li.new{background:var(--pulse)}
+.empty{background:var(--slide);border:3px dashed var(--hema);border-radius:14px;padding:18px;text-align:center;color:var(--muted);font-weight:700}
+.addrow{display:flex;gap:10px;flex-wrap:wrap}
+.addrow input{flex:1 1 180px}
+
+/* ---------- Pizarrón ---------- */
+.folders{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.folders button{border:3px solid var(--hema);border-radius:999px;background:var(--slide);padding:8px 16px;font-family:var(--f-display);font-size:14px;box-shadow:0 4px 0 var(--hema)}
+.folders button[aria-pressed="true"]{background:var(--hema);color:var(--slide)}
+.ic .ts{stroke:var(--tint);stroke-width:9}
+.boardwrap{display:flex;flex-direction:column;gap:10px}
+.bdh{margin:8px 0 0;font-family:var(--f-display);font-weight:400;font-size:18px}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.term{--tint:var(--eosin);display:flex;gap:10px;align-items:center;background:var(--slide);border:3px solid var(--hema);border-radius:14px;padding:8px}
+.term .ic{width:48px;height:48px;flex:none}
+.term b{font-family:var(--f-display);font-weight:400;font-size:16px;display:block}
+.term > div{min-width:0}
+.term span{font-size:14px;color:var(--muted);font-weight:700;overflow-wrap:anywhere;hyphens:auto}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--hema);color:var(--slide);padding:10px 18px;border-radius:999px;font-weight:700;z-index:50}
+
+@media (max-width:520px){
+  .cell{border-width:2px;padding:4%}
+  .cell.on{box-shadow:0 0 0 2px var(--hema),0 5px 0 var(--hema)}
+  .btn{padding:11px 14px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .cell.on{transform:none}
+}
+</style>
+
+<div class="app">
+
+  <!-- MENÚ -->
+  <section class="screen" id="menu">
+    <div class="brand">
+      <svg class="ap" viewBox="0 0 420 56" aria-hidden="true">
+        <path d="M4 44 H150 L168 6 L186 52 L198 40 H416"/>
+        <path class="spark" d="M4 44 H150 L168 6 L186 52 L198 40 H416"/>
+      </svg>
+      <h1>NEURO<br><span>RITMO</span></h1>
+      <p>Decí la palabra al ritmo · Sistema nervioso</p>
+    </div>
+
+    <div class="folders" id="folderSeg" role="group" aria-label="Carpeta"></div>
+    <div class="levels" id="levelButtons"></div>
+
+    <div class="panel">
+      <h2>Ajustes</h2>
+      <div class="opt"><b>Música</b>
+        <div class="seg" id="musicSeg">
+          
+          <button type="button" data-v="synth" aria-pressed="true">Ritmo del juego</button>
+          <button type="button" data-v="mp3" aria-pressed="false">Otro MP3</button>
+        </div>
+      </div>
+      <div class="mp3box" id="songbox">
+        <p class="hint">Cada nivel arranca en su parte de la canción: primero suena la música mientras aparecen las imágenes y después, con los silbidos, se dicen las 8 palabras al ritmo.</p>
+        <label class="opt" for="syncMs"><b>Sincronía</b> <input type="range" id="syncMs" min="-800" max="800" step="10" value="-300"> <span class="pill" id="syncOut">0 ms</span></label>
+        <p class="hint">Si usás un parlante Bluetooth y las casillas se adelantan al sonido, corré la barra a la derecha.</p>
+      </div>
+      <div class="opt" id="speedRow"><b>Velocidad</b>
+        <div class="seg" id="speedSeg">
+          <button type="button" data-v="0.85" aria-pressed="false">Lenta</button>
+          <button type="button" data-v="1" aria-pressed="true">Normal</button>
+          <button type="button" data-v="1.15" aria-pressed="false">Rápida</button>
+        </div>
+      </div>
+      <div class="opt"><b>Palabras</b>
+        <label class="check"><input type="checkbox" id="showWords" checked> Mostrar la palabra debajo de cada imagen</label>
+      </div>
+      <div class="mp3box" id="mp3box" hidden>
+        <label class="file"><input type="file" id="mp3File" accept="audio/*"></label>
+        <p class="hint" id="mp3Name">Todavía no cargaste ninguna canción.</p>
+        <label class="opt" for="mp3Bpm"><b>Tempo</b> <input type="range" id="mp3Bpm" min="50" max="180" step="1" value="100"> <span class="pill" id="mp3BpmOut">100 BPM</span></label>
+        <p class="hint">Poné el tempo de tu canción. Si queda muy rápido, poné la mitad (por ejemplo 60 para una canción de 120). En cada ronda la canción se acelera junto con el juego.</p>
+        <label class="check"><input type="checkbox" id="mp3Tick"> Marcar el pulso con un golpecito</label>
+      </div>
+    </div>
+
+    <div class="row" style="justify-content:center">
+      <button type="button" class="btn" id="toRanking">Ranking</button>
+      <button type="button" class="btn" id="toBoard">Para el pizarrón</button>
+    </div>
+  </section>
+
+  <!-- JUEGO -->
+  <section class="screen" id="game" hidden>
+    <div class="hud">
+      <span class="lv" id="hudLevel">Nivel 1</span>
+      <div class="pills"><span class="pill" id="hudRound">Ronda 1/6</span><span class="pill" id="hudBpm">90 BPM</span></div>
+    </div>
+    <p class="caption" id="caption"></p>
+    <div class="stage">
+      <div class="grid" id="grid"></div>
+      <div class="overlay" id="overlay"></div>
+    </div>
+    <div class="controls">
+      <button type="button" class="btn danger" id="btnFail">Se trabó</button>
+      <button type="button" class="btn ghost" id="btnStop">Parar</button>
+    </div>
+    <div class="nudge" id="nudge">
+      <button type="button" class="btn ghost" id="nudgeEarly" aria-label="Adelantar las casillas">◀ Antes</button>
+      <span class="pill" id="nudgeOut">Sincronía 0 ms</span>
+      <button type="button" class="btn ghost" id="nudgeLate" aria-label="Atrasar las casillas">Después ▶</button>
+    </div>
+  </section>
+
+  <!-- GANÓ -->
+  <section class="screen result" id="win" hidden>
+    <h2>¡LLEGÓ AL FINAL!</h2>
+    <p id="winText">Completó el nivel sin trabarse.</p>
+    <form class="namebox" id="winForm">
+      <input id="winName" type="text" maxlength="40" placeholder="Nombre de quien jugó" autocomplete="off">
+      <button type="submit" class="btn primary">Guardar en el ranking</button>
+    </form>
+    <div class="row" style="justify-content:center">
+      <button type="button" class="btn" id="winAgain">Jugar de nuevo</button>
+      <button type="button" class="btn ghost" id="winMenu">Menú</button>
+    </div>
+  </section>
+
+  <!-- SE TRABÓ -->
+  <section class="screen result" id="fail" hidden>
+    <h2>¡SE TRABÓ!</h2>
+    <p id="failText"></p>
+    <div class="row" style="justify-content:center">
+      <button type="button" class="btn primary" id="failAgain">Reintentar</button>
+      <button type="button" class="btn ghost" id="failMenu">Menú</button>
+    </div>
+  </section>
+
+  <!-- RANKING -->
+  <section class="screen" id="ranking" hidden>
+    <div class="head">
+      <h2>Ranking</h2>
+      <button type="button" class="btn ghost" id="rkBack">Volver</button>
+    </div>
+    <p class="hint">Quienes llegaron al final, en el orden en que lo lograron. Se guarda en este celular.</p>
+    <div class="tabs" id="rkTabs"></div>
+    <ol class="list" id="rkList"></ol>
+    <div class="panel">
+      <h2>Agregar a mano</h2>
+      <form class="addrow" id="rkForm">
+        <input id="rkName" type="text" maxlength="40" placeholder="Nombre" autocomplete="off">
+        <select id="rkLevel" aria-label="Nivel">
+        </select>
+        <button type="submit" class="btn primary">Agregar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PIZARRÓN -->
+  <section class="screen" id="boardScreen" hidden>
+    <div class="head">
+      <h2>Para el pizarrón</h2>
+      <button type="button" class="btn ghost" id="bdBack">Volver</button>
+    </div>
+    <p class="hint">Cada palabra corta del juego y de dónde viene.</p>
+    <div id="board" class="boardwrap"></div>
+  </section>
+
+  <div class="toast" id="toast" hidden></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ================== Palabras e imágenes ================== */
+const W = {
+  neuro:  {lb:'neuro',  full:'neurona',            tint:'#F2A0BE'},
+  soma:   {lb:'soma',   full:'soma (cuerpo de la neurona)', tint:'#C9B3F2'},
+  cuerpo: {lb:'cuerpo', full:'cuerpo celular',     tint:'#E3C6FF'},
+  dendri: {lb:'dendri', full:'dendrita',           tint:'#9FD8C9'},
+  axon:   {lb:'axón',   full:'axón',               tint:'#A9C8F5'},
+  vaina:  {lb:'vaina',  full:'vaina de mielina',   tint:'#FFE2A8'},
+  mieli:  {lb:'mieli',  full:'mielina',            tint:'#FFC97A'},
+  boton:  {lb:'botón',  full:'botón sináptico',    tint:'#F7B59B'},
+  glia:   {lb:'glía',   full:'célula de la glía',  tint:'#BCE59F'},
+  sinap:  {lb:'sinap',  full:'sinapsis',           tint:'#E7A4E0'},
+  transmi:{lb:'transmi',full:'neurotransmisor',    tint:'#8EDBF0'},
+  impulso:{lb:'impulso',full:'impulso nervioso',   tint:'#FFE066'}
+};
+
+const ICON = {
+  neuro:`<path d="M30 30 L16 14 M22 22 L9 23 M27 47 L12 58 M18 53 L15 67 M41 24 L45 7 M43 15 L54 10 M49 48 L75 74 M75 74 L91 73 M75 74 L79 91 M75 74 L89 87"/>
+    <circle class="t" cx="37" cy="37" r="15"/><circle class="k" cx="37" cy="37" r="5"/>
+    <circle class="k" cx="91" cy="73" r="3.5"/><circle class="k" cx="79" cy="91" r="3.5"/><circle class="k" cx="89" cy="87" r="3.5"/>`,
+  soma:`<path d="M50 22 L50 8 M26 40 L10 33 M29 70 L16 83 M74 40 L90 32 M70 73 L84 86"/>
+    <circle class="t" cx="50" cy="50" r="28"/><circle class="w" cx="50" cy="50" r="11"/><circle class="k" cx="53" cy="47" r="4"/>`,
+  cuerpo:`<circle class="d" cx="50" cy="50" r="42"/><path d="M50 28 L50 18 M31 43 L22 39 M34 66 L26 74 M69 43 L78 38 M66 66 L74 74"/>
+    <circle class="t" cx="50" cy="50" r="21"/><circle class="w" cx="50" cy="50" r="8"/><circle class="k" cx="52" cy="48" r="3"/>`,
+  dendri:`<path d="M50 94 L50 56 M50 56 L28 31 M50 56 L72 29 M39 43 L21 47 M28 31 L24 11 M28 31 L41 15 M72 29 L66 10 M72 29 L89 20 M62 41 L81 47"/>
+    <circle class="k" cx="24" cy="11" r="3.5"/><circle class="k" cx="41" cy="15" r="3.5"/><circle class="k" cx="66" cy="10" r="3.5"/><circle class="k" cx="89" cy="20" r="3.5"/><circle class="k" cx="21" cy="47" r="3.5"/><circle class="k" cx="81" cy="47" r="3.5"/>
+    <circle class="t" cx="50" cy="94" r="5"/>`,
+  axon:`<circle class="t" cx="17" cy="50" r="12"/><circle class="k" cx="17" cy="50" r="4"/><path d="M29 50 H86 M72 37 L87 50 L72 63"/>`,
+  vaina:`<path d="M3 50 H97"/><rect class="t" x="7" y="37" width="25" height="26" rx="13"/><rect class="t" x="38" y="37" width="25" height="26" rx="13"/><rect class="t" x="69" y="37" width="25" height="26" rx="13"/>`,
+  mieli:`<circle class="t" cx="50" cy="50" r="39"/><circle class="w" cx="50" cy="50" r="30"/><circle class="t" cx="50" cy="50" r="22"/><circle class="w" cx="50" cy="50" r="14"/><circle class="k" cx="50" cy="50" r="7"/>`,
+  boton:`<path d="M8 8 L33 33"/><path class="t" d="M31 31 Q15 56 35 77 Q58 95 80 77 Q97 56 75 38 Q53 20 31 31 Z"/>
+    <circle class="w" cx="50" cy="55" r="7"/><circle class="w" cx="67" cy="50" r="7"/><circle class="w" cx="60" cy="72" r="7"/><circle class="w" cx="42" cy="73" r="6"/>
+    <circle class="k" cx="50" cy="55" r="2.2"/><circle class="k" cx="67" cy="50" r="2.2"/><circle class="k" cx="60" cy="72" r="2.2"/><circle class="k" cx="42" cy="73" r="2"/>`,
+  glia:`<path d="M50 50 L50 9 M50 50 L86 25 M50 50 L91 60 M50 50 L67 91 M50 50 L29 91 M50 50 L9 64 M50 50 L14 21"/>
+    <circle class="t" cx="50" cy="9" r="5"/><circle class="t" cx="86" cy="25" r="5"/><circle class="t" cx="91" cy="60" r="5"/><circle class="t" cx="67" cy="91" r="5"/><circle class="t" cx="29" cy="91" r="5"/><circle class="t" cx="9" cy="64" r="5"/><circle class="t" cx="14" cy="21" r="5"/>
+    <circle class="t" cx="50" cy="50" r="16"/><circle class="k" cx="50" cy="50" r="5"/>`,
+  sinap:`<path class="t" d="M18 4 V24 Q18 43 50 43 Q82 43 82 24 V4"/><circle class="w" cx="38" cy="25" r="6"/><circle class="w" cx="60" cy="22" r="6"/><circle class="w" cx="50" cy="34" r="5"/>
+    <path class="t" d="M14 97 V75 Q14 62 50 62 Q86 62 86 75 V97"/><path d="M34 62 V56 M50 62 V56 M66 62 V56"/>
+    <circle class="k" cx="42" cy="51" r="2.6"/><circle class="k" cx="58" cy="50" r="2.6"/>`,
+  transmi:`<circle class="t" cx="35" cy="38" r="23"/><circle class="k" cx="29" cy="31" r="3.6"/><circle class="k" cx="41" cy="33" r="3.6"/><circle class="k" cx="33" cy="45" r="3.6"/><circle class="k" cx="44" cy="46" r="3.6"/>
+    <circle class="k" cx="64" cy="58" r="3.6"/><circle class="k" cx="75" cy="67" r="3.6"/><circle class="k" cx="61" cy="74" r="3.6"/><circle class="k" cx="85" cy="78" r="3.6"/><circle class="k" cx="72" cy="87" r="3.6"/>`,
+  impulso:`<path class="d" d="M4 70 H96" style="opacity:.45"/><path d="M4 70 H30 L39 13 L49 84 L57 72 H96"/><circle class="t" cx="39" cy="13" r="6"/>`
+};
+/* ---- Palabras de órganos, tejido de órganos y protección ---- */
+Object.assign(W, {
+  centro: {lb:'centro', full:'sistema nervioso central', tint:'#C9B3F2'},
+  peri:   {lb:'peri',   full:'sistema nervioso periférico', tint:'#9FD8C9'},
+  encefa: {lb:'encefa', full:'encéfalo', tint:'#F2A0BE'},
+  medu:   {lb:'medu',   full:'médula espinal', tint:'#A9C8F5'},
+  nervio: {lb:'nervio', full:'nervio', tint:'#FFE066'},
+  cere:   {lb:'cere',   full:'cerebro', tint:'#F7B59B'},
+  velo:   {lb:'velo',   full:'cerebelo', tint:'#E7A4E0'},
+  tronco: {lb:'tronco', full:'tronco encefálico', tint:'#BCE59F'},
+  bulbo:  {lb:'bulbo',  full:'bulbo raquídeo', tint:'#8EDBF0'},
+  menin:  {lb:'menin',  full:'meninges', tint:'#FFC97A'},
+  gangli: {lb:'gangli', full:'ganglio nervioso', tint:'#E3C6FF'},
+  crane:  {lb:'crane',  full:'nervios craneales', tint:'#FFE2A8'},
+  raqui:  {lb:'raqui',  full:'nervios raquídeos', tint:'#9FD3C7'},
+  corte:  {lb:'corte',  full:'corteza cerebral', tint:'#C9C0DA'},
+  gris:   {lb:'gris',   full:'sustancia gris', tint:'#B8B2C8'},
+  blanca: {lb:'blanca', full:'sustancia blanca', tint:'#F3EFFA'},
+  astas:  {lb:'astas',  full:'astas de la médula (sustancia gris)', tint:'#CDB8EC'},
+  surco:  {lb:'surco',  full:'surco del cerebro', tint:'#F2A0BE'},
+  circu:  {lb:'circu',  full:'circunvolución', tint:'#F7B59B'},
+  raiz:   {lb:'raíz',   full:'raíces de los nervios raquídeos', tint:'#BCE59F'},
+  piel:   {lb:'piel',   full:'piel (cuero cabelludo)', tint:'#F7C6A8'},
+  hueso:  {lb:'hueso',  full:'hueso (cráneo y vértebras)', tint:'#FFF0C9'},
+  grasa:  {lb:'grasa',  full:'grasa (tejido adiposo)', tint:'#FFE38A'},
+  dura:   {lb:'dura',   full:'duramadre', tint:'#C9B3F2'},
+  arac:   {lb:'arac',   full:'aracnoides', tint:'#A9C8F5'},
+  pia:    {lb:'pía',    full:'piamadre', tint:'#F2A0BE'},
+  liqui:  {lb:'liqui',  full:'líquido cefalorraquídeo', tint:'#8EDBF0'},
+  barre:  {lb:'barre',  full:'barrera hematoencefálica', tint:'#F59A9A'},
+  micro:  {lb:'micro',  full:'microglía (defensa del sistema nervioso)', tint:'#BCE59F'}
+});
+// Capas de las meninges: se repite el dibujo y se pinta la capa que corresponde
+const LAYERS = (hl) => `
+  <path class="${hl==='dura'?'t':'w'}" d="M4 10 H96 V30 H4 Z"/>
+  <path class="${hl==='arac'?'t':'w'}" d="M4 30 H96 V38 H4 Z"/>
+  <path class="${hl==='liqui'?'t':'w'}" style="stroke:none" d="M4 38 H96 V60 Q82 52 68 60 Q54 68 40 60 Q26 52 14 60 Q8 62 4 60 Z"/>
+  <path d="M16 38 Q12 46 18 56 M36 38 Q40 48 36 60 M58 38 Q54 50 60 62 M80 38 Q84 46 78 56" style="${hl==='arac'?'stroke-width:4':'stroke-width:2.5'}"/>
+  <path class="w" d="M4 64 Q14 56 26 62 Q40 72 54 64 Q68 56 82 64 Q90 68 96 64 V96 H4 Z"/>
+  ${hl==='pia'?'<path class="ts" d="M4 62 Q14 54 26 60 Q40 70 54 62 Q68 54 82 62 Q90 66 96 62"/>':''}
+  <path d="M4 62 Q14 54 26 60 Q40 70 54 62 Q68 54 82 62 Q90 66 96 62"/>
+  ${hl==='dura'?'<path d="M12 18 L40 16 M52 24 L88 21 M14 26 L34 25" style="stroke-width:2.5"/>':''}`;
+Object.assign(ICON, {
+  centro:`<path class="t" d="M20 40 Q16 14 44 12 Q52 6 62 12 Q86 14 82 38 Q80 54 62 54 L40 54 Q22 54 20 40 Z"/><path d="M36 26 Q44 20 48 28 M58 22 Q68 26 64 36 M30 40 Q38 36 42 44"/><rect class="t" x="44" y="54" width="14" height="42" rx="7"/>`,
+  peri:`<rect class="w" x="44" y="6" width="12" height="88" rx="6" style="stroke-dasharray:5 6;stroke-width:3"/><path d="M44 22 L18 10 M44 36 L8 40 M44 52 L14 66 M44 68 L24 90 M56 22 L82 10 M56 36 L92 40 M56 52 L86 66 M56 68 L76 90 M26 13 L22 24 M14 63 L8 54 M82 13 L88 22 M86 66 L94 58"/><circle class="k" cx="18" cy="10" r="3.5"/><circle class="k" cx="8" cy="40" r="3.5"/><circle class="k" cx="24" cy="90" r="3.5"/><circle class="k" cx="82" cy="10" r="3.5"/><circle class="k" cx="92" cy="40" r="3.5"/><circle class="k" cx="76" cy="90" r="3.5"/>`,
+  encefa:`<path class="w" d="M46 58 Q52 74 48 94 H60 Q60 74 62 60"/><path class="t" d="M12 50 Q8 20 40 14 Q70 8 86 28 Q94 44 80 54 Q66 60 50 58 Q28 62 12 50 Z"/><path d="M28 28 Q36 22 42 30 M52 20 Q60 28 54 38 M66 26 Q74 34 70 44 M24 44 Q34 38 40 46"/><path class="w" d="M62 60 Q76 56 84 64 Q82 78 68 78 Q58 74 62 60 Z"/><path d="M66 66 Q74 64 80 68 M64 72 Q72 72 78 74" style="stroke-width:2.5"/>`,
+  medu:`<rect class="t" x="38" y="4" width="24" height="92" rx="12"/><path d="M38 24 L22 20 M62 24 L78 20 M38 50 L20 50 M62 50 L80 50 M38 76 L22 80 M62 76 L78 80" style="stroke-width:3"/><path class="d" d="M50 10 V90"/>`,
+  nervio:`<rect class="t" x="4" y="30" width="92" height="40" rx="20"/><path d="M14 42 H86 M14 50 H86 M14 58 H86" style="stroke-width:3"/>`,
+  cere:`<path class="t" d="M8 60 Q4 22 42 14 Q76 8 90 34 Q96 56 80 66 Q56 78 30 72 Q12 70 8 60 Z"/><path d="M20 40 Q28 30 36 38 Q42 46 50 36 Q56 26 64 34 Q70 42 78 34 M18 56 Q28 48 36 56 Q46 64 56 54 Q64 46 74 54 M44 18 Q50 24 46 30" style="stroke-width:3"/>`,
+  velo:`<path class="t" d="M12 50 Q12 20 50 18 Q88 20 88 50 Q88 80 50 82 Q12 80 12 50 Z"/><path d="M18 38 Q50 28 82 38 M15 50 Q50 40 85 50 M18 62 Q50 54 82 62 M24 73 Q50 67 76 73" style="stroke-width:3"/><path d="M50 18 V82"/>`,
+  tronco:`<path class="t" d="M36 6 H64 Q66 20 60 28 Q74 38 66 54 Q60 62 60 72 V94 H40 V72 Q40 62 34 54 Q26 38 40 28 Q34 20 36 6 Z"/><path d="M40 28 H60 M38 54 H62" style="stroke-width:3"/>`,
+  bulbo:`<path class="w" d="M36 6 H64 Q66 20 60 28 Q74 38 66 54 H34 Q26 38 40 28 Q34 20 36 6 Z"/><path class="t" d="M34 54 H66 Q62 62 62 74 Q56 82 50 82 Q44 82 38 74 Q38 62 34 54 Z"/><path d="M44 82 V96 M56 82 V96"/>`,
+  menin:`<path class="w" d="M4 96 V64 Q50 44 96 64 V96 Z"/><path class="t" d="M4 56 Q50 34 96 56 V64 Q50 44 4 64 Z"/><path d="M4 46 Q50 24 96 46" style="stroke-width:5"/><path class="d" d="M4 36 Q50 14 96 36"/>`,
+  gangli:`<path d="M2 50 H98"/><ellipse class="t" cx="50" cy="50" rx="28" ry="22"/><circle class="w" cx="38" cy="45" r="7"/><circle class="w" cx="60" cy="42" r="7"/><circle class="w" cx="52" cy="60" r="7"/><circle class="k" cx="38" cy="45" r="2.4"/><circle class="k" cx="60" cy="42" r="2.4"/><circle class="k" cx="52" cy="60" r="2.4"/>`,
+  crane:`<path class="t" d="M16 56 Q12 14 50 10 Q88 14 86 54 Q84 64 72 66 L68 76 H38 L34 66 Q20 64 16 56 Z"/><circle class="w" cx="36" cy="42" r="8"/><circle class="w" cx="62" cy="42" r="8"/><path d="M42 76 L26 96 M53 76 L53 96 M62 76 L78 96"/>`,
+  raqui:`<rect class="t" x="40" y="4" width="20" height="92" rx="10"/><path d="M40 30 L10 22 M60 30 L90 22 M40 66 L10 74 M60 66 L90 74"/><circle class="k" cx="10" cy="22" r="3.5"/><circle class="k" cx="90" cy="22" r="3.5"/><circle class="k" cx="10" cy="74" r="3.5"/><circle class="k" cx="90" cy="74" r="3.5"/>`,
+  corte:`<path class="w" d="M6 40 H94 V94 H6 Z"/><path class="t" d="M6 56 Q18 48 28 56 Q40 66 50 56 Q60 46 72 56 Q84 66 94 56 V28 Q84 16 72 24 Q60 32 50 24 Q40 16 28 24 Q18 32 6 24 Z"/><path d="M20 76 H80 M24 86 H76" style="stroke-width:2.5"/>`,
+  gris:`<rect class="t" x="6" y="6" width="88" height="88" rx="16"/><path class="w" d="M28 22 L36 36 L20 36 Z M62 18 L70 32 L54 32 Z M44 50 L52 64 L36 64 Z M74 54 L82 68 L66 68 Z M22 68 L30 82 L14 82 Z"/>`,
+  blanca:`<rect class="t" x="6" y="6" width="88" height="88" rx="16"/><path d="M14 28 H86 M14 50 H86 M14 72 H86" style="stroke-width:2.5"/><rect class="w" x="22" y="23" width="18" height="10" rx="5"/><rect class="w" x="56" y="23" width="18" height="10" rx="5"/><rect class="w" x="36" y="45" width="18" height="10" rx="5"/><rect class="w" x="68" y="45" width="14" height="10" rx="5"/><rect class="w" x="20" y="67" width="18" height="10" rx="5"/><rect class="w" x="54" y="67" width="18" height="10" rx="5"/>`,
+  astas:`<circle class="w" cx="50" cy="50" r="44"/><path class="t" d="M50 42 Q40 16 26 20 Q22 34 36 46 Q22 58 24 78 Q40 82 50 60 Q60 82 76 78 Q78 58 64 46 Q78 34 74 20 Q60 16 50 42 Z"/><circle class="k" cx="50" cy="50" r="3"/>`,
+  surco:`<path class="t" d="M6 92 V52 Q6 22 28 22 Q46 22 46 52 L50 84 L54 52 Q54 22 72 22 Q94 22 94 52 V92 Z"/><path d="M50 4 V38 M41 28 L50 38 L59 28"/>`,
+  circu:`<path class="w" d="M4 92 V70 Q4 56 14 56 Q22 56 22 70 V92 Z M78 92 V70 Q78 56 86 56 Q96 56 96 70 V92 Z"/><path class="t" d="M22 92 V48 Q22 12 50 12 Q78 12 78 48 V92 Z"/><path d="M34 92 V52 Q34 28 50 28 Q66 28 66 52 V92" style="stroke-width:2.5"/>`,
+  raiz:`<circle class="w" cx="50" cy="50" r="20"/><path class="t" d="M50 46 Q44 34 38 36 Q38 44 44 49 Q38 54 38 64 Q44 64 50 54 Q56 64 62 64 Q62 54 56 49 Q62 44 62 36 Q56 34 50 46 Z"/><path d="M66 40 Q80 34 88 50 M66 60 Q80 66 88 50 L98 50 M34 40 Q20 34 12 50 M34 60 Q20 66 12 50 L2 50"/><ellipse class="t" cx="78" cy="39" rx="6" ry="4.5"/><ellipse class="t" cx="22" cy="39" rx="6" ry="4.5"/>`,
+  piel:`<path class="w" d="M4 50 H96 V94 H4 Z"/><path class="t" d="M4 34 Q20 28 36 34 Q52 40 68 34 Q84 28 96 34 V50 H4 Z"/><path d="M30 8 L34 72 M66 6 L62 74"/><circle class="k" cx="34" cy="74" r="4"/><circle class="k" cx="62" cy="76" r="4"/>`,
+  hueso:`<g transform="rotate(-40 50 50)"><circle class="t" cx="18" cy="40" r="11"/><circle class="t" cx="18" cy="60" r="11"/><circle class="t" cx="82" cy="40" r="11"/><circle class="t" cx="82" cy="60" r="11"/><rect class="t" x="16" y="41" width="68" height="18" style="stroke:none"/><path d="M24 41 H76 M24 59 H76"/></g>`,
+  grasa:`<circle class="t" cx="30" cy="30" r="20"/><circle class="t" cx="70" cy="28" r="18"/><circle class="t" cx="50" cy="62" r="21"/><circle class="t" cx="18" cy="74" r="14"/><circle class="t" cx="82" cy="70" r="15"/><circle class="k" cx="44" cy="40" r="3"/><circle class="k" cx="84" cy="40" r="3"/><circle class="k" cx="66" cy="74" r="3"/><circle class="k" cx="26" cy="84" r="2.6"/>`,
+  dura: LAYERS('dura'),
+  arac: LAYERS('arac'),
+  pia:  LAYERS('pia'),
+  liqui:`<path class="t" d="M50 6 Q80 46 80 62 A30 30 0 0 1 20 62 Q20 46 50 6 Z"/><path d="M32 64 Q41 58 50 64 Q59 70 68 64" style="stroke-width:3"/><circle class="w" cx="40" cy="48" r="5"/>`,
+  barre:`<circle class="w" cx="50" cy="12" r="8"/><path d="M50 20 L30 36 M50 20 L70 36 M42 16 L20 8 M58 16 L80 8"/><rect class="t" x="4" y="38" width="92" height="28" rx="14"/><path d="M28 38 V66 M50 38 V66 M72 38 V66" style="stroke-width:5"/><circle class="k" cx="20" cy="84" r="4"/><circle class="k" cx="40" cy="90" r="4"/><path d="M58 92 L66 80 M66 92 L58 80" style="stroke-width:3"/>`,
+  micro:`<path d="M50 50 L22 22 M32 32 L18 36 M50 50 L82 20 M70 32 L84 36 M50 50 L88 62 M74 57 L80 72 M50 50 L56 90 M54 76 L42 86 M50 50 L14 64 M28 59 L20 50"/><circle class="t" cx="50" cy="50" r="13"/><ellipse class="k" cx="50" cy="50" rx="7" ry="4"/><circle class="t" cx="14" cy="64" r="6"/><circle class="k" cx="12" cy="66" r="2.6"/>`
+});
+const svgIcon = k => `<svg class="ic" viewBox="0 0 100 100" aria-hidden="true">${ICON[k]}</svg>`;
+
+/* ================== Carpetas y niveles ================== */
+const P = (a,b) => [a,a,a,a,b,b,b,b];
+const BPM = [[88,92,96,100,106,112],[96,100,106,112,118,124],[112,120,128,136,144,152]];
+const NEURO_KEYS = ['neuro','soma','cuerpo','dendri','axon','vaina','mieli','boton','glia','sinap','transmi','impulso'];
+const FOLDERS = [
+  { id:'tejido', name:'Tejido nervioso', levels:[
+    { name:'Partes de la neurona', sub:'De a pares y después mezcladas', rounds:[
+      {cap:'La neurona y su soma', w:P('neuro','soma')},
+      {cap:'Lo que recibe y lo que envía', w:P('dendri','axon')},
+      {cap:'Lo que envuelve y donde termina', w:P('vaina','boton')},
+      {cap:'Del axón al botón', w:P('axon','boton')},
+      {cap:'Mezcla de partes', w:['dendri','cuerpo','axon','boton','vaina','soma','axon','boton']},
+      {cap:'La neurona completa', w:['dendri','soma','axon','vaina','boton','glia','neuro','cuerpo']} ]},
+    { name:'Impulso y sinapsis', sub:'El recorrido en orden, después mezclado', rounds:[
+      {cap:'El impulso entra por las dendritas', w:P('impulso','dendri')},
+      {cap:'Pasa por el soma y sale por el axón', w:P('soma','axon')},
+      {cap:'La mielina lo acelera hasta el botón', w:P('mieli','boton')},
+      {cap:'En la sinapsis se libera el transmisor', w:P('transmi','sinap')},
+      {cap:'El recorrido en orden', w:['impulso','dendri','soma','axon','mieli','boton','transmi','sinap']},
+      {cap:'Todo mezclado', w:['neuro','transmi','dendri','axon','boton','sinap','impulso','mieli']} ]},
+    { name:'Caos total', sub:'Todo al azar. Gana quien aguante', chaos:NEURO_KEYS }
+  ]},
+  { id:'organos', name:'Órganos', levels:[
+    { name:'Central y periférico', sub:'Las dos grandes divisiones', rounds:[
+      {cap:'Las dos grandes divisiones', w:P('centro','peri')},
+      {cap:'El central: encéfalo y médula', w:P('encefa','medu')},
+      {cap:'De la médula salen los nervios', w:P('medu','nervio')},
+      {cap:'El periférico está hecho de nervios', w:P('peri','nervio')},
+      {cap:'En orden', w:['centro','encefa','medu','peri','nervio','centro','medu','nervio']},
+      {cap:'Mezcla', w:['peri','encefa','nervio','centro','medu','peri','encefa','nervio']} ]},
+    { name:'Sistema nervioso central', sub:'Las partes del encéfalo y la médula', rounds:[
+      {cap:'El encéfalo y el cerebro', w:P('encefa','cere')},
+      {cap:'Cerebro y cerebelo', w:P('cere','velo')},
+      {cap:'El tronco termina en el bulbo', w:P('tronco','bulbo')},
+      {cap:'La médula, envuelta por las meninges', w:P('medu','menin')},
+      {cap:'De arriba hacia abajo', w:['cere','velo','tronco','bulbo','medu','menin','encefa','cere']},
+      {cap:'Mezcla', w:['velo','bulbo','cere','medu','tronco','encefa','menin','velo']} ]},
+    { name:'Periférico', sub:'Nervios y ganglios, después todo', rounds:[
+      {cap:'Nervios y ganglios', w:P('nervio','gangli')},
+      {cap:'Craneales y raquídeos', w:P('crane','raqui')},
+      {cap:'Los craneales salen del encéfalo', w:P('crane','encefa')},
+      {cap:'Los raquídeos salen de la médula', w:P('raqui','medu')},
+      {cap:'Todo el periférico', w:['peri','nervio','gangli','crane','raqui','nervio','gangli','peri']},
+      {cap:'Central y periférico mezclados', w:['cere','raqui','velo','gangli','tronco','crane','medu','bulbo']} ]}
+  ]},
+  { id:'tejorg', name:'Tejido de los órganos', levels:[
+    { name:'Corteza del cerebro', sub:'Gris afuera, blanca adentro', rounds:[
+      {cap:'La corteza es sustancia gris', w:P('corte','gris')},
+      {cap:'Adentro del cerebro, la blanca', w:P('cere','blanca')},
+      {cap:'Los pliegues de la corteza', w:P('surco','circu')},
+      {cap:'Gris y blanca', w:P('gris','blanca')},
+      {cap:'De afuera hacia adentro', w:['cere','corte','gris','circu','surco','blanca','gris','blanca']},
+      {cap:'Mezcla', w:['surco','gris','cere','blanca','circu','corte','surco','gris']} ]},
+    { name:'Médula espinal', sub:'Blanca afuera, gris adentro', rounds:[
+      {cap:'En la médula la blanca está afuera', w:P('medu','blanca')},
+      {cap:'La gris forma las astas', w:P('gris','astas')},
+      {cap:'De las astas salen las raíces', w:P('astas','raiz')},
+      {cap:'Las raíces forman el nervio', w:P('raiz','nervio')},
+      {cap:'De adentro hacia afuera', w:['astas','gris','blanca','raiz','nervio','medu','astas','raiz']},
+      {cap:'Cerebro y médula', w:['corte','gris','blanca','astas','cere','medu','raiz','surco']} ]},
+    { name:'Caos total', sub:'Todo al azar. Gana quien aguante', chaos:['corte','gris','blanca','astas','surco','circu','raiz','cere','medu','nervio'] }
+  ]},
+  { id:'protec', name:'Protección', levels:[
+    { name:'Las capas que protegen', sub:'De afuera hacia adentro', rounds:[
+      {cap:'Lo de afuera: piel y hueso', w:P('piel','hueso')},
+      {cap:'Grasa y duramadre', w:P('grasa','dura')},
+      {cap:'Duramadre y aracnoides', w:P('dura','arac')},
+      {cap:'Aracnoides y piamadre', w:P('arac','pia')},
+      {cap:'De afuera hacia adentro', w:['piel','hueso','grasa','dura','arac','pia','dura','pia']},
+      {cap:'De adentro hacia afuera', w:['pia','arac','dura','grasa','hueso','piel','hueso','dura']} ]},
+    { name:'Capas mezcladas', sub:'Las mismas capas, sin orden', rounds:[
+      {cap:'Las tres meninges', w:['dura','dura','pia','pia','arac','arac','dura','dura']},
+      {cap:'Mezcla de a dos', w:['piel','dura','piel','dura','hueso','pia','hueso','pia']},
+      {cap:'Mezcla de a dos', w:['grasa','arac','grasa','arac','dura','hueso','dura','hueso']},
+      {cap:'Salteadas', w:['pia','piel','arac','hueso','dura','grasa','pia','piel']},
+      {cap:'Salteadas', w:['hueso','arac','piel','pia','grasa','dura','arac','hueso']},
+      {cap:'Sin orden', w:['dura','pia','grasa','piel','arac','dura','hueso','pia']} ]},
+    { name:'Líquido, barrera y defensa', sub:'Lo que protege por dentro', rounds:[
+      {cap:'El líquido corre bajo la aracnoides', w:P('liqui','arac')},
+      {cap:'La barrera frena lo que viene en la sangre', w:P('barre','liqui')},
+      {cap:'La microglía defiende', w:P('micro','barre')},
+      {cap:'La microglía es una célula de la glía', w:P('micro','glia')},
+      {cap:'Todo lo que protege', w:['piel','hueso','dura','arac','liqui','pia','barre','micro']},
+      {cap:'Mezcla final', w:['liqui','dura','micro','piel','barre','pia','hueso','arac']} ]}
+  ]}
+];
+FOLDERS.forEach(F=>F.levels.forEach((L,i)=>{ L.n=i+1; L.bpm=BPM[i]; L.folder=F.id; L.folderName=F.name; }));
+const folderById = id => FOLDERS.find(F=>F.id===id) || FOLDERS[0];
+let LEVELS = FOLDERS[0].levels;
+
+function chaosRounds(keys){
+  keys = keys || NEURO_KEYS; const out = [];
+  for(let r=0;r<6;r++){
+    const w=[];
+    while(w.length<8){
+      const k = keys[Math.floor(Math.random()*keys.length)];
+      if(w[w.length-1]===k) continue;
+      if(w.filter(x=>x===k).length>=2) continue;
+      w.push(k);
+    }
+    out.push({cap:['Sin aviso','Que no se trabe nadie','Más rápido','Todo revuelto','Casi imposible','Última ronda'][r], w});
+  }
+  return out;
+}
+const roundsOf = L => L.rounds || chaosRounds(L.chaos);
+
+/* ================== Ajustes y almacenamiento ================== */
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+const SKEY='neuroRitmo.settings.v1', RKEY='neuroRitmo.ranking.v1';
+const settings = Object.assign({speed:1, words:true, music:'synth', mp3Bpm:100, tick:false, syncMs:-300, folder:'tejido'}, store.get(SKEY.replace('v1','v4'),{}));
+if(settings.music==='song')settings.music='synth';
+const saveSettings = ()=>store.set(SKEY.replace('v1','v4'),settings);
+let ranking = store.get(RKEY,[]);
+if(!Array.isArray(ranking)) ranking=[];
+
+const $ = id => document.getElementById(id);
+const screens = ['menu','game','win','fail','ranking','boardScreen'];
+function show(id){ screens.forEach(s=>$(s).hidden = s!==id); window.scrollTo(0,0); }
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>t.hidden=true,1800); }
+
+/* ================== Menú ================== */
+function renderFolders(){
+  $('folderSeg').innerHTML = FOLDERS.map(F=>`<button type="button" data-v="${F.id}" aria-pressed="${F.id===settings.folder}">${F.name}</button>`).join('');
+  const F = folderById(settings.folder); LEVELS = F.levels;
+  $('levelButtons').innerHTML = LEVELS.map(L=>{
+    const keys = L.rounds ? [...new Set(L.rounds.flatMap(r=>r.w))] : L.chaos;
+    return `<button type="button" class="lvl" data-l="${L.n}">
+      <div class="top"><span class="num">${L.n}</span><div><h3>${L.name}</h3><small>${L.sub}</small></div></div>
+      <div class="chips">${keys.map(k=>`<span class="chip" style="--tint:${W[k].tint}">${W[k].lb}</span>`).join('')}</div>
+    </button>`;
+  }).join('');
+}
+renderFolders();
+$('folderSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; settings.folder=b.dataset.v; saveSettings(); renderFolders(); });
+$('levelButtons').addEventListener('click',e=>{ const b=e.target.closest('.lvl'); if(b) startGame(+b.dataset.l); });
+
+function syncSeg(seg,val){ seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.v===String(val)))); }
+syncSeg($('speedSeg'),settings.speed);
+syncSeg($('musicSeg'),settings.music);
+function syncMusicUI(){
+  $('mp3box').hidden = settings.music!=='mp3';
+  $('songbox').hidden = settings.music!=='song';
+  $('speedRow').hidden = settings.music==='song';
+}
+syncMusicUI();
+$('syncMs').value = settings.syncMs; $('syncOut').textContent = settings.syncMs+' ms';
+$('syncMs').addEventListener('input',e=>{ settings.syncMs=+e.target.value; $('syncOut').textContent=settings.syncMs+' ms'; saveSettings(); });
+$('showWords').checked = settings.words;
+$('mp3Bpm').value = settings.mp3Bpm; $('mp3BpmOut').textContent = settings.mp3Bpm+' BPM';
+$('mp3Tick').checked = settings.tick;
+
+$('speedSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; settings.speed=+b.dataset.v; syncSeg($('speedSeg'),settings.speed); saveSettings(); });
+$('musicSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; settings.music=b.dataset.v; syncSeg($('musicSeg'),settings.music); syncMusicUI(); saveSettings(); });
+$('showWords').addEventListener('change',e=>{ settings.words=e.target.checked; saveSettings(); });
+$('mp3Bpm').addEventListener('input',e=>{ settings.mp3Bpm=+e.target.value; $('mp3BpmOut').textContent=settings.mp3Bpm+' BPM'; saveSettings(); });
+$('mp3Tick').addEventListener('change',e=>{ settings.tick=e.target.checked; saveSettings(); });
+
+const song = new Audio(); song.loop = true; song.preload='auto';
+try{ song.preservesPitch = true; song.mozPreservesPitch = true; song.webkitPreservesPitch = true; }catch(e){}
+let songReady=false;
+$('mp3File').addEventListener('change',e=>{
+  const f=e.target.files && e.target.files[0]; if(!f) return;
+  if(song.src) URL.revokeObjectURL(song.src);
+  song.src = URL.createObjectURL(f); songReady=true;
+  $('mp3Name').textContent = 'Canción cargada: '+f.name;
+});
+
+/* ================== Audio (Web Audio) ================== */
+let ctx=null, master=null, noiseBuf=null;
+function ensureCtx(){
+  if(!ctx){
+    const AC = window.AudioContext||window.webkitAudioContext;
+    ctx = new AC();
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate*1.5, ctx.sampleRate);
+    const d = noiseBuf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+  }
+  if(ctx.state==='suspended') ctx.resume();
+}
+function newMaster(){
+  const g=ctx.createGain(); g.gain.value=0.85;
+  const c=ctx.createDynamicsCompressor(); c.threshold.value=-16; c.ratio.value=4; c.attack.value=0.003; c.release.value=0.15;
+  g.connect(c); c.connect(ctx.destination); master=g;
+}
+function kick(t,v=1){
+  const o=ctx.createOscillator(), g=ctx.createGain();
+  o.type='sine'; o.frequency.setValueAtTime(165,t); o.frequency.exponentialRampToValueAtTime(42,t+0.13);
+  g.gain.setValueAtTime(v,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.4);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t+0.42);
+}
+function noise(t,dur,type,freq,q,v,freqEnd){
+  const s=ctx.createBufferSource(); s.buffer=noiseBuf;
+  const f=ctx.createBiquadFilter(); f.type=type; f.frequency.setValueAtTime(freq,t); f.Q.value=q;
+  if(freqEnd) f.frequency.exponentialRampToValueAtTime(freqEnd,t+dur);
+  const g=ctx.createGain(); g.gain.setValueAtTime(v,t); g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+  s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t+dur+0.03);
+}
+const hat = (t,open,v) => noise(t, open?0.17:0.045, 'highpass', 7800, 0.7, v ?? (open?0.2:0.14));
+function clap(t){ [0,0.011,0.023].forEach((d,i)=>noise(t+d, i===2?0.18:0.05, 'bandpass', 1500, 1.1, 0.5)); }
+function crash(t){ noise(t,1.4,'highpass',5000,0.5,0.35); }
+function riser(t,dur){
+  const s=ctx.createBufferSource(); s.buffer=noiseBuf;
+  const f=ctx.createBiquadFilter(); f.type='bandpass'; f.Q.value=2; f.frequency.setValueAtTime(400,t); f.frequency.exponentialRampToValueAtTime(7000,t+dur);
+  const g=ctx.createGain(); g.gain.setValueAtTime(0.001,t); g.gain.exponentialRampToValueAtTime(0.28,t+dur); g.gain.linearRampToValueAtTime(0,t+dur+0.02);
+  s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t+dur+0.05);
+}
+function tick(t,hi,v=0.5){
+  const o=ctx.createOscillator(), g=ctx.createGain(); o.type='sine'; o.frequency.value=hi?1760:1180;
+  g.gain.setValueAtTime(v,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.07);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t+0.08);
+}
+function bass(t,f,dur){
+  const o=ctx.createOscillator(), s=ctx.createOscillator(), fl=ctx.createBiquadFilter(), g=ctx.createGain();
+  o.type='sawtooth'; o.frequency.value=f*2; s.type='sine'; s.frequency.value=f;
+  fl.type='lowpass'; fl.Q.value=6; fl.frequency.setValueAtTime(1100,t); fl.frequency.exponentialRampToValueAtTime(180,t+dur);
+  g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(0.32,t+0.008); g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+  o.connect(fl); s.connect(fl); fl.connect(g); g.connect(master);
+  o.start(t); s.start(t); o.stop(t+dur+0.02); s.stop(t+dur+0.02);
+}
+function stab(t,notes,v=0.07){
+  const f=ctx.createBiquadFilter(); f.type='lowpass'; f.Q.value=3; f.frequency.setValueAtTime(3200,t); f.frequency.exponentialRampToValueAtTime(520,t+0.2);
+  const g=ctx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(v,t+0.005); g.gain.exponentialRampToValueAtTime(0.001,t+0.24);
+  f.connect(g); g.connect(master);
+  notes.forEach(n=>[-9,9].forEach(det=>{ const o=ctx.createOscillator(); o.type='sawtooth'; o.frequency.value=n; o.detune.value=det; o.connect(f); o.start(t); o.stop(t+0.26); }));
+}
+// La menor – Fa – Do – Sol
+const PROG=[
+  {root:55,    ch:[220,261.63,329.63]},
+  {root:43.65, ch:[174.61,220,261.63]},
+  {root:65.41, ch:[261.63,329.63,392]},
+  {root:49,    ch:[196,246.94,293.66]}
+];
+
+/* ================== Canción del reto ================== */
+// Tiempos medidos sobre la canción (segundos). say = primer "pi" de la 1ª ronda, justo después del corte de la música; P = duración de una ronda (8 tiempos).
+const SONG_MAP = [
+  {clip:0.00,  say:4.20,  P:5.2114, fadeAt:33.35},
+  {clip:33.20, say:36.07, P:5.2106, fadeAt:65.20},
+  {clip:65.00, say:67.66, P:5.2123, fadeAt:97.40}
+];
+const SONG_B64 = "";
+let songBuf=null, songLoading=null;
+function loadSong(){
+  if(songBuf) return Promise.resolve(songBuf);
+  if(songLoading) return songLoading;
+  songLoading = new Promise((res,rej)=>{
+    try{
+      const bin = atob(SONG_B64); const u = new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i);
+      const done = b=>{ songBuf=b; res(b); };
+      const p = ctx.decodeAudioData(u.buffer, done, e=>rej(e));
+      if(p && p.then) p.then(done).catch(rej);
+    }catch(e){ rej(e); }
+  });
+  songLoading.catch(()=>{ songLoading=null; });
+  return songLoading;
+}
+
+function buildSongBeats(levelIdx, t0, offset){
+  const M = SONG_MAP[levelIdx], spb = M.P/8, beats=[]; let n=0;
+  for(let r=0;r<6;r++){
+    const say = t0 + (M.say + r*M.P - M.clip) + offset;
+    for(let i=0;i<4;i++){ beats.push({t: say - (4-i)*spb, spb, kind:'reveal', r, i, n:n++}); }
+    for(let i=0;i<8;i++){ beats.push({t: say + i*spb/2, spb:spb/2, kind:'word', r, i, n:n++}); }
+  }
+  const last = t0 + (M.say + 5*M.P - M.clip) + offset + 4*spb;
+  beats.push({t:last + spb*0.25, spb, kind:'end', r:5, i:0, n});
+  return beats;
+}
+
+// Demora real entre el reloj de audio y lo que sale por el parlante (en celulares suele ser 0,1–0,3 s)
+function outLatency(){
+  let l = 0;
+  try{ l = (ctx.outputLatency || 0) + (ctx.baseLatency || 0); }catch(e){}
+  if(!isFinite(l) || l < 0) l = 0;
+  return Math.min(l, 0.6);
+}
+function showNudge(){
+  $('nudge').hidden = !(game && game.mode==='song');
+  $('nudgeOut').textContent = 'Sincronía '+settings.syncMs+' ms';
+}
+function nudge(ms){
+  settings.syncMs = Math.max(-800, Math.min(800, settings.syncMs + ms)); saveSettings();
+  $('syncMs').value = settings.syncMs; $('syncOut').textContent = settings.syncMs+' ms';
+  if(game && game.alive && game.mode==='song'){
+    const now = ctx.currentTime;
+    game.beats.forEach(b=>{ if(b.t > now + 0.02) b.t += ms/1000; });
+    game.queue.sort((a,b)=>a.t-b.t);
+  }
+  showNudge();
+}
+$('nudgeEarly').addEventListener('click',()=>nudge(-50));
+$('nudgeLate').addEventListener('click',()=>nudge(50));
+
+/* ================== Motor del juego ================== */
+let game=null, songSrc=null;
+
+function buildBeats(rounds,bpms,t0){
+  const beats=[]; let t=t0, n=0;
+  rounds.forEach((r,ri)=>{
+    const spb=60/bpms[ri];
+    for(let i=0;i<4;i++){ beats.push({t,spb,kind:'reveal',r:ri,i,n}); t+=spb; n++; }
+    for(let i=0;i<8;i++){ beats.push({t,spb,kind:'word',r:ri,i,n}); t+=spb; n++; }
+  });
+  const spb=60/bpms[bpms.length-1];
+  beats.push({t,spb,kind:'end',r:rounds.length-1,i:0,n});
+  return beats;
+}
+
+let startToken=0;
+function startGame(levelN){
+  stopGame(true);
+  ensureCtx();
+  if(settings.music==='song'){
+    const tok = ++startToken;
+    const L = LEVELS[levelN-1];
+    $('hudLevel').textContent = L.folderName+' · Nivel '+L.n;
+    $('hudRound').textContent = 'Ronda 1/6'; $('hudBpm').textContent = '92 BPM';
+    $('caption').textContent = 'Cargando la canción…';
+    $('grid').innerHTML=''; setOverlay('');
+    show('game');
+    loadSong().then(buf=>{ if(tok===startToken) startSongGame(levelN, buf); })
+      .catch(()=>{ if(tok!==startToken) return; toast('No se pudo cargar la canción: suena el ritmo del juego'); startSynthGame(levelN); });
+    return;
+  }
+  startSynthGame(levelN);
+}
+
+function startSongGame(levelN, buf){
+  stopGame(true);
+  newMaster();
+  const L = LEVELS[levelN-1], M = SONG_MAP[levelN-1];
+  const rounds = roundsOf(L);
+  const t0 = ctx.currentTime + 0.25;
+  const src = ctx.createBufferSource(); src.buffer = buf;
+  const g = ctx.createGain(); g.gain.value = 1;
+  const endT = t0 + (M.fadeAt - M.clip);
+  g.gain.setValueAtTime(1, endT - 0.35); g.gain.linearRampToValueAtTime(0, endT);
+  src.connect(g); g.connect(master);
+  src.start(t0, M.clip); src.stop(endT + 0.05);
+  songSrc = src;
+  game = { L, rounds, bpms: rounds.map(()=>92), mode:'song', useMp3:false,
+    beats: buildSongBeats(levelN-1, t0, settings.syncMs/1000 + outLatency()), next:0, queue:[], round:0, alive:true, timer:null, raf:0 };
+  $('caption').textContent = '';
+  renderGrid(rounds[0].w, true);
+  showNudge();
+  requestWake();
+  game.timer = setInterval(schedule, 25);
+  schedule();
+  game.raf = requestAnimationFrame(frame);
+}
+
+function startSynthGame(levelN){
+  stopGame(true);
+  newMaster();
+  const L = LEVELS[levelN-1];
+  const rounds = roundsOf(L);
+  const useMp3 = settings.music==='mp3' && songReady;
+  if(settings.music==='mp3' && !songReady) toast('No hay canción cargada: suena el ritmo del juego');
+  const base = L.bpm[0];
+  const bpms = L.bpm.map(b => useMp3 ? Math.round(settings.mp3Bpm*(b/base)*settings.speed) : Math.round(b*settings.speed));
+  const t0 = ctx.currentTime + 0.2;
+  game = { L, rounds, bpms, useMp3, mode:'synth', beats: buildBeats(rounds,bpms,t0), next:0, queue:[], round:0, alive:true, timer:null, raf:0 };
+
+  $('hudLevel').textContent = L.folderName+' · Nivel '+L.n;
+  $('caption').textContent = '';
+  $('overlay').innerHTML = '';
+  renderGrid(rounds[0].w, true);
+  show('game'); showNudge();
+
+  if(useMp3){
+    try{ song.currentTime=0; song.playbackRate = bpms[0]/settings.mp3Bpm; song.play().catch(()=>{}); }catch(e){}
+  }
+  requestWake();
+  game.timer = setInterval(schedule, 25);
+  schedule();
+  game.raf = requestAnimationFrame(frame);
+}
+
+function schedule(){
+  if(!game || !game.alive) return;
+  while(game.next < game.beats.length && game.beats[game.next].t < ctx.currentTime + 0.14){
+    const b = game.beats[game.next++];
+    playBeat(b);
+    game.queue.push(b);
+  }
+}
+
+function playBeat(b){
+  if(game.mode==='song') return;
+  const {t,spb} = b;
+  const lvl = game.L.n;
+  if(b.kind==='end'){ kick(t,1); crash(t); if(!game.useMp3) bass(t,55,spb*1.5); return; }
+  if(b.kind==='reveal' && b.r===0){ tick(t, b.i===3, 0.55); if(game.useMp3) return; hat(t+spb/2,false,0.08); return; }
+  if(game.useMp3){ if(settings.tick) tick(t, false, 0.28); return; }
+
+  const ch = PROG[Math.floor(b.n/4)%4];
+  if(b.kind==='reveal'){
+    if(b.i===0 || b.i===2) kick(t,0.85);
+    hat(t+spb/2,true,0.12);
+    bass(t, ch.root, spb*0.5);
+    if(b.i===2) riser(t, spb*2);
+    if(b.i===3){ hat(t,false); hat(t+spb/4,false); hat(t+spb/2,false); hat(t+3*spb/4,false); }
+    return;
+  }
+  // tiempo con palabra
+  kick(t);
+  if(b.i%2===1) clap(t);
+  hat(t,false); hat(t+spb/2,true);
+  if(lvl>=3 || b.r>=4){ hat(t+spb/4,false,0.08); hat(t+3*spb/4,false,0.08); }
+  bass(t, ch.root, spb*0.42);
+  bass(t+spb/2, ch.root*2, spb*0.38);
+  stab(t+spb/2, ch.ch, lvl>=3?0.08:0.065);
+}
+
+function frame(){
+  if(!game || !game.alive) return;
+  const now = ctx.currentTime;
+  while(game.queue.length && game.queue[0].t <= now){ applyBeat(game.queue.shift()); if(!game || !game.alive) return; }
+  game.raf = requestAnimationFrame(frame);
+}
+
+function applyBeat(b){
+  const R = game.rounds[b.r], total = game.rounds.length;
+  if(b.kind==='reveal'){
+    if(b.i===0){
+      game.round = b.r;
+      if(b.r>0) renderGrid(R.w, true);
+      $('hudRound').textContent = 'Ronda '+(b.r+1)+'/'+total;
+      $('hudBpm').textContent = game.bpms[b.r]+' BPM';
+      $('caption').textContent = R.cap;
+      if(game.useMp3){ try{ song.playbackRate = game.bpms[b.r]/settings.mp3Bpm; }catch(e){} }
+    }
+    const cells = $('grid').children;
+    [b.i*2, b.i*2+1].forEach(k=>cells[k] && cells[k].classList.remove('pre'));
+    const word = b.r===0 ? ['3','2','1','¡YA!'][b.i] : (b.i===0 ? 'RONDA '+(b.r+1) : (b.i===3 ? '¡YA!' : ''));
+    setOverlay(word);
+    return;
+  }
+  if(b.kind==='word'){
+    setOverlay('');
+    const cells = $('grid').children;
+    for(let k=0;k<cells.length;k++){
+      cells[k].classList.toggle('on', k===b.i);
+      cells[k].classList.toggle('done', k<b.i);
+    }
+    return;
+  }
+  if(b.kind==='end'){
+    const L = game.L;
+    setTimeout(()=>{ stopGame(); $('winText').textContent = L.folderName+' · Nivel '+L.n+' ('+L.name+'): completó sin trabarse.'; $('winName').value=''; lastLevel=L.n; lastFolder=L.folder; show('win'); setTimeout(()=>$('winName').focus(),50); }, 900);
+    game.alive=false; clearInterval(game.timer);
+  }
+}
+
+function setOverlay(txt){
+  const o=$('overlay');
+  o.innerHTML = txt ? '<span>'+txt+'</span>' : '';
+}
+
+function renderGrid(words, hidden){
+  $('grid').innerHTML = words.map((k,i)=>
+    `<div class="cell${hidden?' pre':''}${settings.words?'':' nolabel'}" style="--tint:${W[k].tint}">${svgIcon(k)}<span class="lb">${W[k].lb}</span></div>`
+  ).join('');
+}
+
+function stopGame(silent){
+  if(!silent) startToken++;
+  if(songSrc){ const s=songSrc; songSrc=null; setTimeout(()=>{ try{ s.stop(); }catch(e){} },200); }
+  if(!game) return;
+  game.alive=false;
+  clearInterval(game.timer); cancelAnimationFrame(game.raf);
+  if(master){ const m=master; try{ m.gain.cancelScheduledValues(ctx.currentTime); m.gain.setValueAtTime(m.gain.value,ctx.currentTime); m.gain.linearRampToValueAtTime(0,ctx.currentTime+0.12); }catch(e){} setTimeout(()=>{ try{m.disconnect();}catch(e){} },400); master=null; }
+  try{ song.pause(); }catch(e){}
+  releaseWake();
+  if(!silent) game=null;
+}
+
+let lastLevel = 1, lastFolder = 'tejido';
+$('btnFail').addEventListener('click',()=>{
+  if(!game) return;
+  const r = game.round+1, total = game.rounds.length, L = game.L;
+  lastLevel = L.n; lastFolder = L.folder;
+  stopGame();
+  $('failText').textContent = 'Llegó hasta la ronda '+r+' de '+total+' de '+L.folderName+' · Nivel '+L.n+'. ¡A intentarlo de nuevo!';
+  show('fail');
+});
+$('btnStop').addEventListener('click',()=>{ stopGame(); show('menu'); });
+function replay(){ settings.folder=lastFolder; renderFolders(); startGame(lastLevel); }
+$('failAgain').addEventListener('click',replay);
+$('failMenu').addEventListener('click',()=>show('menu'));
+$('winAgain').addEventListener('click',replay);
+$('winMenu').addEventListener('click',()=>show('menu'));
+
+/* Pantalla encendida mientras se juega */
+let wake=null;
+async function requestWake(){ try{ if('wakeLock' in navigator) wake = await navigator.wakeLock.request('screen'); }catch(e){ wake=null; } }
+function releaseWake(){ try{ wake && wake.release(); }catch(e){} wake=null; }
+
+/* ================== Ranking ================== */
+let rkFilter = 'all', rkArm = null, rkNewId = null;
+const SHORT = {tejido:'TEJIDO', organos:'ÓRGANOS', tejorg:'TEJ. ÓRGANOS', protec:'PROTECCIÓN'};
+ranking.forEach(e=>{ if(!e.folder) e.folder='tejido'; });
+function saveRanking(){ store.set(RKEY, ranking); }
+function addEntry(name, folder, level){
+  name = name.trim(); if(!name) return false;
+  const e = {id: Date.now().toString(36)+Math.random().toString(36).slice(2,6), name, folder, level, date:new Date().toISOString()};
+  ranking.push(e); saveRanking(); rkNewId = e.id; return true;
+}
+function fmtDate(iso){ try{ return new Date(iso).toLocaleDateString('es-UY',{day:'numeric',month:'short'}); }catch(e){ return ''; } }
+$('rkTabs').innerHTML = '<button type="button" data-v="all">Todos</button>' + FOLDERS.map(F=>`<button type="button" data-v="${F.id}">${F.name}</button>`).join('');
+$('rkLevel').innerHTML = FOLDERS.map(F=>F.levels.map(L=>`<option value="${F.id}:${L.n}">${F.name} · Nivel ${L.n}</option>`).join('')).join('');
+function renderRanking(){
+  syncSeg($('rkTabs'), rkFilter);
+  const rows = ranking.filter(e => rkFilter==='all' || e.folder===rkFilter).sort((a,b)=>a.date.localeCompare(b.date));
+  const list = $('rkList');
+  if(!rows.length){
+    list.innerHTML = '<li class="empty" style="display:block">Todavía nadie llegó al final'+(rkFilter!=='all'?' en esta carpeta':'')+'. Cuando alguien lo logre, escribí su nombre al terminar o agregalo abajo.</li>';
+    return;
+  }
+  list.innerHTML = rows.map((e,i)=>`<li class="${e.id===rkNewId?'new':''}">
+    <span class="pos">${i+1}</span>
+    <div style="min-width:0"><div class="nm">${esc(e.name)}</div><div class="meta">${SHORT[e.folder]||''} · ${fmtDate(e.date)}</div></div>
+    <span class="lvtag l${e.level}">NIVEL ${e.level}</span>
+    <button type="button" class="del${rkArm===e.id?' arm':''}" data-id="${e.id}">${rkArm===e.id?'¿Borrar?':'Quitar'}</button>
+  </li>`).join('');
+}
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+$('rkList').addEventListener('click',e=>{
+  const b=e.target.closest('.del'); if(!b) return;
+  const id=b.dataset.id;
+  if(rkArm===id){ ranking = ranking.filter(x=>x.id!==id); saveRanking(); rkArm=null; toast('Quitado del ranking'); }
+  else { rkArm=id; setTimeout(()=>{ if(rkArm===id){ rkArm=null; renderRanking(); } },3000); }
+  renderRanking();
+});
+$('rkTabs').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; rkFilter=b.dataset.v; rkArm=null; renderRanking(); });
+$('rkForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const [f,l]=$('rkLevel').value.split(':');
+  if(addEntry($('rkName').value, f, +l)){ $('rkName').value=''; toast('Agregado al ranking'); renderRanking(); }
+  else { toast('Escribí un nombre para agregar'); $('rkName').focus(); }
+});
+$('winForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(addEntry($('winName').value, lastFolder, lastLevel)){ toast('Guardado en el ranking'); rkFilter=lastFolder; renderRanking(); show('ranking'); }
+  else { toast('Escribí el nombre para guardarlo'); $('winName').focus(); }
+});
+$('toRanking').addEventListener('click',()=>{ rkNewId=null; renderRanking(); show('ranking'); });
+$('rkBack').addEventListener('click',()=>show('menu'));
+
+/* ================== Pizarrón ================== */
+$('board').innerHTML = FOLDERS.map(F=>{
+  const keys=[...new Set(F.levels.flatMap(L=>L.rounds ? L.rounds.flatMap(r=>r.w) : L.chaos))];
+  return `<h3 class="bdh">${F.name}</h3><div class="board">${keys.map(k=>`<div class="term" style="--tint:${W[k].tint}">${svgIcon(k)}<div><b>${W[k].lb}</b><span>${W[k].full}</span></div></div>`).join('')}</div>`;
+}).join('');
+$('toBoard').addEventListener('click',()=>show('boardScreen'));
+$('bdBack').addEventListener('click',()=>show('menu'));
+
+document.addEventListener('visibilitychange',()=>{ if(document.hidden && game && game.alive){ stopGame(); show('menu'); } });
+})();
+</script>
+
+</body></html>

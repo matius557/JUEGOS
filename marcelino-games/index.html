@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prof. Lic. Marcelino Games</title>
+<meta name="description" content="Juegos educativos de biología creados por el Prof. Lic. Matías Marcelino. Se juegan desde el celular, sin instalar nada.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="👉 Tocá aquí para entrar a Prof. Lic. Marcelino Games">
+<meta property="og:description" content="9 juegos de biología creados por el docente, para jugar desde el celular.">
+<meta property="og:url" content="https://matius557.github.io/JUEGOS/marcelino-games/">
+<meta property="og:image" content="https://matius557.github.io/JUEGOS/marcelino-games/portadas/entrada.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0714">
+<style>
+*{box-sizing:border-box;margin:0}
+body{
+  min-height:100vh;color:#e8ecf8;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:radial-gradient(ellipse at 50% -10%,#2a1748 0%,#0b0714 60%) fixed #0b0714;
+  padding:28px 16px 48px;
+}
+header{text-align:center;margin:0 auto 30px;max-width:640px}
+.kicker{font-size:.72rem;letter-spacing:.38em;text-transform:uppercase;color:#8ff0d8;font-weight:700}
+h1{font-size:clamp(1.7rem,6.5vw,2.8rem);font-weight:900;letter-spacing:.02em;margin-top:8px;
+  background:linear-gradient(180deg,#fff2c2,#f5c45a);-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{margin-top:10px;color:#a9b4d6;font-size:.98rem;line-height:1.45}
+
+.shelf{
+  list-style:none;padding:0;margin:0 auto;max-width:1040px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 26px;
+}
+@media (min-width:700px){.shelf{grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 38px}}
+@media (min-width:1000px){.shelf{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+.cd{display:block;text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
+.box{position:relative;aspect-ratio:1/1;margin-right:9%}
+
+/* el disco que asoma por el costado */
+.disc{
+  position:absolute;top:5%;right:-10%;width:90%;height:90%;border-radius:50%;
+  background:
+    radial-gradient(circle,#0b0714 0 7%,#d9deea 7.5% 9%,rgba(255,255,255,.25) 9.5% 15%,transparent 15.5%),
+    conic-gradient(from 20deg,#cfd6e6,#f4f7ff,#b9c2ff,#ffd7f4,#e7ecf7,#bff3e6,#f4f7ff,#aeb7cc,#ffe9bf,#cfd6e6);
+  box-shadow:0 6px 14px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.5);
+  transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+/* la caja */
+.case{
+  position:absolute;inset:0;display:flex;border-radius:5px;overflow:hidden;
+  background:#10131c;
+  box-shadow:0 14px 26px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.16);
+  transition:transform .3s ease;
+}
+.spine{
+  flex:0 0 9%;
+  background:
+    repeating-linear-gradient(180deg,rgba(255,255,255,.13) 0 2px,transparent 2px 5px) center/55% 34% no-repeat,
+    linear-gradient(90deg,#090b11,#262b39 45%,#0e1118);
+  border-right:1px solid rgba(255,255,255,.14);
+}
+.case img{flex:1;min-width:0;width:100%;height:100%;object-fit:cover;display:block}
+.case::after{ /* reflejo del plástico */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,.06) 24%,transparent 38%,transparent 72%,rgba(255,255,255,.1) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 2px 0 rgba(255,255,255,.2);
+}
+.play{
+  display:inline-block;margin-top:9px;
+  background:#fff;color:#0a0e1c;font-weight:800;font-size:.74rem;letter-spacing:.06em;
+  padding:7px 14px;border-radius:999px;
+}
+.name{margin-top:12px;font-weight:800;font-size:.98rem;line-height:1.2}
+.tag{margin-top:3px;color:#9aa6c9;font-size:.82rem;line-height:1.3}
+
+.cd:hover .disc,.cd:focus-visible .disc{transform:translateX(9%) rotate(50deg)}
+.cd:hover .case,.cd:focus-visible .case{transform:translateY(-4px)}
+.cd:active .case{transform:scale(.97)}
+.cd:focus-visible{outline:none}
+.cd:focus-visible .case{box-shadow:0 0 0 3px #8ff0d8,0 14px 26px rgba(0,0,0,.55)}
+@media (prefers-reduced-motion:reduce){.disc,.case{transition:none}}
+
+footer{text-align:center;margin-top:44px;color:#6f7aa0;font-size:.8rem}
+</style>
+<style>.otra{display:inline-block;margin-top:10px;color:#8ff0d8;font-weight:700;text-decoration:none;border:1px solid #8ff0d855;padding:8px 14px;border-radius:999px}</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Juegos creados por el docente</div>
+  <h1>PROF. LIC. MARCELINO GAMES</h1>
+  <p>Recursos de biología para aprender jugando. Tocá una carátula: funcionan en el celular, sin instalar nada.</p>
+</header>
+
+<ul class="shelf">
+  <li><a class="cd" href="neural-link.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/neural-link.jpg" alt="Carátula de Neural Link" width="800" height="800"></div></div>
+    <div class="name">Neural Link</div><div class="tag">Construí el cerebro de un bebé</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="conecta-tu-neurona.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/conecta-tu-neurona.jpg" alt="Carátula de Conectá tu Neurona" width="800" height="800"></div></div>
+    <div class="name">Conectá tu Neurona</div><div class="tag">Nombrá, conectá y mielinizá</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="neuro-ritmo.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/neuro-ritmo.jpg" alt="Carátula de Neuro Ritmo" width="800" height="800"></div></div>
+    <div class="name">Neuro Ritmo</div><div class="tag">Decí la palabra al ritmo</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="celluworld.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/celluworld.jpg" alt="Carátula de Celluworld" width="800" height="800"></div></div>
+    <div class="name">Celluworld</div><div class="tag">Viví la célula por dentro</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="mitosisworld.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/mitosisworld.jpg" alt="Carátula de Mitosis World" width="800" height="800" loading="lazy"></div></div>
+    <div class="name">Mitosis World</div><div class="tag">Mitosis y meiosis, paso a paso</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="replicacion-adn.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/replicacion-adn.jpg" alt="Carátula de Replicación del ADN" width="800" height="800" loading="lazy"></div></div>
+    <div class="name">Replicación del ADN</div><div class="tag">Ocho enzimas, una misión</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="genoworld.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/genoworld.jpg" alt="Carátula de GenoWorld" width="800" height="800" loading="lazy"></div></div>
+    <div class="name">GenoWorld</div><div class="tag">Genética molecular a pincel</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="organos-rock-racing.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/organos-rock-racing.jpg" alt="Carátula de Órganos Rock Racing" width="800" height="800" loading="lazy"></div></div>
+    <div class="name">Órganos Rock Racing</div><div class="tag">Carreras con órganos del cuerpo</div><span class="play">▶ JUGAR</span></a></li>
+  <li><a class="cd" href="bug-wars.html">
+    <div class="box"><div class="disc"></div><div class="case"><div class="spine"></div><img src="portadas/bug-wars.jpg" alt="Carátula de Bug Wars" width="800" height="800" loading="lazy"></div></div>
+    <div class="name">Bug Wars</div><div class="tag">Estrategia de insectos en el patio</div><span class="play">▶ JUGAR</span></a></li>
+</ul>
+
+<footer>Prof. Lic. Matías Marcelino<br><a class="otra" href="../">Ver los juegos de los estudiantes · Instituto Campos Games</a></footer>
+</body>
+</html>
