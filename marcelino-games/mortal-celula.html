@@ -183,7 +183,10 @@ button:focus-visible{outline:.3cqw solid var(--bolt);outline-offset:.3cqw}
         <button class="go" id="goBtn" type="button" disabled>¡A pelear! (vs CPU)</button>
         <button class="ghost" id="hostBtn" type="button" disabled>Crear sala online</button>
         <button class="ghost" id="joinBtn" type="button" disabled>Unirse con llave</button>
+        <button class="go" id="readyBtn" type="button" hidden>¡Listo!</button>
+        <button class="ghost" id="leaveBtn" type="button" hidden>Salir de la sala</button>
       </div>
+      <div class="netmsg" id="roomMsg" hidden></div>
       <div class="keys">Teclado: I J K L moverse (atrás = cubrirse) · Q débil · W fuerte · E agarre · R habilidad · T especial · Y hiper</div>
     </div>
 
@@ -2251,7 +2254,7 @@ function drawCine2(g){
 /* ---------- PVP ONLINE ----------
    El anfitrión crea la sala y juega la pelea; el invitado manda lo que toca y recibe la pelea.
    La llave son 4 símbolos de biología (9 posibles), como las llaves de mundo de Minecraft. */
-const NET={role:null,peer:null,conn:null,code:[],myType:null,guestType:null,rh:{},re:{},ev:[],sendT:0,timer:null};
+const NET={inRoom:false,ready:{me:false,rival:false},role:null,peer:null,conn:null,code:[],myType:null,guestType:null,rh:{},re:{},ev:[],sendT:0,timer:null};
 const ICONS=['Mitocondria','ADN','Núcleo','Membrana','Microscopio','Planta','Animal','Bacteria','Protozoario'];
 function drawIcon(g,k){
   g.clearRect(0,0,96,96);g.lineCap='round';g.lineJoin='round';
@@ -2287,6 +2290,7 @@ function netClose(){
   try{NET.conn&&NET.conn.close();}catch(e){}
   try{NET.peer&&NET.peer.destroy();}catch(e){}
   NET.role=null;NET.peer=null;NET.conn=null;NET.code=[];NET.ev=[];
+  if(NET.inRoom)normalSelect();
 }
 function netUnavailable(){netMsg('No se pudo abrir la conexión. El modo online necesita internet y funciona desde la página del juego (GitHub).');}
 function openNet(role){
@@ -2324,25 +2328,57 @@ function tryJoin(){
 }
 function setupConn(c){
   c.on('data',onNetData);
-  c.on('close',()=>{if(NET.conn!==c)return;const was=NET.role;netClose();if(was){if(state!=='select'){setControls(false);cine=null;stopTurb();stopClassical();state='select';show('select');}toast('Se cortó la conexión con tu rival.',260,true);}});
+  c.on('close',()=>{if(NET.conn!==c)return;const was=NET.role;netClose();if(was){if(state!=='select'||true){setControls(false);cine=null;stopTurb();stopClassical();state='select';show('select');}toast('Se cortó la conexión con tu rival.',260,true);}});
   c.on('error',()=>{});
 }
 function onNetData(d){
   if(!d||!d.t)return;
   if(NET.role==='host'){
     if(d.t==='hello'){NET.guestType=d.type;netMsg('¡Rival conectado!');setTimeout(startOnline,700);}
+    else if(d.t==='ready'){NET.guestType=d.type;NET.ready.rival=true;updateRoom();if(NET.ready.me)startOnline();}
+    else if(d.t==='unready'){NET.ready.rival=false;updateRoom();}
+    else if(d.t==='repick'){if(!NET.inRoom)roomSelect();}
     else if(d.t==='i'){Object.assign(NET.rh,d.h);const e=d.e||{};for(const k in e){if(k==='gadd')NET.re.gadd=(NET.re.gadd||0)+e[k];else if(e[k])NET.re[k]=e[k];}}
     else if(d.t==='again'){if(state==='over')startOnline();}
     else if(d.t==='bye'){NET.conn&&NET.conn.close();}
   }else if(NET.role==='guest'){
-    if(d.t==='start'){clearTimeout(NET.timer);startFight(d.p,d.c);}
+    if(d.t==='start'){clearTimeout(NET.timer);if(NET.inRoom)normalSelect();startFight(d.p,d.c);}
+    else if(d.t==='ready'){NET.ready.rival=true;updateRoom();}
+    else if(d.t==='unready'){NET.ready.rival=false;updateRoom();}
+    else if(d.t==='repick'){if(!NET.inRoom)roomSelect();}
     else if(d.t==='s'&&P)applySnap(d);
     else if(d.t==='full')netMsg('Esa sala ya tiene dos jugadores.');
     else if(d.t==='bye'){NET.conn&&NET.conn.close();}
   }
 }
+/* sala: elegir personaje de nuevo sin desconectarse */
+function roomSelect(){
+  NET.inRoom=true;NET.ready={me:false,rival:false};
+  setControls(false);cine=null;stopTurb();stopClassical();[P,C].forEach(f=>f&&humSet(f,false));
+  state='select';show('select');
+  ['goBtn','hostBtn','joinBtn'].forEach(k=>$(k).hidden=true);$('rivalRow').hidden=true;
+  $('readyBtn').hidden=false;$('leaveBtn').hidden=false;$('roomMsg').hidden=false;
+  updateRoom();
+}
+function normalSelect(){
+  NET.inRoom=false;NET.ready={me:false,rival:false};
+  ['goBtn','hostBtn','joinBtn'].forEach(k=>$(k).hidden=false);$('rivalRow').hidden=false;
+  $('readyBtn').hidden=true;$('leaveBtn').hidden=true;$('roomMsg').hidden=true;
+}
+function updateRoom(){
+  const r=NET.ready;
+  $('readyBtn').disabled=!picked||r.me;$('readyBtn').textContent=r.me?'Esperando...':'¡Listo!';
+  $('roomMsg').textContent='Seguís en la sala. '+(r.me?'Ya elegiste.':'Elegí tu luchador y tocá ¡Listo!')+' · '+(r.rival?'Tu rival ya está listo.':'Tu rival está eligiendo...');
+}
+$('readyBtn').onclick=()=>{
+  if(!picked||!NET.inRoom)return;
+  NET.myType=picked;NET.ready.me=true;netSend({t:'ready',type:picked});sfx0('beep');updateRoom();
+  if(NET.role==='host'&&NET.ready.rival)startOnline();
+};
+$('leaveBtn').onclick=()=>{netSend({t:'bye'});netClose();normalSelect();state='select';show('select');};
 function startOnline(){
   if(!NET.conn||!NET.conn.open)return;
+  if(NET.inRoom)normalSelect();
   netSend({t:'start',p:NET.myType,c:NET.guestType});
   startFight(NET.myType,NET.guestType);
 }
@@ -2423,14 +2459,14 @@ $('startBtn').onclick=()=>{
 };
 let rival='rand';
 function syncRival(){document.querySelectorAll('#rivalRow button').forEach(b=>{b.disabled=b.dataset.r===picked;if(b.disabled&&rival===picked){rival='rand';}b.classList.toggle('on',b.dataset.r===rival);});}
-['cMito','cNuc','cMac','cVir'].forEach(id=>$(id).onclick=()=>{picked=$(id).dataset.k;['cMito','cNuc','cMac','cVir'].forEach(k=>$(k).classList.toggle('on',$(k).dataset.k===picked));$('goBtn').disabled=false;$('hostBtn').disabled=false;$('joinBtn').disabled=false;syncRival();sfx('beep');});
+['cMito','cNuc','cMac','cVir'].forEach(id=>$(id).onclick=()=>{picked=$(id).dataset.k;['cMito','cNuc','cMac','cVir'].forEach(k=>$(k).classList.toggle('on',$(k).dataset.k===picked));$('goBtn').disabled=false;$('hostBtn').disabled=false;$('joinBtn').disabled=false;if(NET.inRoom){if(NET.ready.me){NET.ready.me=false;netSend({t:'unready'});}updateRoom();}syncRival();sfx('beep');});
 document.querySelectorAll('#rivalRow button').forEach(b=>b.onclick=()=>{rival=b.dataset.r;syncRival();sfx('beep');});
 $('goBtn').onclick=()=>startFight(picked);
 $('againBtn').onclick=()=>{
   if(NET.role==='host'){startOnline();return;}
   if(NET.role==='guest'){netSend({t:'again'});toast('Le pediste la revancha a tu rival...',200,true);return;}
   rival=C.type;startFight(P.type);};
-$('pickBtn').onclick=()=>{if(NET.role){netSend({t:'bye'});netClose();}state='select';show('select');};
+$('pickBtn').onclick=()=>{if(NET.role&&NET.conn&&NET.conn.open){netSend({t:'repick'});roomSelect();return;}state='select';show('select');};
 
 function startFight(type,cType){
   if(!type)return;initAudio();
