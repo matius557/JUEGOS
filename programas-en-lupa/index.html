@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programas en Lupa · Guía de las evaluaciones del INEEd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef; --card:#ffffff; --ink:#1d2433; --muted:#5f6878; --line:#e3ded3;
+  --brand:#0f5c63; --brand2:#e2f0ef; --accent:#c8692b; --accent2:#fbeee4;
+  --ok:#2f7d4f; --okbg:#e3f3e8; --mid:#b07a12; --midbg:#fbf1d8; --no:#b2413a; --nobg:#f8e2df;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.2;margin:0}
+a{color:var(--brand)}
+.wrap{max-width:860px;margin:0 auto;padding:0 14px 60px}
+header{background:var(--brand);color:#fff;padding:18px 14px 14px}
+header .wrap{padding-bottom:0}
+.by{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+header h1{font-size:1.45rem;margin-top:4px}
+header p{margin:6px 0 0;font-size:.9rem;opacity:.9}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding:10px 14px}
+nav button{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 14px;border-radius:999px;font:600 .9rem Inter,sans-serif;cursor:pointer}
+nav button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+nav .navtop{display:flex;gap:8px;padding:10px 14px 0;overflow:visible}
+.nb{display:inline-flex;align-items:center;gap:6px;border:none;background:var(--ink);color:#fff;padding:9px 16px;border-radius:10px;font:700 .92rem Inter,sans-serif;cursor:pointer}
+#btnHome{background:var(--accent)}
+.nb:disabled{opacity:.35;cursor:default}
+section.view{display:none;padding-top:16px}
+section.view.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.card h2{font-size:1.2rem;margin-bottom:8px}
+.card h3{font-size:1.02rem;margin:14px 0 6px}
+.lead{color:var(--muted);font-size:.95rem;margin:0 0 14px}
+ul{padding-left:20px;margin:6px 0}
+li{margin:3px 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
+summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.3rem;color:var(--brand);font-weight:400}
+details[open] summary::after{content:"–"}
+details .in{padding:0 16px 14px}
+.chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0}
+.chain span{background:var(--brand2);color:var(--brand);font-weight:600;font-size:.85rem;padding:6px 10px;border-radius:8px}
+.chain b{color:var(--muted)}
+.types{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.type{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fcfbf8}
+.type .q{font-size:.82rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.type h4{margin:4px 0;font-size:1rem}
+.type p{margin:0;font-size:.9rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+th{background:#f1ede4;font-weight:700}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ex{border-left:4px solid var(--accent);background:var(--accent2);border-radius:8px;padding:10px 12px;margin:10px 0}
+.ex b{display:block;margin-bottom:2px}
+.tools{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.tools input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font:600 .82rem Inter,sans-serif;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.prog{cursor:pointer;transition:transform .1s}
+.prog:active{transform:scale(.99)}
+.prog .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.prog h2{font-size:1.08rem;margin:0}
+.yr{flex:0 0 auto;font-size:.78rem;font-weight:700;background:var(--brand2);color:var(--brand);padding:3px 8px;border-radius:6px}
+.prog p{margin:6px 0 8px;color:var(--muted);font-size:.9rem}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:.74rem;font-weight:600;padding:3px 8px;border-radius:6px;background:#f1ede4;color:var(--ink)}
+.tag.ev{background:var(--accent2);color:#8a4517}
+.dots{display:flex;gap:4px;margin-top:10px}
+.dot{width:22px;height:8px;border-radius:4px}
+.s2{background:var(--ok)} .s1{background:#e0b44a} .s0{background:#dccfc8}
+.back{border:none;background:none;color:var(--brand);font:700 .95rem Inter,sans-serif;padding:4px 0 10px;cursor:pointer}
+.dhead h2{font-size:1.5rem;margin-bottom:6px}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:12px 0}
+.fact{background:#fcfbf8;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.fact small{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.fact span{font-weight:600;font-size:.92rem}
+.sec{margin-top:4px}
+.sec h3{display:flex;align-items:center;gap:8px}
+.sec h3 i{font-style:normal;width:26px;height:26px;border-radius:7px;display:inline-grid;place-items:center;background:var(--brand2);font-size:.9rem}
+.pos li::marker{color:var(--ok)} .neg li::marker{color:var(--no)}
+.score{display:grid;gap:6px;margin:8px 0 12px}
+.srow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#fcfbf8;border:1px solid var(--line);font-size:.9rem}
+.badge{flex:0 0 auto;font-size:.76rem;font-weight:700;padding:3px 9px;border-radius:999px}
+.b2{background:var(--okbg);color:var(--ok)} .b1{background:var(--midbg);color:var(--mid)} .b0{background:var(--nobg);color:var(--no)}
+.analysis{background:var(--brand2);border-radius:12px;padding:12px 14px;font-size:.95rem}
+.analysis p{margin:0 0 8px} .analysis p:last-child{margin:0}
+.note{font-size:.82rem;color:var(--muted);font-style:italic}
+.cmp td.c{text-align:center;font-size:1rem}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.82rem;margin:6px 0 12px}
+.legend span{display:flex;align-items:center;gap:5px}
+.src a{word-break:break-word}
+.cic{margin-right:8px}
+.cq2{color:var(--accent)!important;font-weight:700;font-size:.92rem!important;margin:4px 0!important}
+.cnt{display:inline-block;margin-left:6px;font-size:.75rem;background:var(--brand2);color:var(--brand);padding:1px 7px;border-radius:999px;font-family:Inter,sans-serif}
+.pub{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.pub:last-of-type{border-bottom:none}
+.pub a{text-decoration:none;font-weight:500}
+.pub small{display:block;color:var(--muted);font-size:.76rem;margin-top:2px}
+#catBox>.pub{background:#fff;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px}
+.sblock{border-radius:10px}
+.sright{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.evbtn{border:1px solid var(--brand);background:#fff;color:var(--brand);border-radius:999px;padding:3px 9px;font:700 .74rem Inter,sans-serif;cursor:pointer}
+.evbtn.on{background:var(--brand);color:#fff}
+.evpanel{margin:6px 0 4px 10px;border-left:3px solid var(--brand);padding-left:10px}
+.evbox{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:6px;font-size:.88rem}
+.evbox p{margin:6px 0 8px}
+.evdoc{font-weight:700}
+.evdoc small{font-weight:400;color:var(--muted)}
+.evloc{color:var(--brand);font-size:.84rem;margin-top:3px}
+.mini{display:inline-flex;align-items:center;gap:4px;border:none;background:var(--ink);color:#fff;border-radius:8px;padding:7px 11px;font:600 .8rem Inter,sans-serif;cursor:pointer;text-decoration:none}
+.mini.ext{background:var(--accent)}
+.muted{color:var(--muted);font-size:.82rem}
+.toc ol{margin:8px 0 0;padding-left:22px;font-size:.9rem}
+.toc a{text-decoration:none}
+mark{background:#ffe48a;padding:0 2px;border-radius:3px}
+.chcard{scroll-margin-top:130px}.period{scroll-margin-top:165px}
+.infocard{cursor:pointer;border:2px solid var(--accent);background:linear-gradient(135deg,#fff,var(--accent2))}
+.sech{font-size:1.15rem;margin:22px 0 10px;color:var(--brand)}
+.gh{margin:14px 0 6px;font-size:.88rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.find{border-left:3px solid var(--line);padding:2px 0 6px 10px;margin-bottom:8px}
+.find p{margin:0 0 4px;font-size:.93rem}
+.find.des{border-left-color:var(--accent)}
+.fbtn{border:1px dashed var(--brand);background:transparent;color:var(--brand);border-radius:999px;padding:2px 10px;font:700 .74rem Inter,sans-serif;cursor:pointer}
+.fbtn.on{background:var(--brand);color:#fff;border-style:solid}
+.fpanel{margin-top:6px;background:#fcfbf8;border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.fref{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:.84rem}
+.fref:last-child{border-bottom:none}
+.fref .mini{flex:0 0 auto}
+.tline{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px}
+.tl{flex:0 0 auto;min-width:96px;background:var(--brand2);border-radius:10px;padding:8px 10px}
+.tl small{display:block;font-weight:700;color:var(--brand);font-size:.74rem}
+.tl b{display:block;font-size:1.05rem;font-family:Fraunces,serif}
+.tl span{display:block;font-size:.7rem;color:var(--muted);line-height:1.25;max-width:120px}
+.perchips{position:sticky;top:104px;z-index:3;background:var(--bg);padding:6px 0 8px}
+.guide summary{padding:0}
+.guide .in{padding:8px 0 0}
+.chhit{cursor:pointer}
+.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,40%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+footer{color:var(--muted);font-size:.8rem;text-align:center;padding:20px 14px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="by">Marchecos Apps</div>
+  <h1>Programas en Lupa</h1><p style="margin:.2em 0 0;opacity:.8">Guía de estudio de las evaluaciones de programas del INEEd</p>
+  <p>Todas las publicaciones del INEEd en 4 categorías, con los programas analizados según su guía metodológica</p>
+</div></header>
+
+<nav>
+<div class="wrap navtop">
+  <button id="btnBack" class="nb" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>Atrás</button>
+  <button id="btnHome" class="nb"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg>Inicio</button>
+</div>
+<div class="wrap" id="tabs">
+  <button data-v="categorias" class="on">Categorías</button>
+  <button data-v="guia">Guía</button>
+  <button data-v="programas">Programas</button>
+  <button data-v="comparar">Comparar</button>
+  <button data-v="biblioteca">📚 Biblioteca</button>
+  <button data-v="fuentes">Fuentes</button>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ========== CATEGORÍAS ========== -->
+<section class="view on" id="v-categorias">
+  <div class="card">
+    <h2>Todas las publicaciones del INEEd</h2>
+    <p class="lead" style="margin:0">Las 15 secciones del sitio están agrupadas en 4 categorías. Toca una para ver sus publicaciones, o busca por tema.</p>
+  </div>
+  <div class="tools"><input id="cq" type="search" placeholder="Buscar en todas las publicaciones…"></div>
+  <div id="catBox"></div>
+</section>
+<section class="view" id="v-cat"><div id="catView"></div></section>
+<section class="view" id="v-informe"><div id="infView"></div></section>
+
+<!-- ========== BIBLIOTECA ========== -->
+<section class="view" id="v-biblioteca">
+  <div class="card">
+    <h2>📚 Biblioteca</h2>
+    <p class="lead" style="margin:0">Los informes analizados en la app, organizados por capítulos, con un resumen de cada uno y la página exacta para abrir el PDF original. Busca una palabra para encontrarla en todos los documentos.</p>
+  </div>
+  <div class="tools"><input id="lq" type="search" placeholder="Buscar en todos los documentos (ej.: costos, SECLI, tutorías)…"></div>
+  <div id="libBox"></div>
+</section>
+<section class="view" id="v-doc"><div id="docView"></div></section>
+
+<!-- ========== GUÍA ========== -->
+<section class="view" id="v-guia">
+  <div class="card">
+    <h2>Guía metodológica de evaluación de programas educativos</h2>
+    <p class="lead">INEEd, 2016 · redactada por María Pía Pirelli. Es un texto introductorio para planificar la evaluación de un programa educativo, con ejemplos del campo educativo.</p>
+    <h3>La idea central</h3>
+    <p>Evaluar es <b>emitir un juicio de valor sobre el mérito de un programa</b>, a partir de evidencia y criterios. No es lo mismo que <b>monitorear</b>, que es seguir de forma sistemática las actividades y sus productos para ajustar la gestión. La guía parte de una idea clave: <b>todo programa es una hipótesis</b> sobre cómo lograr un objetivo, y evaluarlo es poner a prueba esa hipótesis.</p>
+  </div>
+
+  <details open><summary>Paso 0 · Evaluabilidad</summary><div class="in">
+    <p>Antes de evaluar, se revisa si el programa <b>se puede evaluar</b>. Se describe su modelo, se valora qué tan bien definido está y se acuerda con los responsables qué quieren saber y para qué.</p>
+    <ul><li><b>En principio:</b> ¿el diseño es claro y plausible?</li><li><b>En la práctica:</b> ¿hay datos para medirlo?</li></ul>
+  </div></details>
+
+  <details open><summary>Teoría del cambio y cadena de resultados</summary><div class="in">
+    <p>La <b>teoría del cambio</b> explica cómo y por qué el programa produciría el cambio que busca. La <b>cadena de resultados</b> ordena esa lógica en pasos:</p>
+    <div class="chain"><span>Insumos</span><b>→</b><span>Actividades</span><b>→</b><span>Productos</span><b>→</b><span>Resultados</span><b>→</b><span>Impacto final</span></div>
+    <p>A cada paso se suman <b>supuestos y riesgos</b>. El ejecutor controla la implementación (insumos, actividades y productos). Los resultados dependen también de la conducta de los beneficiarios, y por eso se miden con evaluación de impacto. Si la teoría no está escrita con claridad, no se puede evaluar.</p>
+  </div></details>
+
+  <details open><summary>Los tipos de evaluación</summary><div class="in">
+    <div class="types">
+      <div class="type"><div class="q">¿Está bien pensado?</div><h4>Diseño</h4><p>Revisa la coherencia entre el problema, la estrategia, los objetivos, la población, los recursos y la organización.</p></div>
+      <div class="type"><div class="q">¿Funciona como se planeó?</div><h4>Implementación</h4><p>Compara lo que pasa con lo previsto: fidelidad al diseño frente a adaptaciones locales. Incluye procesos, componentes y monitoreo.</p></div>
+      <div class="type"><div class="q">¿Qué logró?</div><h4>Resultados</h4><p>Mide indicadores como egreso, promoción o aprendizajes, sin necesariamente atribuirlos al programa.</p></div>
+      <div class="type"><div class="q">¿El cambio se debe al programa?</div><h4>Impacto</h4><p>Atribuye causalmente los cambios comparando con un contrafactual: lo que habría pasado sin el programa.</p></div>
+      <div class="type"><div class="q">¿Vale lo que cuesta?</div><h4>Costo-efectividad</h4><p>Divide el costo por el resultado logrado y compara alternativas que buscan el mismo fin.</p></div>
+      <div class="type"><div class="q">¿Antes o después?</div><h4>Ex ante / ex post</h4><p>Ex ante: predice impactos antes de implementar (por ejemplo, con simulaciones). Ex post: analiza lo ocurrido.</p></div>
+    </div>
+  </div></details>
+
+  <details><summary>Métodos para medir impacto</summary><div class="in">
+    <div class="tscroll"><table>
+      <tr><th>Método</th><th>Cómo funciona</th><th>Cuándo sirve</th></tr>
+      <tr><td><b>Experimento aleatorio</b></td><td>Se sortea quién recibe el programa.</td><td>Cuando hay más interesados que lugares o el programa se expande de a poco. Es el método más robusto.</td></tr>
+      <tr><td><b>Diferencias en diferencias</b></td><td>Compara el cambio antes y después entre participantes y no participantes.</td><td>Cuando hay datos de antes y después. No exige grupos iguales al inicio.</td></tr>
+      <tr><td><b>Emparejamiento (PSM)</b></td><td>Arma un grupo de comparación "gemelo" con las características observables.</td><td>Cuando hay muchos datos de los participantes.</td></tr>
+      <tr><td><b>Variables instrumentales</b></td><td>Usa una variable externa que influye en la participación.</td><td>Cuando hay autoselección por motivos que no se observan.</td></tr>
+      <tr><td><b>Regresión discontinua</b></td><td>Compara a quienes quedaron justo arriba y justo abajo de un puntaje de corte.</td><td>Cuando la elegibilidad depende de un puntaje.</td></tr>
+    </table></div>
+    <h3>Errores a evitar</h3>
+    <ul><li>Comparar a los mismos participantes antes y después: otras cosas también cambiaron en ese tiempo.</li><li>Comparar inscritos con no inscritos: quien se anota ya es distinto (sesgo de selección).</li></ul>
+    <p class="note">Intención de tratar: cuenta a todos a quienes se les ofreció el programa. Tratamiento en tratados: cuenta solo a quienes participaron de verdad.</p>
+  </div></details>
+
+  <details><summary>Métodos cuantitativos y cualitativos</summary><div class="in">
+    <p>Los <b>cuantitativos</b> (encuestas, pruebas) miden. Los <b>cualitativos</b> (entrevistas, grupos, estudio de casos) explican el contexto y ayudan a interpretar los números. La guía recomienda <b>combinarlos (métodos mixtos)</b>.</p>
+  </div></details>
+
+  <details><summary>Uso de los resultados (Patton)</summary><div class="in">
+    <ol><li><b>Análisis:</b> ordenar los datos en hallazgos claros. Todo análisis compara algo con algo, así que hay que acordar contra qué (años anteriores, metas, otros programas…).</li>
+    <li><b>Interpretación:</b> dar sentido a los hallazgos, sabiendo que los indicadores son imperfectos.</li>
+    <li><b>Juicio:</b> decidir si el resultado es bueno o malo según criterios acordados.</li>
+    <li><b>Recomendaciones:</b> basadas en evidencia, negociadas, factibles y con responsables y plazos.</li></ol>
+  </div></details>
+
+  <details><summary>Los 3 ejemplos de la guía</summary><div class="in">
+    <div class="ex"><b>1 · Becas y tutorías para jóvenes con extraedad (diseño)</b>El supuesto es que la falta de dinero aleja a los jóvenes del liceo. La pregunta clave es si la beca es menor que lo que el joven ganaría trabajando. Si lo es, el supuesto es débil y la beca no lo va a sacar del trabajo.</div>
+    <div class="ex"><b>2 · Pueblos de la India (impacto con sorteo)</b>Se sortearon tres intervenciones entre 280 pueblos. Las dos que solo informaban a la comunidad no mejoraron los aprendizajes. Solo funcionó la tercera: voluntarios capacitados dando clases de lectura. Lección: informar no alcanza.</div>
+    <div class="ex"><b>3 · Kenia (costo-efectividad)</b>Costo de lograr un año más de asistencia escolar: desparasitación ≈ US$ 3,50, desayunos ≈ US$ 36, uniformes ≈ US$ 99. Las tres funcionan, pero no cuestan lo mismo.</div>
+  </div></details>
+
+  <div class="card">
+    <h2>Las 7 preguntas que usa esta app</h2>
+    <p class="lead">Cada programa se analiza con estos criterios, sacados de la guía. Verde = sí, amarillo = parcial, gris o rojo = no.</p>
+    <ol id="critList"></ol>
+  </div>
+</section>
+
+<!-- ========== PROGRAMAS ========== -->
+<section class="view" id="v-programas">
+  <div id="list">
+    <div class="tools">
+      <input id="q" type="search" placeholder="Buscar programa, método, tema…">
+      <div class="chips" id="chips"></div>
+    </div>
+    <div id="cards"></div>
+  </div>
+  <div id="detail" hidden></div>
+</section>
+
+<!-- ========== COMPARAR ========== -->
+<section class="view" id="v-comparar">
+  <div class="card">
+    <h2>Cómo fueron evaluados</h2>
+    <p class="lead">Comparación según las 7 preguntas de la guía.</p>
+    <div class="legend"><span><span class="dot s2"></span>Sí</span><span><span class="dot s1"></span>Parcial</span><span><span class="dot s0"></span>No</span></div>
+    <div class="tscroll"><table class="cmp" id="cmpTable"></table></div>
+  </div>
+  <div class="card">
+    <h2>Costos reportados</h2>
+    <p class="lead">Solo 5 de los 12 informes traen datos de costos. Esa es una de las debilidades que la guía (y el Panorama 2016) señala.</p>
+    <div class="tscroll"><table id="costTable"></table></div>
+    <p class="note">Montos en pesos uruguayos, tal como los informa cada evaluación. Algunos informes mezclan unidades ("U$" con "miles de pesos de 2012"); conviene verificarlos en el original.</p>
+  </div>
+  <div class="card">
+    <h2>Lo que se repite en casi todos</h2>
+    <ul>
+      <li><b>No hay teoría del cambio escrita:</b> en Maestros Comunitarios y Revuelta Educativa los evaluadores tuvieron que reconstruirla.</li>
+      <li><b>Faltan registros y monitoreo:</b> casi ningún programa tiene datos individualizados para seguir trayectorias.</li>
+      <li><b>Casi no hay evaluaciones de impacto:</b> solo María Espínola usa un contrafactual formal (PSM + diferencias en diferencias).</li>
+      <li><b>Se miden pocos costos:</b> sin costos no se puede saber qué opción rinde más por peso invertido.</li>
+      <li><b>La implementación es despareja</b> entre centros, con rotación de directores y docentes.</li>
+      <li><b>Lo que los actores más valoran:</b> el vínculo, el trabajo colaborativo, la sala docente y el acompañamiento personalizado.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== FUENTES ========== -->
+<section class="view" id="v-fuentes">
+  <div class="card src">
+    <h2>Fuentes</h2>
+    <p class="lead">Todos los informes vienen de la página de <a href="https://www.ineed.edu.uy/publicaciones/informes-de-evaluacion-de-politicas-y-programas/">Informes de evaluación de políticas y programas del INEEd</a>. Los análisis "desde la guía" son una lectura de estudio hecha para esta app y no son conclusiones oficiales del INEEd.</p>
+    <ul id="srcList"></ul>
+  </div>
+</section>
+
+</div>
+<footer>Marchecos Apps · Material de estudio basado en publicaciones del INEEd y de AGEV-OPP</footer>
+
+<script>
+const CRIT = [
+  ["tdc","¿Tiene una teoría del cambio explícita?"],
+  ["dis","¿Se evaluó el diseño?"],
+  ["imp","¿Se evaluó la implementación?"],
+  ["res","¿Se midieron resultados con datos?"],
+  ["cau","¿Hay contrafactual (impacto)?"],
+  ["cos","¿Se analizaron los costos?"],
+  ["mon","¿El programa tiene monitoreo y registros?"]
+];
+const LBL = {2:"Sí",1:"Parcial",0:"No"};
+
+const P = [
+{
+ id:"espinola", t:"Centros María Espínola", yr:"2026", nivel:"Media",
+ eval:["Implementación","Resultados","Impacto"],
+ short:"Ciclo básico con jornada extendida de 8 horas en contextos muy vulnerables. Es la evaluación más rigurosa de la lista.",
+ facts:[["Inicio","2021 (12 centros)"],["Cobertura 2025","59 centros · 9.029 estudiantes"],["Organismo","ANEP"],["Período evaluado","2022–2025"]],
+ que:"Modalidad de ciclo básico de la ANEP para contextos de alta vulnerabilidad. Tiene ocho componentes: jornada de 8 horas, proyecto de centro, currículo flexible, talleres, tutorías, alimentación, vínculo con familias y desarrollo docente. Suma nuevas figuras: facilitadores de gestión, coordinadores y profesor de tecnología e innovación.",
+ obj:["Reducir la inequidad interna del sistema y mejorar aprendizajes","Aumentar la promoción y bajar la repetición","Abatir la desvinculación","Aumentar la cobertura en los quintiles 1 y 2"],
+ met:"Comparación con un grupo de control de 61 a 69 centros armado por emparejamiento (PSM), más diferencias en diferencias. Fuentes: datos administrativos de ANEP (2018–2025), pruebas Aristas de 9.º grado, encuestas a docentes, entrevistas y SIIAS.",
+ cost:"El informe no trae datos de costos ni presupuesto.",
+ res:["Permanencia 2024–25: 88,3% (control: 89,6%)","Promoción 2024: 83,6% (control: 82,6%), diferencia no significativa","Lectura y matemática: sin diferencias significativas con el control","Donde la implementación fue suficiente, los resultados fueron mejores","Se diferencia en talleres (95% de los centros), alimentación (≈70% con comedor frente a 31%) y codocencia","Tutorías: menos presentes que en el control (70% frente a 92%)","La focalización se debilitó: en 2024, 30% de los centros era de quintil 3"],
+ fort:["Diseño coherente y facilitadores bien valorados","Trabajo colaborativo docente","Docentes con más antigüedad y directores con más títulos"],
+ deb:["Muchos componentes también existen en los centros de control, lo que dificulta ver efectos","Implementación despareja y monitoreo débil","Rotación docente y sobrecarga de los directores","No hay datos del sector privado"],
+ rec:["Diseñar componentes claramente distintos de lo que ya existe","Fortalecer el monitoreo de la implementación","Sostener el dispositivo de facilitadores","Analizar los resultados según cómo se implementó cada centro"],
+ sc:{tdc:1,dis:2,imp:2,res:2,cau:2,cos:0,mon:1},
+ an:["Es el único caso de la lista que hace lo que la guía llama <b>evaluación de impacto</b>: arma un contrafactual con emparejamiento y diferencias en diferencias. Su hallazgo central (no hay efecto significativo en aprendizajes) es justamente lo que solo un contrafactual permite afirmar.",
+     "Desde la guía, el problema está en el <b>diseño</b>: si el grupo de control también tiene tutorías, talleres y proyectos, el \"tratamiento\" no es tan distinto, y es esperable no encontrar diferencias. Le falta el análisis de <b>costo-efectividad</b>: siendo una modalidad cara (8 horas, alimentación, nuevos cargos), es la pregunta que queda abierta."],
+ src:[["Informe de evaluación (2026)","https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-centros-Maria-Espinola.pdf"]]
+},
+{
+ id:"revuelta", t:"Revuelta Educativa", yr:"2024", nivel:"Media",
+ eval:["Diseño","Implementación","Resultados"],
+ short:"Piloto de duplas sociocomunitarias y tutorías psicopedagógicas para adolescentes en riesgo de desvinculación.",
+ facts:[["Inicio","2021"],["Cobertura","518 estudiantes · 7 centros (2022)"],["Ejecutan","El Abrojo + UCU, con UNICEF"],["Costo/estudiante","$17.857 (2021)"]],
+ que:"Experiencia piloto en centros María Espínola. Tiene dos componentes: una <b>dupla sociocomunitaria</b> de educadores que trabaja con el adolescente y su familia, y un <b>equipo de psicopedagogas</b> que hace un despistaje de lectoescritura y da 12 sesiones de tutoría.",
+ obj:["Abatir la desvinculación y revincular","Aumentar la asistencia","Mejorar la lectoescritura","Acercar a las familias al centro","Sistematizar el modelo para la educación inclusiva"],
+ met:"Evaluación de diseño, implementación y resultados, sin grupo de control. Registros de ANEP, SIIAS y del programa (hubo que consolidarlos), más 37 entrevistas en tres centros (Flor de Maroñas, Casavalle y Rivera).",
+ cost:"Costo total 2021: $3.982.167 (69% UNICEF, 31% El Abrojo). Unos $17.857 por estudiante por cuatro meses de intervención: $10.994 en la dupla y $10.739 en las tutorías.",
+ res:["Buena focalización: más extraedad (≈28% frente a 17%) y más hogares con Tarjeta Uruguay Social","Continuidad: 86,5% de los participantes de 2021 siguió estudiando en 2022 (meta del 75% cumplida)","Aprobación 2021: 61,9% (meta del 70% no cumplida; no participantes: 81,7%)","Asistencia: no se pudo medir por falta de datos","Las docentes y psicopedagogas perciben mejoras en lectura"],
+ fort:["Vínculo de confianza entre estudiantes, duplas y familias","Las familias dicen haber ganado herramientas","Buena focalización"],
+ deb:["No había teoría del cambio explícita","Poca articulación con los docentes del centro","Empieza tarde (septiembre) y dura solo unos 4 meses","Registros incompletos","Los problemas estructurales (violencia, falta de servicios) exceden al programa"],
+ rec:["Empezar en junio o julio","Hacer reuniones iniciales con todos los docentes","Dar a las duplas carácter permanente","Mejorar la selección de estudiantes y los registros","Consolidar el modelo antes de ampliarlo"],
+ sc:{tdc:0,dis:2,imp:2,res:1,cau:0,cos:1,mon:0},
+ an:["Ilustra el <b>paso 0 de la guía</b>: el equipo evaluador tuvo que reconstruir la teoría del cambio porque no estaba escrita. Eso limita la evaluabilidad.",
+     "Comparar la aprobación de los participantes (61,9%) con la de los no participantes (81,7%) es el error que la guía advierte: <b>comparar inscritos con no inscritos</b>. Los participantes fueron elegidos por estar en riesgo, así que el dato no dice si el programa funcionó. Es valioso que calcule el costo por estudiante, pero sin un contrafactual no se puede calcular costo-efectividad."],
+ src:[["Evaluación del programa Revuelta Educativa (2024)","https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-Revuelta-Educativa.pdf"]]
+},
+{
+ id:"maestros", t:"Maestros Comunitarios", yr:"2023", nivel:"Primaria",
+ eval:["Diseño","Implementación","Resultados"],
+ short:"Maestros que trabajan con niños y familias fuera del horario de clase para sostener la trayectoria escolar.",
+ facts:[["Origen","1994 (El Abrojo) · política pública desde 2005"],["Cobertura","302 escuelas · ≈16.000 niños/año"],["Maestros","500 + 60 articuladores (2022)"],["Organismo","DGEIP (ANEP)"]],
+ que:"Nació de la experiencia Tejiendo Redes en Casavalle. Atiende a niños de 1.º a 6.º con dificultades de acceso, permanencia o trayectoria. Tiene cuatro líneas: alfabetización en hogares, grupos con familias, integración educativa y aceleración escolar.",
+ obj:["Restituir el deseo de aprender","Recomponer el vínculo entre familia y escuela"],
+ met:"Evaluación descriptiva de diseño, implementación y resultados. Análisis documental, 13 entrevistas (Montevideo, Colonia y Paysandú), encuesta a 80 maestros comunitarios y comparación descriptiva con datos de Aristas Primaria 2020.",
+ cost:"El informe no trae datos de costos. La falta de registros impide estimar el gasto.",
+ res:["Bien focalizado: 88,5% de las escuelas con programa es de quintil 1 o 2","El 80,7% de los maestros hace visitas a hogares todas las semanas","Muy valorado: 97,7% lo considera muy necesario","No se pudo medir el efecto sobre asistencia, repetición ni aprendizajes: no hay datos de trayectorias","Problemas más frecuentes: ausentismo (82%) y aprendizajes descendidos (55%)"],
+ fort:["Institucionalizado y de alcance nacional","Buena focalización","Muy bien recibido por las familias","Fuerte apoyo de la dirección escolar"],
+ deb:["No hay un documento de diseño explícito","No tiene monitoreo ni evaluación","El rol se confunde con el del maestro de apoyo","No hay formación específica para el rol","Los grupos de padres y la aceleración escolar funcionan poco"],
+ rec:["Crear registros estandarizados e individualizados","Articular con otras instituciones del territorio","Sumar psicólogos y asistentes sociales","Ofrecer formación específica y un curso de inducción","Revisar salario y condiciones de contratación"],
+ sc:{tdc:0,dis:2,imp:2,res:1,cau:0,cos:0,mon:0},
+ an:["Es un caso típico del <b>monitoreo como requisito de la evaluación</b>: lleva casi 20 años como política pública y todavía no se sabe si mejora las trayectorias, porque cada maestro registra a su manera.",
+     "Desde la guía, el primer paso sería un estudio de <b>evaluabilidad \"en la práctica\"</b>: crear los datos. Con registros individuales, una comparación con diferencias en diferencias o emparejamiento sería factible, porque hay muchas escuelas con y sin programa."],
+ src:[["Evaluación del Programa de Maestros Comunitarios (2023)","https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-Programa-Maestros-Comunitarios.pdf"]]
+},
+{
+ id:"tiempo", t:"Extensión del tiempo pedagógico", yr:"2023", nivel:"Primaria",
+ eval:["Diseño","Implementación","Resultados"],
+ short:"Escuelas de tiempo completo y tiempo extendido: cuatro estudios sobre su funcionamiento y desempeño.",
+ facts:[["Tiempo completo","desde 1998 · 242 escuelas (2021)"],["Tiempo extendido","desde 2013 · 65 escuelas (2021)"],["Matrícula","22% de 1.º a 6.º (2021)"],["Informes","4 estudios"]],
+ que:"Escuelas con más horas de clase. <b>Tiempo completo</b> tiene una propuesta pedagógica integral desde 1998. <b>Tiempo extendido</b> (2013) tiene un diseño menos exhaustivo, con talleres.",
+ obj:["El informe señala que la política no tiene objetivos definidos de forma explícita","El proyecto institucional de cada escuela apunta a mejorar los aprendizajes"],
+ met:"Cuatro estudios mixtos: documentos, encuestas a 72 directores y entrevistas; Aristas 2020 con modelos multinivel; un panel de Aristas 2017–2021 con descomposición de diferencias; y datos de CREA (Ceibal) cruzados con Aristas 2021.",
+ cost:"Los informes no traen datos de costos.",
+ res:["Tiempo extendido mejora matemática (no lectura) frente a tiempo simple, una vez controlado el contexto","Tiempo completo: sin cambios importantes en lectura ni matemática entre 2017 y 2021","En tiempo completo, lo que se hace se aleja más del diseño (menos talleres, menos hora de juego, menos evaluación formativa)","La sala docente es el espacio más valorado","El uso de CREA se asocia positivamente con los resultados, pero de forma modesta"],
+ fort:["Diseño mixto con datos longitudinales","Sala docente, estabilidad y liderazgo directivo como factores clave"],
+ deb:["Diseños pedagógicos desactualizados","No hay monitoreo de la implementación","Los datos de 2021 están afectados por la pandemia","Las muestras cualitativas son chicas"],
+ rec:["Actualizar las propuestas y escribir guías de implementación","Definir objetivos, población y estrategia de la política","Crear un sistema de monitoreo","Fortalecer la sala docente y la formación en servicio","Más apoyo de Ceibal y equipos socioeducativos"],
+ sc:{tdc:0,dis:2,imp:2,res:2,cau:1,cos:0,mon:0},
+ an:["Desde la guía, el hallazgo más fuerte es de <b>diseño</b>: una política con más de 20 años sin objetivos explícitos no puede juzgarse contra criterios claros, y la guía dice que evaluar es comparar con criterios.",
+     "Los modelos multinivel y la descomposición controlan el contexto, pero no son un contrafactual en sentido estricto. Por eso se clasifica como impacto <b>parcial</b>. La extensión horaria es cara, así que un análisis de <b>costo-efectividad</b>, al estilo del ejemplo de Kenia, sería muy útil."],
+ src:[["Principales hallazgos (2023)","https://www.ineed.edu.uy/images/publicaciones/informes/extension-tiempo-pedagogico/Extension-tiempo-pedagogico.pdf"],["Modalidades educativas con extensión del tiempo","https://www.ineed.edu.uy/images/publicaciones/informes/extension-tiempo-pedagogico/Modalidades-educativas.pdf"],["Factores institucionales en tiempo completo","https://www.ineed.edu.uy/images/publicaciones/informes/extension-tiempo-pedagogico/Factores-institucionales-cambios-desempenos-tiempo-completo.pdf"],["Logros y características institucionales","https://www.ineed.edu.uy/images/publicaciones/informes/extension-tiempo-pedagogico/Logros-caracteristicas-institucionales.pdf"]]
+},
+{
+ id:"proyectos", t:"Proyectos institucionales en primaria", yr:"2025", nivel:"Primaria",
+ eval:["Diseño","Implementación"],
+ short:"Estudio exploratorio sobre cómo las escuelas elaboran y usan su proyecto institucional.",
+ facts:[["Tipo","Estudio exploratorio cualitativo"],["Muestra","12 escuelas · 48 entrevistas"],["Ámbito","Montevideo y Canelones"],["Campo","mayo–agosto 2024"]],
+ que:"El proyecto institucional es la herramienta de gestión que orienta a cada escuela. Es obligatorio desde 2014 (circular n.° 46). El estudio analiza cómo se elabora, cómo se implementa y qué relación tiene con los aprendizajes.",
+ obj:["Describir cómo se elaboran e implementan los proyectos","Ver su relación con los desempeños y con las pautas de ANEP"],
+ met:"Revisión documental y 48 entrevistas semiestructuradas (12 inspectores, 12 directores y 24 maestros), con escuelas elegidas por departamento, jurisdicción y categoría.",
+ cost:"No aplica: no es un programa con presupuesto propio.",
+ res:["Conviven muchos proyectos en cada escuela y se solapan","No hay un documento de referencia común","Solo las escuelas de tiempo completo y extendido tienen sala docente semanal","Los logros percibidos son socioemocionales y de motivación, no de aprendizajes medidos"],
+ fort:["Consenso sobre el proyecto como \"base identitaria\" de la escuela","Trabajo colaborativo con herramientas digitales","Más participación de los alumnos (talleres, asambleas)"],
+ deb:["Poca claridad sobre qué es un proyecto y cómo evaluarlo","Poca formación y pocos tiempos de coordinación","Inestabilidad de los equipos","Escaso apoyo técnico (psicólogos, fonoaudiólogos)"],
+ rec:["Escribir un documento orientador con ejemplos","Formar a directores, maestros e inspectores","Crear espacios estables de coordinación","Definir cómo articular proyectos y cómo autoevaluarlos"],
+ sc:{tdc:0,dis:1,imp:2,res:0,cau:0,cos:0,mon:0},
+ an:["No es una evaluación de programa en sentido estricto, sino un <b>estudio de implementación</b> cualitativo. Según la guía, el valor de este tipo de estudio es explicar el \"cómo\" detrás de los números.",
+     "Muestra un problema de <b>teoría del cambio</b> a nivel de escuela: si nadie tiene claro qué es el proyecto ni cómo se evalúa, no puede funcionar como hipótesis de mejora que se pone a prueba. Hacen falta indicadores para pasar de lo percibido a lo medido."],
+ src:[["Proyectos institucionales en escuelas públicas (2025)","https://www.ineed.edu.uy/images/publicaciones/informes/Proyectos-institucionales-escuelas-educacion-primaria-publica.pdf"]]
+},
+{
+ id:"mandela", t:"Red Mandela (escuelas y jardines inclusivos)", yr:"2021", nivel:"Primaria",
+ eval:["Diseño","Implementación","Resultados"],
+ short:"Red de escuelas comunes y especiales para incluir a niños con discapacidad. Evaluación formativa.",
+ facts:[["Promueve","UNICEF + ANEP"],["Organización","Nodos: escuela común + centro de recursos"],["Campo","ago. 2019 – mar. 2020"],["Tipo","Evaluación formativa"]],
+ que:"Programa de inclusión educativa de niños y niñas con discapacidad en escuelas y jardines comunes. Se organiza en nodos que unen una escuela común con una escuela especial transformada en centro de recursos.",
+ obj:["Promover la inclusión educativa de niños con discapacidad","Cambiar las prácticas docentes hacia el paradigma inclusivo"],
+ met:"Evaluación formativa de diseño (documentos y entrevistas a expertos), implementación (datos del programa y entrevistas en nodos) y resultados (prácticas docentes e inclusión).",
+ cost:"El informe no trae datos de costos.",
+ res:["La teoría del cambio es pertinente y está alineada con estándares internacionales","La implementación fue heterogénea","La transformación de escuelas especiales en centros de recursos no se completó","Los componentes de accesibilidad y de monitoreo no se implementaron","Los registros no alcanzaron para medir resultados en la inclusión"],
+ fort:["Diseño coherente y moderno","Contribuyó a difundir el paradigma inclusivo","Contexto favorable: la inclusión es una política transversal de ANEP"],
+ deb:["No incorpora perspectiva de género","No hay un ámbito formal de coordinación","La formación docente fue parcial","Faltan componentes clave"],
+ rec:["Definir roles y metas de corto, mediano y largo plazo","Completar los centros de recursos","Más formación docente","Crear monitoreo y evaluación","Incorporar accesibilidad y perspectiva de género"],
+ sc:{tdc:2,dis:2,imp:2,res:1,cau:0,cos:0,mon:0},
+ an:["Es el único caso con una <b>teoría del cambio sólida</b> según los evaluadores. Muestra que un buen diseño no alcanza si la implementación queda incompleta: la guía distingue entre <b>falla de teoría y falla de implementación</b>.",
+     "Como evaluación <b>formativa</b>, su objetivo es mejorar el programa, no juzgar su impacto. Para el siguiente paso, haría falta definir indicadores de inclusión (por ejemplo, asistencia y promoción de los niños con discapacidad) y registrarlos."],
+ src:[["Evaluación de la Red Mandela (informe completo)","https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-Red-Mandela.pdf"],["Resumen ejecutivo","https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-Red-Mandela-Resumen-ejecutivo.pdf"]]
+},
+{
+ id:"fpb", t:"Formación Profesional Básica (FPB)", yr:"2021", nivel:"Media",
+ eval:["Diseño","Implementación","Resultados"],
+ short:"Ciclo básico técnico modular con taller, para jóvenes desvinculados o con extraedad.",
+ facts:[["Inicio","Plan 2007 (DGETP-UTU)"],["Ingreso 2017","7.902 estudiantes"],["Peso","41% de la media básica técnica (2020)"],["Duración","2 a 3 años, 3 trayectos"]],
+ que:"Propuesta de educación media básica de UTU, con un currículo integrado alrededor del taller (20 horas semanales), módulos y un pasaje de grado flexible. Al principio era para mayores de 15 desvinculados; desde 2017 admite egresados de primaria de 12 años.",
+ obj:["Revincular a adolescentes fuera del sistema","Que completen el ciclo básico","Dar continuidad educativa y vínculo con el trabajo"],
+ met:"42 entrevistas, registros de ANEP, SIIAS, cotizaciones al BPS, el censo CETP 2017 y un estudio complementario con Aristas Media 2018 que compara a estudiantes de FPB con pares similares mediante emparejamiento (PSM).",
+ cost:"El informe no trae datos de costos.",
+ res:["Egreso al 3.er año: ≈30% (26,7% en la cohorte 2008 y 29,7% en la de 2017)","La desvinculación en 1.er año bajó de 34,8% (2008) a 18,1% (2017)","La repetición subió a 30,1% en la cohorte 2017","Continuidad a media superior: de 35% a 59% de los egresados","Empleo formal: los egresados cotizan más al BPS y la brecha de género es menor","Aristas 2018: lectura similar a la de los liceos públicos y matemática más baja; más inasistencias (57%)"],
+ fort:["Capta a la población más vulnerable","Currículo integrado con el mundo del trabajo","Mejor continuidad tras el cambio de 2017","Vínculo docente-estudiante bien valorado"],
+ deb:["Egreso bajo (≈30%)","Concentración en contextos desfavorables","Pocos docentes de Matemática titulados en centros técnicos (18%)","Registros administrativos inconsistentes"],
+ rec:["Crear un identificador único de estudiante","Controlar el contexto al comparar modalidades","Reducir las 28 orientaciones","Dar estabilidad a los directores","Simplificar la preinscripción"],
+ sc:{tdc:1,dis:2,imp:2,res:2,cau:1,cos:0,mon:1},
+ an:["Es un buen ejemplo de <b>evaluación de resultados con trayectorias</b>: cruza datos educativos con el BPS para ver la inserción laboral, algo que la guía valora como resultado de largo plazo.",
+     "El estudio con Aristas usa <b>emparejamiento</b>, pero los propios autores aclaran que no es impacto, porque la elección de FPB no es aleatoria. El informe insiste en el error que señala la guía: comparar FPB con el liceo sin controlar la extraedad y el contexto daría conclusiones falsas."],
+ src:[["Evaluación del Plan FPB (2021)","https://www.ineed.edu.uy/images/publicaciones/fpb/2021/Evaluacion-FPB.pdf"],["Resumen ejecutivo","https://www.ineed.edu.uy/images/publicaciones/fpb/2021/Evaluacion-FPB-ResumenEjecutivo.pdf"],["Desempeños en Aristas Media 2018","https://www.ineed.edu.uy/images/publicaciones/fpb/2021/Analisis-desempenos-Aristas2018.pdf"]]
+},
+{
+ id:"pue", t:"Programa Uruguay Estudia (PUE)", yr:"2016 · 2021", nivel:"Transversal",
+ eval:["Diseño","Implementación","Resultados","Costos"],
+ short:"Becas y apoyos para que jóvenes y adultos terminen primaria, media o formación docente.",
+ facts:[["Inicio","2009 (convenio interinstitucional)"],["Becarios 2013","4.742"],["Financia","INEFOP (93–97%)"],["Costo/becario","$9.892 (2013)"]],
+ que:"Programa interinstitucional (ANEP, MEC, INEFOP y otros) con becas de apoyo económico en 18 líneas, tutorías, cursos y orientación educativa. Algunos componentes (pasantías y créditos al egreso) nunca se implementaron.",
+ obj:["Que quienes no estudian puedan volver a hacerlo","Fomentar la permanencia y la culminación de ciclos obligatorios"],
+ met:"Dos evaluaciones: una DID (Diseño, Implementación y Desempeño) de AGEV-OPP sobre 2009–2013, y una evaluación preliminar del INEEd e INEFOP en 2021 centrada en las becas (documentos y entrevistas).",
+ cost:"El gasto pasó de $14 millones (2009) a $46,9 millones (2013). El costo por beneficiario subió de $6.166 a $9.892 (+60% real). Los gastos operativos bajaron de 15% a 8%.",
+ res:["Cobertura: de 19% a 27% de la población potencial","Acreditación de primaria: de 63% a 80%","Media básica: 3.514 becas en 2013; aprobación de 51% a 76%","Culminación de ciclos en general: de 65% a 76%","El indicador de propósito no se movió (12,9% → 12,6%)","Hay indicios, no pruebas, de que la beca ayuda a la continuidad"],
+ fort:["Atiende un problema real: en 2018 solo 43% de los jóvenes de 23 años había terminado media","Articulación entre instituciones","Equipos comprometidos","Es el único con un análisis de costo por beneficiario en el tiempo"],
+ deb:["La lógica entre problema, propósito y componentes es débil","18 líneas de becas sin criterios claros de cupos","Criterios de adjudicación poco objetivos","No hay seguimiento de egresados","Solo hay indicadores de eficacia, no de eficiencia ni calidad"],
+ rec:["Revisar la teoría del programa","Firmar un nuevo convenio que incluya a INEFOP","Un sistema de información único con metas","Revisar el monto de la beca","Evitar superposiciones con las becas del MEC y otras transferencias"],
+ sc:{tdc:1,dis:2,imp:2,res:2,cau:0,cos:2,mon:1},
+ an:["Conecta directamente con el <b>ejemplo 1 de la guía</b> (becas para jóvenes con extraedad): ambas evaluaciones recomiendan revisar el monto de la beca, que es la pregunta del costo de oportunidad.",
+     "Tiene datos de costos pero no un contrafactual, así que se sabe cuánto cuesta cada becario pero no cuánto cuesta cada egreso <i>causado</i> por la beca. El paso siguiente, según la guía, sería una <b>evaluación de impacto</b>: por ejemplo, una regresión discontinua si la beca se asigna por puntaje."],
+ src:[["Evaluación del PUE · INEEd (2021)","https://www.ineed.edu.uy/wp-content/uploads/2021/07/Evaluacion-Programa-Uruguay-Estudia.pdf"],["Resumen ejecutivo (2021)","https://www.ineed.edu.uy/wp-content/uploads/2021/07/Evaluacion-Programa-Uruguay-Estudia-Resumen-ejecutivo.pdf"],["Evaluación DID 2014–2015 (AGEV-OPP)","https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/Programa_Uruguay_Estudia.pdf"]]
+},
+{
+ id:"cb2009", t:"Plan 2009 Ciclo Básico (adultos)", yr:"2014", nivel:"Media",
+ eval:["Diseño","Implementación","Resultados","Costos"],
+ short:"Ciclo básico semestral en un año y medio para mayores de 21 años que trabajan.",
+ facts:[["Inicio","2009 · 9 liceos (7 en 2013)"],["Inscriptos 2013","2.077"],["Costo/beneficiario","$15.969 (2013)"],["Organismo","CES – Programas Educativos Especiales"]],
+ que:"Piloto de secundaria para terminar el ciclo básico en tres semestres, con evaluación por competencias, tutorías y contenidos organizados por áreas de conocimiento. Para mayores de 21 años con condicionamientos laborales o de salud.",
+ obj:["Fin: igualdad de oportunidades para adultos","Propósito: que culminen el ciclo básico desarrollando competencias"],
+ met:"Evaluación DID de AGEV-OPP con apoyo del INEEd: información existente, encuesta a docentes y estudiantes (2013), visitas y entrevistas. Se complementa con el informe \"la mirada de los actores\".",
+ cost:"Presupuesto 2013: ≈0,36% del presupuesto del CES (92% salarios). Costo por beneficiario: de $12.068 (2010) a $15.969 (2013), en pesos de 2012.",
+ res:["Egreso: entre 25% y 27% en 2009–2011 y 45% en 2012","Acreditaron 889 alumnos en 2012","Los docentes valoran muy bien los aprendizajes (93%)","Solo 51% de los estudiantes siente que la enseñanza se ajusta a sus necesidades","Se dictaron ≈94% de las clases previstas"],
+ fort:["Diseño innovador (semestres, competencias, tutorías)","Mucho mejor que el viejo plan nocturno 1986/93","Equipos con experiencia"],
+ deb:["El diagnóstico se basó en conocimiento tácito, no en estudios","Los cupos por orden de inscripción generan sesgo de selección","No hay indicadores ni línea de base","Algunos organismos no reconocen la acreditación"],
+ rec:["Estudiar las necesidades de la población y las causas de la desafiliación","Crear indicadores y unificar los registros en el SECLI","Ampliar el equipo coordinador","Difundir el plan entre la población potencial"],
+ sc:{tdc:1,dis:2,imp:2,res:2,cau:0,cos:2,mon:0},
+ an:["Las evaluaciones DID usan el <b>marco lógico</b> (fin, propósito, componentes), que es una forma de expresar la cadena de resultados de la guía. Se marca parcial porque el diagnóstico no tenía base empírica.",
+     "Tiene costo por beneficiario, pero no por egresado. Con un egreso de ≈45%, el costo real por egresado sería más del doble. El sesgo por orden de inscripción es un ejemplo del <b>sesgo de selección</b> que la guía advierte."],
+ src:[["Evaluación DID Plan 2009 CB (AGEV-OPP)","https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/Ciclobasico2009.pdf"],["Ciclo Básico 2009, la mirada de los actores (INEEd)","https://www.ineed.edu.uy/wp-content/uploads/2016/09/ciclo-basico-2009.pdf"]]
+},
+{
+ id:"cb2012", t:"Plan 2012 Ciclo Básico (15 a 20 años)", yr:"2014", nivel:"Media",
+ eval:["Diseño","Implementación","Costos"],
+ short:"Ciclo básico en tres seminarios-praxis semestrales para jóvenes desvinculados. Se aplicó en Mercedes, entre otros liceos.",
+ facts:[["Inicio","2012 · 8 liceos del interior"],["Beneficiarios","504 (jul. 2013)"],["Presupuesto 2013","$43,3 millones (pesos 2012)"],["Organismo","CES – Programas Educativos Especiales"]],
+ que:"Piloto que permite completar el ciclo básico en un año y medio mediante tres seminarios-praxis, con un proyecto de vida como eje. Funcionó en Mercedes, Libertad, Toledo, El Pinar, Pan de Azúcar, Piriápolis, Castillos y Rivera; no en Montevideo.",
+ obj:["Fin: reducir la desigualdad revirtiendo la deserción","Propósito: que jóvenes de 15 a 20 años desvinculados acrediten el ciclo básico"],
+ met:"Evaluación DID de 6 meses de AGEV-OPP con el INEEd: información existente, encuestas, visitas y entrevistas. Se complementa con el informe \"la mirada de los actores\".",
+ cost:"$38,3 millones (2012) y $43,3 millones (2013), en pesos de 2012 (93% salarios); el 0,46% del presupuesto del CES. Sin costo por alumno oficial: una estimación simple da ≈$86.000 por estudiante.",
+ res:["Sin datos de culminación, continuidad ni abandono: el SECLI no permitía obtenerlos","2 de cada 3 estudiantes valoran bien la enseñanza","Los docentes lo ven muy adecuado (93%) y se sienten comprometidos (93%)"],
+ fort:["Clima y compromiso de los equipos","Autonomía de los centros","Salario docente cercano al doble del habitual","Diseño ajustado al problema de la desafiliación"],
+ deb:["No hay sistema de información ni línea de base","La asignación docente no permite elegir perfiles","Rotación de directores","Falta apoyo psicosocial","El pasaje al bachillerato es difícil"],
+ rec:["Crear un sistema de información propio","Definir criterios para cerrar o expandir el plan","Evaluar externamente los aprendizajes","Seleccionar docentes por perfil","Sumar apoyo psicosocial"],
+ sc:{tdc:1,dis:2,imp:2,res:0,cau:0,cos:1,mon:0},
+ an:["Es el caso más claro de un programa <b>no evaluable en resultados</b>: se puede describir cuánto cuesta y cómo funciona, pero no si los jóvenes terminan el ciclo. Según la guía, eso impide cualquier juicio de mérito.",
+     "Combina un costo alto (si se confirma la estimación de ≈$86.000 por estudiante) con cero datos de egreso, así que es imposible calcular costo-efectividad. Si fuera a expandirse, la recomendación clave sería medir el egreso antes de hacerlo."],
+ src:[["Evaluación DID Plan 2012 CB (AGEV-OPP)","https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/Ciclobasico2012.pdf"],["Ciclo Básico 2012, la mirada de los actores (INEEd)","https://www.ineed.edu.uy/wp-content/uploads/2016/09/ciclo-basico-2012.pdf"]]
+},
+{
+ id:"aapp", t:"Áreas Pedagógicas", yr:"2014", nivel:"Media",
+ eval:["Diseño","Implementación","Resultados","Costos"],
+ short:"INAU y CES ofrecen ciclo básico a jóvenes desvinculados y privados de libertad, con grupos chicos y vínculo personalizado.",
+ facts:[["Inicio","1989 (Escuela Berro)"],["Beneficiarios","373 (2009) → 1.017 (2013)"],["Sedes","7 (incluye Soriano y Río Negro)"],["Costo/egresado","$186.000 (2013)"]],
+ que:"Propuesta para que jóvenes extraedad, repetidores, desertores o privados de libertad completen el ciclo básico. La gestionan en conjunto el INAU y el CES, con un currículo flexible, evaluación personalizada y grupos chicos (≈18 alumnos).",
+ obj:["Fin: autonomía y proyecto de vida","Propósito: culminar el ciclo básico y reinsertarse en el sistema educativo o laboral"],
+ met:"Evaluación DID (AGEV-OPP con el INEEd): información existente, encuestas a docentes y alumnos, visitas y entrevistas. Se complementa con el informe \"la mirada de los actores\".",
+ cost:"Costo por alumno inscripto: $21.600 (2013). Costo por alumno que culmina el ciclo básico: $186.000 (2013). Gasto: 90% salarios. Es el único informe que calcula el costo por egresado.",
+ res:["Promoción de cursos: 57,5% (2013), frente a 37,6% en 2012","Culminación del ciclo básico: 12,1% del total; 6 de cada 10 entre los de 3.er año","97% quiere seguir estudiando","Cobertura: ≈34% de la población objetivo"],
+ fort:["Más de 20 años de trayectoria y un equipo gestor consolidado","Baja desvinculación","Evaluación personalizada","Buen trabajo en red en el interior"],
+ deb:["Población objetivo no cuantificada","Registros en papel y distintos en cada sede","No tiene presupuesto propio","No hay seguimiento de egresados","Conducción compartida sin jerarquía"],
+ rec:["Sistematizar la información y mejorar el acceso al SECLI","Crear un equipo de seguimiento de egresados","Formación docente continua","Sumar equipos psicopedagógicos","Asignar administrativos según la matrícula"],
+ sc:{tdc:1,dis:2,imp:2,res:2,cau:0,cos:2,mon:0},
+ an:["Es el que más se acerca al <b>análisis de costo por resultado</b> de la guía: calcula el costo por alumno que termina el ciclo, no solo por inscripto. Con ese dato se podría comparar con FPB o el Plan 2012, como en el ejemplo de Kenia.",
+     "La advertencia de la guía es que ese costo por egresado no es costo-efectividad en sentido estricto: sin un contrafactual, no se sabe cuántos de esos jóvenes habrían terminado igual. En población privada de libertad, ese número probablemente sea bajo, lo que favorecería al programa."],
+ src:[["Evaluación DID Áreas Pedagógicas (AGEV-OPP)","https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/%C3%81reas%20Pedag%C3%B3gicas.pdf"],["Áreas Pedagógicas, la mirada de los actores (INEEd)","https://www.ineed.edu.uy/wp-content/uploads/2016/09/areas-pedagogicas.pdf"]]
+},
+{
+ id:"panorama", t:"Panorama de los programas educativos 2012 y 2014", yr:"2016", nivel:"Transversal",
+ eval:["Relevamiento"],
+ short:"Mapa de 17 programas públicos que apoyan la educación obligatoria y de cómo fueron (o no) evaluados.",
+ facts:[["Programas","18 (2012) · 17 (2014)"],["Intervenciones","132 (2012) · 140 (2014)"],["Evaluados","10 de 17"],["Con costo-eficiencia","0"]],
+ que:"No evalúa un programa, sino el conjunto: describe los programas educativos públicos de 2008 a 2014 (alimentación, boleto, maestros comunitarios, tránsito educativo, huertas, etc.) y las evaluaciones que se les hicieron.",
+ obj:["Sistematizar los programas públicos que apoyan la educación de 4 a 24 años","Ver cuáles se evaluaron y cómo"],
+ met:"Relevamiento de información de los organismos (2013, actualizado en 2015) y clasificación por nivel, objetivo, población, institución y tamaño.",
+ cost:"No se pudieron reconstruir los presupuestos por falta de información.",
+ res:["Objetivos más frecuentes: aprendizaje (12) y retención (12)","10 de 17 programas tuvieron alguna evaluación; 7 solo de implementación","Ninguno previó la evaluación desde el diseño","No hay evaluaciones de impacto experimentales ni análisis de costo-eficiencia","Hay superposición entre programas similares"],
+ fort:["Primera visión de conjunto del sistema","Muestra la diversidad de la oferta"],
+ deb:["Poca evidencia de efectos","Las evaluaciones casi no cambiaron las decisiones"],
+ rec:["Prever la evaluación desde el diseño","Hacer evaluaciones de impacto y de costos","Mejorar los registros","Coordinar programas parecidos"],
+ sc:null,
+ an:["Es el <b>diagnóstico de fondo</b> de toda esta lista: ya en 2016 señalaba que los programas no planifican su evaluación desde el inicio. Diez años después, los informes de 2021 a 2026 siguen marcando los mismos problemas: falta de teoría del cambio, de registros y de costos.",
+     "Es la lectura ideal para entender por qué la guía insiste en la <b>evaluabilidad</b>: sin datos ni objetivos medibles, el mejor evaluador no puede juzgar el mérito de un programa."],
+ src:[["Panorama de los programas educativos en 2012 y 2014","https://www.ineed.edu.uy/wp-content/uploads/2016/09/panorama-programas-ed.pdf"]]
+}
+];
+
+/* ================= CATEGORÍAS (todas las publicaciones del INEEd) ================= */
+const B="https://www.ineed.edu.uy/";
+const CATS=[
+{id:"sistema",ic:"🏫",t:"El sistema educativo",q:"¿Cómo está la educación en Uruguay?",
+ d:"La foto general del país: los informes sobre el estado de la educación, estudios históricos y curriculares, el Mirador Educativo y los boletines.",
+ secs:[
+  {t:"Informes sobre el estado de la educación",d:"El informe principal del INEEd, cada dos años: acceso, egreso, aprendizajes, docentes y recursos.",src:B+"publicaciones/informes-sobre-el-estado-de-la-educacion-en-uruguay/",it:[
+   ["Estado de la educación 2023-2024. Tomo 1","2023-24",B+"images/ieeuy/2023-2024/Informe-estado-educacion-Uruguay-2023-2024-Tomo1.pdf"],
+   ["Estado de la educación 2023-2024. Tomo 2","2023-24",B+"images/ieeuy/2023-2024/Informe-estado-educacion-Uruguay-2023-2024-Tomo2.pdf"],
+   ["Estado de la educación 2021-2022. Tomo 1","2021-22",B+"images/ieeuy/2021-2022/Informe-estado-educacion-Uruguay-2021-2022-Tomo1.pdf"],
+   ["Estado de la educación 2021-2022. Tomo 2","2021-22",B+"images/ieeuy/2021-2022/Informe-estado-educacion-Uruguay-2021-2022-Tomo2.pdf"],
+   ["Estado de la educación 2021-2022. Resumen ejecutivo","2021-22",B+"images/ieeuy/2021-2022/Informe-estado-educacion-Uruguay-2021-2022-ResumenEjecutivo.pdf"],
+   ["Estado de la educación 2019-2020. Tomo 1 (revisado)","2019-20",B+"images/ieeuy/2019-2020/Informe-estado-educacion-Uruguay-2019-2020-Tomo1.pdf"],
+   ["Estado de la educación 2019-2020. Tomo 2","2019-20",B+"images/ieeuy/2019-2020/Informe-estado-educacion-Uruguay-2019-2020-Tomo2.pdf"],
+   ["Estado de la educación 2019-2020. Resumen ejecutivo","2019-20",B+"images/ieeuy/2019-2020/Informe-estado-educacion-Uruguay-2019-2020-Resumen-ejecutivo.pdf"],
+   ["Estado de la educación 2017-2018","2017-18",B+"images/ieeuy/2017-2018/pdf/Informe-sobre-el-estado-de-la-educacion-en-Uruguay-2017-2018.pdf"],
+   ["Estado de la educación 2015-2016","2015-16",B+"images/pdf/Informe-sobre-el-estado-de-la-educacion-en-Uruguay-2015-2016.pdf"],
+   ["Estado de la educación 2015-2016. Síntesis y desafíos","2015-16",B+"images/ieeuy/Informe-sobre-el-estado-de-la-educacion-en-Uruguay_Sintesis-y-desafios.pdf"],
+   ["Estado de la educación 2014","2014",B+"images/pdf/informe-educacion-2014.pdf"],
+   ["Estado de la educación 2014. Resumen ejecutivo","2014",B+"images/pdf/informe-estado-educacion.pdf"]]},
+  {t:"Otros estudios",d:"Temas variados: discapacidad, primera infancia, currículo, ODS, celulares en clase y la serie histórica \"CIDE 50 años después\".",src:B+"publicaciones/otros-estudios/",it:[
+   ["Percepciones sobre la restricción del uso de celulares en el Colegio Santa Elena","s/f",B+"images/publicaciones/informes/Percepciones-medida-restriccion-uso-celulares-Colegio-Santa-Elena.pdf"],
+   ["Adecuaciones curriculares y diseño universal de aprendizaje en primaria","s/f",B+"images/publicaciones/informes/Adecuaciones-curriculares-diseno-universal-aprendizaje-educacion-primaria.pdf"],
+   ["Trayectorias educativas de alumnos con discapacidad en Uruguay","s/f",B+"images/publicaciones/informes/Trayectorias-educativas-alumnos-con-discapacidad-Uruguay.pdf"],
+   ["Información disponible sobre educación en primera infancia","s/f",B+"images/publicaciones/informes/Sistematizacion-analisis-informacion-disponible-educacion-primera-infancia-Uruguay.pdf"],
+   ["Identificación de alumnos con discapacidad en primaria","s/f",B+"images/publicaciones/informes/Identificacion-alumnos-discapacidad-primaria.pdf"],
+   ["La educación en Uruguay desde los Objetivos de Desarrollo Sostenible","s/f",B+"images/publicaciones/informes/InformeODS_v06.pdf"],
+   ["Fines de la educación primaria y media básica, perfiles de egreso y evaluación","s/f",B+"images/Fines_de_la_educación_primaria_y_media_básica_perfiles_de_egreso_y_sistema_de_evaluación._Tomo_II.pdf"],
+   ["Los sentidos de la educación en adolescentes, familias y referentes","s/f",B+"images/Los_sentidos_de_la_educacion_en_adolescentes_familias_y_referentes_comunitarios._Tomo_1.pdf"],
+   ["Uruguay en el TERCE: resultados y prospecciones","s/f",B+"images/pdf/uruguay-en-el-terce.pdf"],
+   ["Formulación curricular en Uruguay 2006-2008","2006-08",B+"images/pdf/formulacion-curricular.pdf"],
+   ["Continuidad y cambio en el currículum de primaria y media","s/f",B+"images/pdf/continuidad-cambio-curriculum.pdf"],
+   ["Habilidades no cognitivas y matemática en PISA 2012","2012",B+"images/pdf/informeweb.pdf"],
+   ["CIDE 50 años: educación inicial y primaria (desafíos)","2016",B+"wp-content/uploads/2016/09/evolucion-de-educacion-inicial-2.pdf"],
+   ["CIDE 50 años: educación inicial y primaria","2016",B+"wp-content/uploads/2016/09/evolucion-de-educacion-inicial.pdf"],
+   ["CIDE 50 años: educación secundaria","2016",B+"wp-content/uploads/2016/09/evolucion-de-educacion-secundaria.pdf"],
+   ["CIDE 50 años: educación secundaria (versión 2)","2016",B+"wp-content/uploads/2016/09/evolucion-de-educacion-secundaria-2.pdf"],
+   ["CIDE 50 años: la enseñanza técnica","2016",B+"wp-content/uploads/2016/09/ensenanza-tecnica-en-uy.pdf"],
+   ["CIDE 50 años: profesiones docentes","2016",B+"wp-content/uploads/2016/09/evolucion-profesiones-docentes.pdf"],
+   ["CIDE 50 años: estructura institucional y gestión","2016",B+"wp-content/uploads/2016/09/evolucion-estructura-inst.pdf"],
+   ["CIDE 50 años: educación universitaria 1960-2012","2016",B+"wp-content/uploads/2016/09/la-educacion-universitaria-uruguay.pdf"],
+   ["CIDE 50 años: movilidad intergeneracional universitaria","2016",B+"wp-content/uploads/2016/09/movilidad-integracional-educacion-universitaria.pdf"]]},
+  {t:"Mirador Educativo",d:"Portal de indicadores del sistema (matrícula, egreso, asistencia). Los reportes se consultan en la página del INEEd.",src:B+"publicaciones/reportes-del-mirador-educativo/",it:[]},
+  {t:"Boletines institucionales (2023-2026)",d:"Notas breves que resumen cada estudio nuevo. Es la forma más rápida de ponerse al día. Hay boletines desde 2013 en la página del INEEd.",src:B+"publicaciones/boletines-institucionales/",it:[
+   ["Impacto distributivo del gasto educativo","2026","https://mailchi.mp/ineed/boletin-del-ineed-112"],
+   ["Metas educativas: el primer año de gobierno","2026","https://mailchi.mp/ineed/boletin-del-ineed-611"],
+   ["Menos estudiantes, nuevos desafíos: la matrícula futura","2026","https://mailchi.mp/ineed/boletin-del-ineed-110"],
+   ["Aristas y PISA, evaluaciones comparables y complementarias","2026","https://mailchi.mp/ineed/boletin-del-ineed-109"],
+   ["Adolescencia, diversidad e igualdad de género","2026","https://mailchi.mp/ineed/boletin-del-ineed-108"],
+   ["Respuestas con bajo esfuerzo y validez de Aristas","2025","https://mailchi.mp/ineed/boletin-del-ineed-107"],
+   ["Recomendaciones para usar Aristas en Clase a fin de curso","2025","https://mailchi.mp/ineed/boletin-del-ineed-106"],
+   ["Ausentismo crónico en escuelas públicas","2025","https://mailchi.mp/ineed/boletin-del-ineed-105"],
+   ["Deterioro de habilidades socioemocionales en 6.º (2017-2023)","2025","https://mailchi.mp/ineed/boletin-del-ineed-104"],
+   ["Escuelas con logros mayores a los esperados","2025","https://mailchi.mp/ineed/boletin-del-ineed-103"],
+   ["Descenso socioemocional en 3.º de media","2025","https://mailchi.mp/ineed/boletin-del-ineed-102"],
+   ["Aristas Primaria 2023: un panorama inequitativo","2025","https://mailchi.mp/ineed/boletin-del-ineed-101"],
+   ["En la enseñanza, cada día cuenta","2024","https://mailchi.mp/ineed/boletin-del-ineed-100"],
+   ["Aportes brasileros para repensar la evaluación","2024","https://mailchi.mp/ineed/boletin-del-ineed-99"],
+   ["Información para acompañar trayectorias en los centros","2024","https://mailchi.mp/ineed/boletin-del-ineed-98"],
+   ["Pertenecer a una minoría en educación media","2024","https://mailchi.mp/ineed/boletin-del-ineed-97"],
+   ["Egreso de media: nuevas cifras, viejas conclusiones","2024","https://mailchi.mp/ineed/boletin-del-ineed-96"],
+   ["Centros de media con logros mejores a los esperados","2024","https://mailchi.mp/ineed/boletin-del-ineed-95"],
+   ["Nueva versión de Aristas en Clase para media","2024","https://mailchi.mp/ineed/boletin-del-ineed-94"],
+   ["Evaluación del Programa de Maestros Comunitarios","2024","https://mailchi.mp/ineed/boletin-del-ineed-93"],
+   ["La educación uruguaya en 2021 y 2022","2023","https://mailchi.mp/ineed/boletin-del-ineed-92"],
+   ["Factores institucionales en escuelas de tiempo completo","2023","https://mailchi.mp/ineed/boletin-del-ineed-91"],
+   ["Población con discapacidad en primaria","2023","https://mailchi.mp/ineed/boletin-del-ineed-90"],
+   ["Nueva versión de Aristas en Clase","2023","https://mailchi.mp/ineed/boletin-del-ineed-89"],
+   ["Aristas Media 2022: los retos de nuestra educación","2023","https://mailchi.mp/ineed/boletin-del-ineed-88"],
+   ["Asignación de recursos salariales en inicial y primaria","2023","https://mailchi.mp/ineed/boletin-del-ineed-86"],
+   ["Implementación curricular en 3.º de media con COVID-19","2023","https://mailchi.mp/ineed/boletin-del-ineed-n-85"]]}
+ ]},
+{id:"aprendizajes",ic:"📊",t:"Aprendizajes y evaluación",q:"¿Qué aprenden los estudiantes y cómo se mide?",
+ d:"Todo lo de Aristas, la evaluación nacional de logros: sus marcos, los resultados, los reportes temáticos, Aristas en Clase y los reportes técnicos.",
+ secs:[
+  {t:"Informes de resultados de Aristas",d:"Resultados nacionales de lectura, matemática y habilidades socioemocionales en 3.º y 6.º de primaria y en 3.º de media (9.º).",src:B+"publicaciones/informes-y-reportes-de-aristas/",it:[
+   ["Aristas 2025. Resultados de noveno de media","2025",B+"images/Aristas/Publicaciones/Aristas2025/Aristas-Media-2025-Informe-de-resultados.pdf"],
+   ["Aristas 2025. Noveno de media. Resumen ejecutivo","2025",B+"images/Aristas/Publicaciones/Aristas2025/Aristas-Media-2025-Resumen-ejecutivo.pdf"],
+   ["Aristas 2023. Resultados de 3.º y 6.º de primaria","2023",B+"images/Aristas/Publicaciones/Aristas2023/Aristas-2023-Informe-resultados-tercero-y-sexto-educacion-primaria.pdf"],
+   ["Aristas 2023. Primaria. Resumen ejecutivo","2023",B+"images/Aristas/Publicaciones/Aristas2023/Aristas-Primaria-2023-Resumen-ejecutivo.pdf"],
+   ["Informe técnico de Aristas Primaria 2023","2023",B+"images/Aristas/Publicaciones/Aristas2023/Informe-tecnico-Aristas-Primaria-2023.pdf"],
+   ["Aristas 2022. Resultados de 3.º de media","2022",B+"images/Aristas/Publicaciones/Aristas2022/Aristas-2022-Informe-resultados-tercero-educacion-media.pdf"],
+   ["Aristas 2022. Media. Resumen ejecutivo","2022",B+"images/Aristas/Publicaciones/Aristas2022/Aristas-2022-Resumen-ejecutivo.pdf"],
+   ["Informe técnico de Aristas Media 2022","2022",B+"images/Aristas/Publicaciones/Aristas2022/Informe-tecnico-Aristas-Media-2022.pdf"],
+   ["Aristas 2020. Primer informe de primaria","2020",B+"images/Aristas/Publicaciones/Aristas2020/Aristas-2020-Primer-informe-de-resultados-de-tercero-y-sexto-de-educacion-primaria.pdf"],
+   ["Aristas Primaria 2020: logros y habilidades esperadas","2020",B+"images/Aristas/Publicaciones/Informes/Aristas-Primaria-2020-logros-alcanzados-y-habilidades-esperadas-en-el-curso-siguiente.pdf"],
+   ["Aristas Primaria 2020: currículo intencional, implementado y logrado","2020",B+"images/Aristas/Publicaciones/Informes/Aristas-Primaria-2020-alineacion-entre-curriculo-intencional-implementado-y-logrado.pdf"],
+   ["Aristas 2018. Resultados de 3.º de media","2018",B+"images/Aristas/Publicaciones/Aristas2018/Aristas-2018-Informe-de-resultados.pdf"],
+   ["Aristas 2018. Media. Resumen ejecutivo","2018",B+"images/Aristas/Publicaciones/Aristas2018/Aristas-2018-ResumenEjecutivo.pdf"],
+   ["Aristas 2017. Resultados de 3.º y 6.º de primaria","2017","https://aristas2017.ineed.edu.uy/InformeAristas2017.pdf"],
+   ["Aristas 2017. Primaria. Resumen ejecutivo","2017",B+"images/Aristas/Publicaciones/Aristas2017/Aristas-2017-Resumen-ejecutivo.pdf"],
+   ["Aristas 2017. Lectura y matemática en escuelas públicas","2017",B+"images/Aristas/Publicaciones/Aristas2017/Aristas-2017-Resultados-en-lectura-y-matematica-entre-los-estudiantes-de-tercero-y-sexto-de-escuelas-publicas.pdf"]]},
+  {t:"Reportes temáticos de Aristas",d:"Estudios breves sobre un tema puntual: habilidades socioemocionales, convivencia, minorías, centros que rinden más de lo esperado, tareas y materiales.",src:B+"publicaciones/informes-y-reportes-de-aristas/",it:[
+   ["Reporte 22. Alumnos de minorías en 6.º de primaria","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-22-Experiencias-y-trayectorias-educativas-de-alumnos-pertenecientes-a-minorias-en-sexto-de-primaria.pdf"],
+   ["Reporte 21. Tipos y usos de las tareas en 3.º de media","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-21-Tipos-y-usos-de-las-tareas-planteadas-por-los-docentes-en-tercero-de-media.pdf"],
+   ["Reporte 20. Materiales para lectura y matemática en 3.º de media","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-20-Materiales-y-recursos-utilizados-para-trabajar-lectura-y-matematica-en-tercero-de-media.pdf"],
+   ["Reporte 19. Habilidades socioemocionales en 6.º y desempeños","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-19-Habilidades-socioemocionales-sexto-escuela-vinculo-desempenos.pdf"],
+   ["Reporte 18. Adolescentes, diversidad e igualdad de género","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-18-Cambios-en-creencias-y-actitudes-de-los-adolescentes-con-relacion-a-la-diversidad-e-igualdad-de-genero.pdf"],
+   ["Reporte 17. Escuelas con desempeños mejores a los esperados","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-17-Factores-que-contribuyen-a-que-algunos-centros-de-educacion-primaria-tengan-mejores-desempenos-que-los-esperados.pdf"],
+   ["Reporte 16. Evolución socioemocional en media","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-16-La-evolucion-de-las-habilidades-socioemocionales-de-los-estudiantes.pdf"],
+   ["Reporte 15. Minorías en educación media","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-15-Minorias-que-asisten-a-educacion-media.pdf"],
+   ["Reporte 14. Clima escolar, seguridad y desempeños","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-14-Incidencia-clima-escolar-sobre-seguridad-estudiantes-y-desempenos.pdf"],
+   ["Reporte 13. Liceos con desempeños mejores a los esperados","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-13-Factores-centros-educacion-media-mejores-desempenos-que-esperados.pdf"],
+   ["Reporte 12. Habilidades socioemocionales en 6.º, desempeño y bienestar","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-12-Vinculo-habilidades-socioemocionales-sexto-primaria-desempeno-academico-bienestar.pdf"],
+   ["Reporte 11. Convivencia entre alumnos y maestros de 6.º","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-11-Convivencia-en-las-escuelas-entre-alumnos-de-sexto-de-primaria.pdf"],
+   ["Reporte 10. Regulación emocional en 3.º de media (2018 y 2021)","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-10-Regulacion-emocional-estudiantes-tercero-media.pdf"],
+   ["Reporte 9. Factores escolares de centros que rinden más","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-9-Factores-escolares-centros-desempenos-mayores-esperados.pdf"],
+   ["Reporte 8. Docentes en pandemia: comunidad y liderazgo","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-8-Docentes-pandemia-comunidad-profesional-liderazgo-centros-educativos.pdf"],
+   ["Reporte 7. Escuelas en un año de pandemia","s/f",B+"images/Aristas/Publicaciones/Reportes/Escuelas-pandemia-infraestructura-contexto-clima-barrial-participacion-programas.pdf"],
+   ["Reporte 6. Evaluaciones nacionales de otros países","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-6-Como-son-las-evaluaciones-nacionales-de-otros-paises.pdf"],
+   ["Reporte 5. Currículo, perfil de egreso y Aristas","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-5-Curriculo-perfil-de-egreso-y-Aristas.pdf"],
+   ["Reporte 4. Demanda cognitiva en matemática de 6.º","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-4-La-demanda-y-la-activacion-cognitivas-como-oportunidades-para-aprender-matematica.pdf"],
+   ["Reporte 3. Materiales de maestros de 3.º y 6.º","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-3-Materiales-y-recursos-utilizados-por-maestros.pdf"],
+   ["Reporte 2. Dispositivos de participación en primaria","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-2_Dispositivos-para-la-participacion-en-educacion-primaria-tensiones-y-desafios.pdf"],
+   ["Reporte 1. Oportunidades de aprendizaje en primaria","s/f",B+"images/Aristas/Publicaciones/Reportes/Reporte-1-Las-oportunidades-de-aprendizaje-en-Uruguay-diagnostico-y-tratamiento-de-contenidos-curriculares-en-las-aulas-de-primaria.pdf"]]},
+  {t:"Marcos de Aristas",d:"Qué mide Aristas y por qué: los documentos conceptuales de cada dimensión evaluada.",src:B+"publicaciones/marcos-de-aristas/",it:[
+   ["Marco general de la evaluación","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_MarcoGeneral_v07.pdf"],
+   ["Lectura en 3.º y 6.º de primaria","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_Primaria_Lectura.pdf"],
+   ["Lectura en 3.º de media","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_Media_Lectura.pdf"],
+   ["Matemática en 3.º y 6.º de primaria","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_Primaria_Matematica_v08.pdf"],
+   ["Matemática en 3.º de media","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_Media_Matematica.pdf"],
+   ["Oportunidades de aprendizaje en primaria","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_Marco_OdA.pdf"],
+   ["Oportunidades de aprendizaje en media","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas-Marco-OdA-Media.pdf"],
+   ["Contexto familiar y entorno escolar en primaria","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas-Marco-Contexto-Entorno-Primaria.pdf"],
+   ["Contexto familiar y entorno escolar en media","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_Marco_Contexto-Entorno_Media.pdf"],
+   ["Habilidades socioemocionales en 6.º de primaria","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas-Marco-HabilidadesSocioemocionales-Primaria.pdf"],
+   ["Habilidades socioemocionales en 3.º de media","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas-Marco-de-habilidades-socioemocionales-en-tercero-de-educacion-media.pdf"],
+   ["Convivencia y participación en 6.º de primaria","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas-Marco-Convivencia-Participacion-Primaria.pdf"],
+   ["Convivencia, participación y DD.HH. en 3.º de media","s/f",B+"images/Aristas/Publicaciones/Marcos/Aristas_Marco_Convivencia_Media.pdf"]]},
+  {t:"Aristas en Clase (apoyo al docente)",d:"Pruebas para aplicar en el aula, con documentos que explican cada ítem y cómo usar los resultados.",src:B+"publicaciones/documentos-de-apoyo-al-docente-de-aristas-en-clase/",it:[
+   ["2023 · Matemática en 6.º de primaria","2023",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2023-Primaria-Matematica-6.pdf"],
+   ["2023 · Matemática en 3.º de primaria","2023",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2023-Primaria-Matematica-3.pdf"],
+   ["2023 · Lectura en 6.º de primaria","2023",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2023-Primaria-Lectura-6.pdf"],
+   ["2023 · Lectura en 3.º de primaria","2023",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2023-Primaria-Lectura-3.pdf"],
+   ["2022 · Lectura en 3.º de media","2022",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2022-Media-Lectura.pdf"],
+   ["2022 · Matemática en 3.º de media","2022",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2022-Media-Matematica.pdf"],
+   ["2020 · Matemática en 6.º de primaria","2020",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2020-Primaria-Matematica-6.pdf"],
+   ["2020 · Matemática en 3.º de primaria","2020",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2020-Primaria-Matematica-3.pdf"],
+   ["2020 · Lectura en 6.º de primaria","2020",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2020-Primaria-Lectura-6.pdf"],
+   ["2020 · Lectura en 3.º de primaria","2020",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/Aristas-en-clase-2020-Primaria-Lectura-3.pdf"],
+   ["2018 · Matemática en 3.º de media","2018",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/AristasEnClase-2018-Media-Matematica.pdf"],
+   ["2018 · Lectura en 3.º de media","2018",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/AristasEnClase-2018-Media-Lectura.pdf"],
+   ["2017 · Matemática en 6.º de primaria","2017",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/AristasEnClase-2017-Primaria-Matematica-6.pdf"],
+   ["2017 · Lectura en 6.º de primaria","2017",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/AristasEnClase-2017-Primaria-Lectura-6.pdf"],
+   ["2017 · Matemática en 3.º de primaria","2017",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/AristasEnClase-2017-Primaria-Matematica-3.pdf"],
+   ["2017 · Lectura en 3.º de primaria","2017",B+"images/Aristas/AristasEnClase/DocumentoDeApoyo/AristasEnClase-2017-Primaria-Lectura-3.pdf"]]},
+  {t:"Reportes técnicos",d:"Notas metodológicas: comparación Aristas–PISA, varianza, ausentismo y respuestas con bajo esfuerzo.",src:B+"publicaciones/reportes-tecnicos/",it:[
+   ["Reporte técnico 4. Aristas Media y PISA 2022","2022",B+"images/publicaciones/reportes/Reporte-tecnico-4-Informe-comparativo-Aristas-Media-Pisa-2022.pdf"],
+   ["Reporte técnico 3. Estimación de varianza en Aristas","s/f",B+"images/publicaciones/reportes/Reporte-tecnico-3-Estimacion-varianza-Aristas.pdf"],
+   ["Reporte técnico 2. Predicción temprana del ausentismo crónico","s/f",B+"images/publicaciones/reportes/Reporte-tecnico-2-Hacia-una-prediccion-temprana-del-ausentismo-cronico-en-secundaria.pdf"],
+   ["Reporte técnico 1. Respuestas con bajo esfuerzo en 3.º de media","s/f",B+"images/publicaciones/reportes/Reporte-tecnico-1-Analisis-respuestas-con-bajo-esfuerzo-estudiantes-tercero-media.pdf"]]}
+ ]},
+{id:"politicas",ic:"🧭",t:"Políticas, equidad y recursos",q:"¿Qué funciona, para quién y cuánto cuesta?",
+ d:"La evaluación de programas (con el análisis de esta app), las trayectorias de los estudiantes, la segregación y los estudios económicos.",
+ prog:true,
+ secs:[
+  {t:"Evaluación de políticas y programas",d:"24 informes, analizados en esta app en 12 fichas según la guía metodológica.",src:B+"publicaciones/informes-de-evaluacion-de-politicas-y-programas/",it:[],go:true},
+  {t:"Trayectorias educativas",d:"Cómo avanzan, repiten o abandonan los estudiantes: estudios longitudinales, repetición, desvinculación y empleo juvenil.",src:B+"publicaciones/informes-sobre-trayectorias-educativas/",it:[
+   ["Trayectorias y desempeños: mirada longitudinal 2013-2024","2013-24",B+"images/publicaciones/informes/Trayectorias-educativas-y-desempenos-de-los-estudiantes-uruguayos-una-mirada-longitudinal-2013-2024.pdf"],
+   ["Desarrollo infantil y desempeño escolar (INDI y Aristas)","s/f",B+"images/publicaciones/informes/Desarrollo-infantil-desempeno-escolar-analisis-longitudinal-datos-INDI-Aristas.pdf"],
+   ["Herramientas para acompañar trayectorias desde los centros","s/f",B+"images/publicaciones/informes/Trayectorias-educativas-estudiantes-herramientas-necesidades-informacion-acompanamiento-centros-educativos.pdf"],
+   ["Adolescentes, jóvenes y empleo en la educación media","s/f",B+"images/publicaciones/informes/Adolescentes-jovenes-empleo-educacion-media.pdf"],
+   ["Revisión de experiencias de acreditación de saberes","2016",B+"wp-content/uploads/2016/09/Revision-experiencias-acreditacion-saberes.pdf"],
+   ["Heterogeneidad de logros en primaria (TERCE 2013)","2013",B+"wp-content/uploads/2016/09/Heterogeneidad-de-logros-en-educacion-primaria-en-Uruguay-TERCE-2013.pdf"],
+   ["Alternativas a la repetición escolar (comparación internacional)","s/f",B+"images/Investigación_comparada_internacional_de_experiencias_alternativas_a_la_repetición_escolar._Tomo_IV.pdf"],
+   ["Una brecha anunciada: trayectorias en educación media","2016",B+"images/pdf/Apuntes-sobre-educacion-2_0.pdf"],
+   ["Trayectorias en educación media. PISA-L 2009-2014","2009-14",B+"images/pdf/trayectorias-educativas.pdf"],
+   ["Evaluación y tránsito educativo. Resumen ejecutivo","s/f",B+"images/pdf/evaluacion-transito-educativo.pdf"],
+   ["La repetición en el sistema educativo (ENAJ 2008-2013)","2008-13",B+"wp-content/uploads/2016/09/La-repeticion-en-el-sistema-educativo-uruguayo.pdf"],
+   ["Trayectorias educativas. Evidencia para Uruguay","2016",B+"wp-content/uploads/2016/09/trayectorias-educativas-nuestros-trabajos.pdf"],
+   ["Entrevistas a adolescentes desvinculados","2016",B+"wp-content/uploads/2016/09/analisis-de-entrevistas.pdf"],
+   ["Adolescentes que no asisten a ciclo básico","2016",B+"wp-content/uploads/2016/09/adolescentes-que-no-asisten.pdf"]]},
+  {t:"Segregación",d:"Cuánto se separan los estudiantes por nivel socioeconómico y por desempeño, y cómo influye la asignación a centros.",src:B+"publicaciones/estudios-sobre-segregacion/",it:[
+   ["Asignación de estudiantes a centros y segregación","s/f",B+"images/publicaciones/informes/Asignacion-de-estudiantes-y-segregacion-en-Uruguay.pdf"],
+   ["Segregación socioeconómica y por desempeños","s/f",B+"images/publicaciones/informes/Segregacion-socioeconomica-y-por-desempenos.pdf"],
+   ["Evolución de la segregación 2013-2019","2013-19",B+"images/publicaciones/informes/Evolucion-segregacion-socioeconomica-educacion-publica-Uruguay.pdf"],
+   ["Evolución de la segregación 2013-2019. Resumen ejecutivo","2013-19",B+"images/publicaciones/informes/Evolucion-segregacion-socioeconomica-educacion-publica-Uruguay-Resumen-ejecutivo.pdf"]]},
+  {t:"Estudios económicos",d:"Gasto público, equidad en el financiamiento, asignación de salarios y recursos a escuelas y liceos, y revisiones de la OCDE.",src:B+"publicaciones/estudios-economicos/",it:[
+   ["Impacto distributivo del gasto público en educación 2024","2024",B+"images/publicaciones/informes/Impacto-distributivo-del-gasto-publico-en-educacion-Uruguay-2024.pdf"],
+   ["Equidad en el financiamiento de centros públicos","s/f",B+"images/publicaciones/informes/Equidad-financiamiento-centros-educativos-publicos-Uruguay.pdf"],
+   ["Salario y movilidad de docentes de inicial y primaria","s/f",B+"images/publicaciones/informes/Incidencia-factores-salario.pdf"],
+   ["Asignación de recursos salariales en inicial y primaria","s/f",B+"images/publicaciones/informes/Analisis-asignacion-recursos-salariales-educacion-inicial-primaria-publica.pdf"],
+   ["Asignación diferencial de salarios a escuelas y jardines","s/f",B+"images/publicaciones/informes/Elementos-inciden-asignacion-diferencial-recursos-salariales-escuelas-jardines-publicos.pdf"],
+   ["Asignación de recursos en los liceos públicos","s/f",B+"images/publicaciones/informes/Elementos-que-inciden-en-la-asignacion-de-recursos-a-los-liceos-publicos.pdf"],
+   ["Asignación de recursos humanos a los liceos públicos","s/f",B+"images/publicaciones/informes/Un-analisis-de-la-asignacion-de-recursos-humanos-a-los-liceos-publicos.pdf"],
+   ["OCDE · Más tiempo en la escuela","s/f",B+"images/publicaciones/publicaciones_en_convenio/OCDE-Mas-tiempo-en-la-escuela.pdf"],
+   ["OCDE · El financiamiento de la educación","s/f",B+"images/publicaciones/publicaciones_en_convenio/OCDE_El-financiamiento-de-la-educacion.pdf"],
+   ["OCDE · Revisión de recursos educativos. Uruguay","s/f",B+"images/publicaciones/informes/OCDE%20Revision%20de%20recursos%20educativos.pdf"],
+   ["OECD · Reviews of School Resources: Uruguay (inglés)","s/f",B+"images/pdf/OECD_Reviews_of_School_Resources_Uruguay.pdf"],
+   ["OCDE · Revisión de recursos educativos. Resumen","s/f",B+"images/pdf/OCDE_Revision_de_recursos_educativos-_Uruguay.pdf"],
+   ["Uso de los recursos educativos. Informe país","2016",B+"wp-content/uploads/2016/09/Informe_Uruguay.pdf"]]}
+ ]},
+{id:"docentes",ic:"👩‍🏫",t:"Docentes y aula",q:"¿Quién enseña, en qué condiciones y con qué herramientas?",
+ d:"La profesión docente (salarios, salud, formación, pandemia), el uso de tecnología en el aula y DocenteAcreditado.",
+ secs:[
+  {t:"Profesión docente",d:"Encuesta Nacional Docente, salud ocupacional, salarios, maestros recién egresados y el trabajo en pandemia.",src:B+"publicaciones/informes-sobre-las-caracteristicas-de-la-profesion-docente/",it:[
+   ["Implementación curricular en 3.º de media en pandemia (2021)","2021",B+"images/publicaciones/informes/Percepciones-implementacion-curricular-tercero-media-2021-covid-19.pdf"],
+   ["Docentes de media ante la pandemia de COVID-19","s/f",B+"images/publicaciones/informes/Percepciones-docentes-uruguayos-educacion-media-pandemia-covid-19.pdf"],
+   ["Estudio de salud ocupacional docente","s/f",B+"images/EstudioSaludOcupacionalDocente/Estudio.pdf"],
+   ["Salud ocupacional docente. Resumen ejecutivo","s/f",B+"images/EstudioSaludOcupacionalDocente/Resumen-ejecutivo.pdf"],
+   ["Salud ocupacional docente. Marco metodológico","s/f",B+"images/EstudioSaludOcupacionalDocente/Marco-metodologico.pdf"],
+   ["Salud ocupacional docente. Marco conceptual","s/f",B+"images/EstudioSaludOcupacionalDocente/Marco-conceptual.pdf"],
+   ["Encuesta Nacional Docente 2015","2015",B+"images/publicaciones/informes/EncuestaNacionalDocente2015.pdf"],
+   ["Revisión de experiencias de evaluación docente","2016",B+"wp-content/uploads/2016/09/Revision-de-experiencias-de-evaluacion-docente.pdf"],
+   ["Los maestros recién egresados y su primera etapa","2016",B+"wp-content/uploads/2016/09/Informe_Final_Maestros.pdf"],
+   ["Investigación de educadores sobre sus prácticas (Fondo Sectorial)","s/f",B+"images/publicaciones/publicaciones_en_convenio/Investigacion-desde-la-perspectiva-de-los-educadores-sobre-sus-practicas-educativas.pdf"],
+   ["Políticas hacia el sector docente (estudio multipaís)","s/f",B+"images/Políticas_hacia_el_sector_docente._Estudio_analítico_multipaís._Tomo_VI.pdf"],
+   ["Los salarios docentes en Uruguay 2005-2014","2005-14",B+"images/Los_salarios_docentes_en_uruguay_2005-2014.pdf"],
+   ["Salarios docentes: comparación en el contexto nacional","s/f",B+"images/INEEd_Los_salarios_docentes_comparación_en_el_contexto_nacional.pdf"],
+   ["Salarios docentes: estructura y evolución reciente","s/f",B+"images/pdf/salarios-docentes.pdf"],
+   ["Salarios docentes en la comparación nacional e internacional","s/f",B+"images/pdf/apuntes-sobre-educacion.pdf"]]},
+  {t:"Uso de TIC en la educación",d:"Competencias digitales de los estudiantes (ICILS), plataformas de Ceibal como CREA y prácticas con tecnología.",src:B+"publicaciones/informes-de-uso-de-tic-en-la-educacion/",it:[
+   ["Uruguay en el ICILS 2023","2023",B+"images/publicaciones/informes-de-uso-de-tics-en-la-educacion/Uruguay-en-el-ICILS-2023.pdf"],
+   ["Prácticas de enseñanza con TIC en escuelas de tiempo completo","s/f",B+"images/publicaciones/informes/extension-tiempo-pedagogico/Practicas-ensenanza-tics.pdf"],
+   ["Uruguay en el ICILS 2018. Síntesis","2018",B+"images/publicaciones/publicaciones_en_convenio/ICILS_2018_Ceibal_INEEd_Final-sintesis.pdf"],
+   ["Uruguay en el ICILS 2018. Informe de resultados","2018",B+"images/publicaciones/publicaciones_en_convenio/Uruguay-en-el-ICILS-2018.pdf"],
+   ["Pandemia y uso docente de TIC","s/f",B+"images/publicaciones/publicaciones_en_convenio/Pandemia_y_uso_docente_de_TIC.pdf"],
+   ["Plataformas de Ceibal antes y durante la pandemia","s/f",B+"images/publicaciones/informes/Plataformas-de-Ceibal-uso-antes-y-durante-la-pandemia.pdf"]]},
+  {t:"DocenteAcreditado",d:"Prueba para el reconocimiento universitario del título docente, que diseñó el INEEd a pedido del MEC. Se tomó en 2023 y 2025.",src:B+"publicaciones/docenteacreditado/",it:[
+   ["Informe de resultados 2025","2025",B+"images/publicaciones/docenteacreditado/informe-resultados-docenteacreditado-2025.pdf"],
+   ["Informe técnico metodológico 2025","2025",B+"images/publicaciones/docenteacreditado/informe-tecnico-metodologico-docenteacreditado-2025.pdf"],
+   ["Reporte de participación 2025","2025",B+"images/publicaciones/docenteacreditado/Reporte%20de%20participaci%C3%B3n%20en%20DocenteAcreditado%202025.pdf"],
+   ["Informe de resultados 2023 (revisado)","2023",B+"images/publicaciones/docenteacreditado/informe-resultados-docenteacreditado-2023-revisado.pdf"]]}
+ ]}
+];
+const catCount=c=>c.secs.reduce((n,s)=>n+(s.go?24:s.it.length),0);
+
+function renderCats(){
+  const q=document.getElementById("cq").value.toLowerCase().trim();
+  const box=document.getElementById("catBox");
+  if(q){
+    const hits=[];
+    CATS.forEach(c=>c.secs.forEach(s=>s.it.forEach(i=>{ if((i[0]+" "+s.t).toLowerCase().includes(q)) hits.push([c,s,i]); })));
+    P.forEach(p=>{ if(strip(JSON.stringify(p)).toLowerCase().includes(q)) hits.push([CATS[2],{t:"Programa analizado"},[p.t,p.yr,null,p.id]]); });
+    box.innerHTML = hits.length ? `<p class="lead">${hits.length} resultado(s)</p>`+hits.slice(0,80).map(h=>{
+      const i=h[2];
+      const a = i[3] ? `<a href="#" data-prog="${i[3]}">${i[0]}</a>` : `<a href="${i[2]}">${i[0]}</a>`;
+      return `<div class="pub"><div>${a}<small>${h[0].ic} ${h[0].t} · ${h[1].t}</small></div><span class="yr">${i[1]}</span></div>`;}).join("") : `<p class="lead">Sin resultados.</p>`;
+    return;
+  }
+  box.innerHTML = CATS.map(c=>`
+    <div class="card prog catcard" data-cat="${c.id}">
+      <div class="top"><h2><span class="cic">${c.ic}</span>${c.t}</h2><span class="yr">${catCount(c)} pub.</span></div>
+      <p class="cq2">${c.q}</p>
+      <p>${c.d}</p>
+      <div class="tags">${c.secs.map(s=>`<span class="tag">${s.t}</span>`).join("")}</div>
+    </div>`).join("");
+}
+function openCat(id){
+  const c=CATS.find(x=>x.id===id);
+  const extra = c.prog ? `<div class="card" style="background:var(--brand2)"><h2>🧪 Herramientas de análisis</h2><p class="lead" style="margin-bottom:10px">Las evaluaciones de programas están analizadas en detalle según la guía metodológica.</p>
+     <div class="btnrow"><button class="nb" data-goto="programas">Ver los 12 programas →</button><button class="nb" data-goto="guia" style="background:var(--accent)">Guía metodológica →</button><button class="nb" data-goto="comparar" style="background:var(--brand)">Comparar →</button><button class="nb" data-goto="biblioteca" style="background:#5b4a8a">📚 Biblioteca →</button></div></div>` : "";
+  const infoCard = c.id==="sistema" ? `<div class="card infocard" data-goto="informe">
+     <div class="by" style="color:var(--accent);font-weight:700">📑 Informe resumido</div>
+     <h2 style="margin:4px 0 6px">¿Cómo está la educación en Uruguay?</h2>
+     <p class="lead" style="margin:0 0 10px">Los seis informes del estado de la educación (2014 a 2023-2024), resumidos por período, con guía de lectura y fuentes con página en cada dato.</p>
+     <span class="nb">Leer el informe →</span></div>` : "";
+  document.getElementById("catView").innerHTML=infoCard+`
+    <div class="card dhead"><h2><span class="cic">${c.ic}</span>${c.t}</h2><p class="cq2">${c.q}</p><p class="lead" style="margin:0">${c.d}</p></div>
+    ${extra}
+    ${c.secs.map((s,k)=>`<details ${k===0?"open":""}><summary><span>${s.t} <span class="cnt">${s.go?24:s.it.length||"↗"}</span></span></summary><div class="in">
+      <p class="lead" style="margin-bottom:8px">${s.d}</p>
+      ${s.go?`<button class="nb" data-goto="programas" style="margin-bottom:8px">Abrir las fichas de programas →</button>`:""}
+      ${s.it.map(i=>`<div class="pub"><a href="${i[2]}">${i[0]}</a><span class="yr">${i[1]}</span></div>`).join("")}
+      <p class="note" style="margin-top:8px"><a href="${s.src}">Ver la sección en el sitio del INEEd ↗</a></p>
+    </div></details>`).join("")}`;
+}
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-goto]"); if(g){ go(g.dataset.goto,null); return; }
+  const cc=e.target.closest(".catcard"); if(cc){ go("cat",cc.dataset.cat); return; }
+  const pp=e.target.closest("a[data-prog]"); if(pp){ e.preventDefault(); go("programas",pp.dataset.prog); }
+});
+
+/* ================= BIBLIOTECA: documentos por capítulos ================= */
+const NA="No pude leer esta parte del documento desde acá. Usa el botón para abrir el PDF en esa página.";
+const DOCS=[
+{id:"guia",t:"Guía metodológica de evaluación de programas educativos",org:"INEEd",yr:"2016",url:"https://www.ineed.edu.uy/wp-content/uploads/2016/09/Guia_de_evaluacion_de_programas.pdf",ch:[
+ ["Introducción","4",4,"Presenta la guía como insumo para planificar la evaluación de un programa educativo y anticipa los tipos de evaluación que trata y el uso de los resultados."],
+ ["1. Evaluabilidad de un programa","4–5",4,"Proceso previo para saber si un programa se puede evaluar: si su diseño es evaluable en principio y si hay datos y capacidades para hacerlo en la práctica."],
+ ["2. Teoría del cambio, cadena de resultados y evaluación basada en teoría","5–8",5,"Toda intervención responde a una teoría, explícita o no, sobre cómo produce un cambio. Explicitarla permite evaluarla. La cadena de resultados (p. 7) ordena insumos, actividades, productos y resultados, con sus supuestos y riesgos. Incluye un ejemplo de alfabetización."],
+ ["3. Evaluación del diseño","8–10",8,"Revisa si el problema, la estrategia, los objetivos, la población y los recursos forman una lógica coherente. En la p. 9 está el ejemplo de becas y tutorías para jóvenes con extraedad."],
+ ["4. Evaluación de la implementación","10–12",10,"Verifica si el programa opera como fue diseñado y qué adaptaciones surgen, para distinguir si una falla es de la teoría o de la ejecución. En la p. 12 enumera cinco tipos: esfuerzos, monitoreo, procesos, componentes y especificación del tratamiento."],
+ ["5. Evaluación de impacto","12–17",12,"Busca atribuir los cambios al programa con un contrafactual válido. En las pp. 14–15 está la tabla de métodos (aleatorio, diferencias en diferencias, emparejamiento, variables instrumentales, regresión discontinua). En las pp. 16–17, el ejemplo de la India."],
+ ["6. Costo-efectividad","17–18",17,"Propone elegir, entre programas con resultados similares, el más barato. Distingue costo-beneficio de costo-efectividad. En la p. 18, el ejemplo de Kenia sobre asistencia escolar."],
+ ["7. Otra clasificación de las evaluaciones","19",19,"Diferencia monitoreo de evaluación, evaluaciones ex ante y ex post, y cuantitativas y cualitativas, y recomienda combinarlas."],
+ ["8. Uso de la evaluación","20–21",20,"Cuatro pasos para que los hallazgos sirvan: análisis, interpretación, juicios y recomendaciones, con criterios acordados con los interesados."]]},
+{id:"espinola",prog:"espinola",t:"Evaluación de los centros María Espínola",org:"INEEd",yr:"2026",url:"https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-centros-Maria-Espinola.pdf",ch:[
+ ["Introducción","3",3,"Presenta la evaluación 2022–2025 y adelanta que la heterogeneidad de la implementación es clave para leer los resultados."],
+ ["Objetivos y componentes","4–5",4,"Objetivo general (reducir la inequidad y mejorar aprendizajes), objetivos específicos y los ocho componentes (tabla 1). También detalla las fuentes de información (tabla 2) y el grupo de control."],
+ ["Caracterización de la población","6–15",6,"Los centros pasan de 12 a 59 y la matrícula se multiplica por cinco. La focalización se diluye en las cohortes nuevas, y los perfiles de estudiantes y docentes se parecen a los del control."],
+ ["Implementación de los componentes","16–17",16,"El grupo de control también tiene muchos elementos del programa, lo que dificulta ver efectos. La ejecución fue desigual entre centros y cohortes."],
+ ["Talleres, tutorías, proyecto de centro y alimentación","18–23",18,"Talleres y proyecto de centro están en ambos grupos, con más intensidad en María Espínola. La alimentación es lo que más diferencia. Las tutorías son más frecuentes en el control."],
+ ["Nuevas figuras de apoyo","24–28",24,"Facilitadores de gestión, coordinadores y profesor de tecnología: bien valorados, pero con contrataciones tardías y poca carga horaria."],
+ ["Resultados (continuidad, promoción, lectura y matemática)","29–39",29,"Promoción y continuidad muy parecidas al control, con leves ventajas del control en algunos indicadores. En lectura y matemática, diferencias chicas y no significativas."],
+ ["Análisis de impacto","40–42",40,"Estimaciones con diferencias en diferencias frente a centros de control emparejados. Las tablas adicionales están en el anexo (A.12 a A.16)."],
+ ["Prácticas de aula","43–45",43,"Analiza prácticas docentes en los centros, como la codocencia."],
+ ["Conclusiones","46–47",46,"El problema principal es de diseño (no se diferencia lo suficiente del control) y de monitoreo de la implementación. La pregunta clave pasa a ser bajo qué condiciones la modalidad funciona mejor."],
+ ["Anexo","48–62",48,"Fuentes (tabla A.1), criterios de implementación (tabla A.8) y estimaciones de impacto adicionales."]]},
+{id:"revuelta",prog:"revuelta",t:"Evaluación del programa Revuelta Educativa",org:"INEEd · UNICEF",yr:"2024",url:"https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-Revuelta-Educativa.pdf",ch:[
+ ["Resumen","4",4,"Evaluación del piloto en 2023. El programa cumplió en general su propósito con estudiantes vulnerables, pero la implementación es despareja y el diseño necesita ajustes."],
+ ["Antecedentes y contexto","6",6,"Desigualdad de resultados y desvinculación temprana en media, agravadas por la pandemia. Ubica el programa dentro de los centros María Espínola."],
+ ["Objeto de la evaluación","8",8,"Coejecución de El Abrojo y la UCU con apoyo de UNICEF. Dos componentes: dupla sociocomunitaria y tutorías. Pasa de 4 centros en 2021 a 7 en 2022."],
+ ["Propósito de la evaluación","10",10,"Objetivos y preguntas de evaluación sobre pertinencia, eficiencia, sostenibilidad y equidad."],
+ ["Metodología","12",12,"Registros de ANEP y SIIAS más 37 entrevistas en tres centros."],
+ ["Teoría del cambio","14–15",14,"El equipo evaluador reconstruye la teoría del cambio (figura 1), porque no estaba explícita."],
+ ["Centros y estudiantes participantes","16–21",16,"Caracterización de centros y participantes: más extraedad y vulnerabilidad que sus pares. En la p. 18 se señala que no hay un registro homogéneo y sistemático de las actividades."],
+ ["Estructura, figuras y roles","22",22,"Cómo se organizan la dupla y las psicopedagogas."],
+ ["Estrategias y prácticas de trabajo","23–31",23,"Actividades de las figuras del programa y comunicación entre componentes, que es débil."],
+ ["Visión de actores, estudiantes y familias","32–33",32,"Fuerte valoración del vínculo de confianza. Las familias dicen haber ganado herramientas."],
+ ["Resultados y trayectoria educativa","34–36",34,"Continuidad de 86,5% entre 2021 y 2022. Comparaciones solo descriptivas con no participantes."],
+ ["Resultados frente a indicadores de 2021","37–39",37,"Metas del convenio: reinscripción cumplida, aprobación no cumplida, asistencia no medible. En la p. 38, costo total y costo por estudiante."],
+ ["Síntesis y conclusiones","40–43",40,"Resume diseño, focalización e implementación. Antes de escalar hay que ajustar roles, acciones y coordinación."],
+ ["Recomendaciones","44–45",44,"Empezar antes en el año, coordinar con los docentes desde el inicio, dar continuidad a las duplas y mejorar la selección y los registros."]]},
+{id:"maestros",prog:"maestros",t:"Evaluación del Programa de Maestros Comunitarios",org:"INEEd",yr:"2023",url:"https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-Programa-Maestros-Comunitarios.pdf",ch:[
+ ["Resumen","4",4,"Programa universal e institucionalizado en la DGEIP, bien focalizado. Recomienda actualizar el diseño, formar a los docentes y crear monitoreo y evaluación."],
+ ["Introducción","5",5,"La evaluación anterior era de 2015. Este estudio actualiza la información sobre diseño, implementación y resultados con un enfoque mixto."],
+ ["Objetivos y metodología","6–7",6,"Seis objetivos, incluido comparar escuelas con y sin programa. Análisis documental, 13 entrevistas y encuesta a 80 maestros comunitarios."],
+ ["Diseño del programa","8–14",8,"Del origen en El Abrojo (1994) a política pública (2005). Sin documento de diseño, el equipo reconstruye la teoría del cambio (p. 14, figura 1): estrategias coherentes, pero faltan monitoreo y articulación interinstitucional."],
+ ["Implementación del programa","15–43",15,"Perfil de los maestros, selección de niños, maestro articulador (2022), líneas de acción, visitas a hogares y nodos. Confusión con el maestro de apoyo y situaciones de violencia difíciles de abordar. En la p. 40 empieza registro, seguimiento y supervisión."],
+ ["Resultados del programa","44–55",44,"Comparación descriptiva con Aristas Primaria 2020: las escuelas con programa tienen peor contexto y más violencia barrial. No hay datos de trayectorias, así que no se puede medir el efecto sobre asistencia, repetición o aprendizajes."],
+ ["Síntesis y conclusiones","56–58",56,"Alcance nacional y buena focalización, valoración muy alta, fuerte apoyo de la dirección. Falta un sistema de monitoreo y hay componentes que no funcionan como se esperaba."],
+ ["Anexos","59–66",59,"Preguntas y fuentes por objetivo, metodología y encuesta a maestros comunitarios."]]},
+{id:"tiempo",prog:"tiempo",t:"Extensión del tiempo pedagógico: principales hallazgos",org:"INEEd",yr:"2023",url:"https://www.ineed.edu.uy/images/publicaciones/informes/extension-tiempo-pedagogico/Extension-tiempo-pedagogico.pdf",ch:[
+ ["Introducción","3",3,"Presenta los cuatro estudios de 2022: diseños, comparación con tiempo simple, factores institucionales y uso de tecnologías."],
+ ["Cobertura y diseños","4",4,"Crecimiento de tiempo completo y extendido, y cómo son sus diseños pedagógicos."],
+ ["Implementación frente al diseño","4–5",4,"La implementación se aleja del diseño, sobre todo en tiempo completo. En la p. 5, los factores que ayudan a implementar mejor."],
+ ["Desempeños","5–6",5,"Tiempo extendido mejora matemática (no lectura) frente a tiempo simple, controlando el contexto. Tiempo completo sin cambios importantes entre 2017 y 2021."],
+ ["Plataformas y proyectos de Ceibal","6",6,"CREA es la plataforma más usada. Su relación con los resultados es positiva pero modesta."],
+ ["Recomendaciones","7–8",7,"Definir objetivos y actualizar propuestas, crear un monitoreo estandarizado, fortalecer la coordinación y la formación docente, y devolver resultados de Aristas."],
+ ["Sistematización de los estudios","9–10",9,"Tabla con objetivo, metodología, hallazgos, limitaciones y recomendaciones de cada estudio. Menciona como pendiente un análisis de eficiencia del gasto."]]},
+{id:"proyectos",prog:"proyectos",t:"Proyectos institucionales en escuelas de educación primaria pública",org:"INEEd",yr:"2025",url:"https://www.ineed.edu.uy/images/publicaciones/informes/Proyectos-institucionales-escuelas-educacion-primaria-publica.pdf",ch:[
+ ["Resumen","4–5",4,"Estudio cualitativo en 12 escuelas: el proyecto es una guía valorada, pero su implementación depende de cada centro. Los logros son sobre todo socioemocionales y de motivación."],
+ ["Propósito de la evaluación","6",6,"Describir y analizar los proyectos, su elaboración, su valoración y su relación con los desempeños."],
+ ["Metodología","7",7,"48 entrevistas a inspectores, directores y maestros en Montevideo y Canelones."],
+ ["Marco teórico y documentos de referencia","8–15",8,"Normativa (circular n.° 4 de 2018) y teoría del cambio propuesta por el equipo (p. 13, figura 1), con los resultados esperados en la p. 15."],
+ ["La mirada de los actores: elaboración","15–24",15,"Cuándo y cómo se elabora el proyecto, con qué insumos y documentos. En las pp. 23–24, evaluación y autoevaluación, que no están estandarizadas."],
+ ["La mirada de los actores: implementación","25–34",25,"Actividades, roles, obstáculos y facilitadores. Seguimiento y cortes evaluativos en la p. 33."],
+ ["Resultados alcanzados","35–38",35,NA],
+ ["Síntesis y conclusiones","39–42",39,NA],
+ ["Recomendaciones","43–45",43,NA]]},
+{id:"mandela",prog:"mandela",t:"Evaluación del programa Red Mandela",org:"INEEd · UNICEF",yr:"2021",url:"https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-Red-Mandela.pdf",ch:[
+ ["Introducción","4",4,"Evaluación formativa (2019–2020) para hacer un balance de cinco años de implementación."],
+ ["Antecedentes y contexto","5–9",5,"Evolución de los enfoques sobre discapacidad y educación, y el caso uruguayo."],
+ ["Objeto de evaluación","10–18",10,"Piloto de 2014 del CEIP y UNICEF con cuatro componentes. Teoría del cambio reconstruida (p. 15, figura 1). Cobertura de 17 a 80 centros. En la p. 18, tabla de presupuesto (aportes de UNICEF en 2019)."],
+ ["Propósito y alcance","19–21",19,"Objetivos de la evaluación en el contexto de las nuevas metas de ANEP y UNICEF sobre inclusión."],
+ ["Metodología, limitaciones y matrices","22–26",22,"Enfoque mixto en seis nodos. La principal limitación es la falta de registros sobre niños con discapacidad (p. 23). Matrices de diseño, implementación y resultados (pp. 24–26)."],
+ ["Pertinencia y coherencia","27–34",27,"Los componentes son coherentes con el problema, pero los efectos a mediano plazo necesitan componentes adicionales. No hay enfoque de género."],
+ ["Alineación","35–42",35,"Comparación con estándares internacionales: parcialmente alineado. En la p. 42 se indica que no se monitorean datos sobre discapacidad."],
+ ["Efectividad (implementación)","43–68",43,"Implementación heterogénea: centros de recursos incompletos, accesibilidad y monitoreo sin implementar. (Resumen tomado del resumen ejecutivo.)"],
+ ["Eficacia (resultados)","69–92",69,"Aportes a la difusión del paradigma inclusivo, pero los registros no alcanzaron para reconstruir resultados. (Resumen tomado del resumen ejecutivo.)"],
+ ["Conclusiones y lecciones aprendidas","93–98",93,"Diseño coherente, implementación incompleta y despareja. (Resumen tomado del resumen ejecutivo.)"],
+ ["Recomendaciones","99–104",99,"Diez recomendaciones: definir roles y metas, completar los centros de recursos, formación docente, monitoreo, accesibilidad, perspectiva de género, entre otras."]]},
+{id:"fpb",prog:"fpb",t:"Evaluación del Plan de Formación Profesional Básica",org:"INEEd",yr:"2021",url:"https://www.ineed.edu.uy/images/publicaciones/fpb/2021/Evaluacion-FPB.pdf",ch:[
+ ["Introducción","4–5",4,"Evaluación de 2021 del plan, sus resultados y las trayectorias, comparando con otras ofertas de UTU y secundaria."],
+ ["Objetivos y preguntas","6–7",6,"Un objetivo general, cuatro específicos y siete preguntas de evaluación."],
+ ["Metodología","8–9",8,"Diseño mixto: documentos, 42 entrevistas y registros de ANEP, SIIAS y el censo de 2017."],
+ ["La exclusión educativa como problema","10–17",10,"Marco teórico: exclusión frente a deserción, diversidad de trayectorias, programas de segunda oportunidad. En la p. 15 aparecen los objetivos del plan."],
+ ["Contexto, evolución y planes","20–52",20,"Crecimiento de la matrícula técnica y comparación de planes de UTU y secundaria (ingreso, egreso, duración, pedagogía). Conclusiones sobre el diseño de FPB en las pp. 36–37."],
+ ["La FPB en la visión de los actores","53–93",53,"Valoraciones sobre diseño, implementación y resultados, el cambio de la edad de ingreso (p. 85) y fortalezas y debilidades (p. 90)."],
+ ["Preferencias de inscripción","94–110",94,"Perfiles, preinscripción, matrícula efectiva y transición desde primaria."],
+ ["Trayectorias educativas y laborales","111–126",111,"Egreso (p. 112), repetición y desvinculación (p. 116), continuidad (p. 117) y trayectoria laboral en el BPS (p. 122). Egreso al tercer año cercano al 30%. La continuidad a media superior sube al 59% en la cohorte 2017."],
+ ["Recomendaciones para las bases de datos","127",127,"Identificador único de estudiante, variables de aprobación y finalización, y revisión de trayectorias inconsistentes."],
+ ["Conclusiones","128–133",128,"El cambio de edad de ingreso parece haber mejorado la continuidad. Los egresados acceden más al empleo formal. Para comparar modalidades hay que controlar el contexto."]]},
+{id:"pue21",prog:"pue",t:"Evaluación del Programa Uruguay Estudia",org:"INEEd · INEFOP",yr:"2021",url:"https://www.ineed.edu.uy/wp-content/uploads/2021/07/Evaluacion-Programa-Uruguay-Estudia.pdf",ch:[
+ ["Introducción","7",7,"Evaluación de 2021 centrada en las becas de INEFOP, en un contexto de pausa en su financiamiento."],
+ ["Objetivos del informe","9",9,"Aportar insumos para decisiones estratégicas: sistematizar información, analizar las becas y revisar experiencias internacionales."],
+ ["Metodología","11",11,"Documentos de 2017–2019 y entrevistas a ANEP, MEC e INEFOP. Hay vacíos de información entre 2015 y 2017."],
+ ["Teoría del programa","15–18",15,"Esquema problema-causas-resultados (figura 1, p. 16) y análisis de la coherencia entre problema, propósito y actividades."],
+ ["Servicios: becas, formación y orientación","19–32",19,"Las 18 líneas de becas, sus montos (tabla 3, p. 22) y la suficiencia de la beca (p. 23). Tutorías y orientación educativa."],
+ ["Actores y roles","33–38",33,"Comisión Directiva debilitada, Oficina PUE y unidades de seguimiento de MEC e INEFOP."],
+ ["Transferencias y becas en otros países","65–88",65,NA],
+ ["Conclusiones y recomendaciones","89–96",89,"Nuevo convenio, revisar la teoría del programa, justificar las líneas de becas, crear un sistema de información y medir la satisfacción y la inserción laboral. (Resumen tomado del resumen ejecutivo.)"]]},
+{id:"pueDID",prog:"pue",t:"Evaluación DID del Programa Uruguay Estudia",org:"AGEV-OPP · INEEd",yr:"2016",url:"https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/Programa_Uruguay_Estudia.pdf",ch:[
+ ["Introducción","7",7,"Qué es una evaluación DID: una herramienta de unos seis meses para entender por qué una intervención logra o no sus resultados. No es monitoreo ni evaluación de impacto."],
+ ["1.1–1.3 Objetivos, población y recursos","10–11",10,"Objetivos, población potencial, objetivo y beneficiaria, y recursos asignados."],
+ ["1.4 Estrategia y servicios","11–13",11,"Matriz de objetivos: fin, propósito y componentes (tabla 1 y cuadro 1)."],
+ ["2.1 Diseño","14–15",14,"Alineado con la política educativa, pero con un diagnóstico débil e indicadores insuficientes para medir el propósito."],
+ ["2.2 Implementación","15–17",15,"Equipos comprometidos, falta de personal y criterios de selección poco homogéneos. Información fragmentada entre instituciones."],
+ ["2.3 Desempeño","17–20",17,"Cobertura del 19% al 27%. Buenos niveles de culminación. El indicador de propósito no permite concluir (p. 18). En la p. 20, gasto por beneficiario (tabla 5)."],
+ ["3. Conclusiones y recomendaciones","21–23",21,"Continuar con ajustes: clarificar la teoría, reforzar la oficina de ANEP, unificar la selección, formalizar a INEFOP, mejorar la información y revisar el monto de las becas."]]},
+{id:"cb2009",prog:"cb2009",t:"Evaluación DID del Plan 2009 Ciclo Básico",org:"AGEV-OPP · INEEd",yr:"2014",url:"https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/Ciclobasico2009.pdf",ch:[
+ ["Introducción","7",7,"Qué son las evaluaciones DID y en qué se diferencian del monitoreo y de la evaluación de impacto."],
+ ["Descripción de la intervención","25–29",25,"Piloto del CES para mayores de 21 años en tres semestres. Población, presupuesto y personal (pp. 27–28) y matriz de objetivos (cuadro 1, p. 29)."],
+ ["Resultados: diseño","30–31",30,"Coherente con la universalización de media, pero el problema se definió sin estudios sistemáticos. No se puede saber si genera mejores aprendizajes que otros planes."],
+ ["Resultados: implementación","31–33",31,"Sobrecarga de la coordinación, poca supervisión, registros sin protocolo (SECLI) y poca coordinación con otros planes."],
+ ["Resultados: desempeño","33–36",33,"La culminación sube al 45% en 2012 y la matrícula baja. En la p. 36, costos unitarios (tabla 6)."],
+ ["Conclusiones, recomendaciones y desafíos","36–37",36,"Diseño innovador. Recomienda estudiar necesidades y deserción, crear indicadores, sumar personal y decidir sobre la continuidad del piloto."]]},
+{id:"cb2012",prog:"cb2012",t:"Evaluación DID del Plan 2012 Ciclo Básico",org:"AGEV-OPP · INEEd",yr:"2014",url:"https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/Ciclobasico2012.pdf",ch:[
+ ["Introducción","7",7,"Las evaluaciones DID buscan mejorar el diseño y la implementación. No miden impacto."],
+ ["Descripción de la intervención","39–43",39,"Piloto para jóvenes de 15 a 20 años en ocho liceos del interior. Recursos en la p. 40. Matriz de objetivos (cuadro 1) en las pp. 42–43."],
+ ["Resultados: diseño","43–45",43,"Diseño bien valorado, pero sin indicadores ni línea de base."],
+ ["Resultados: implementación","45–46",45,"Equipos comprometidos. Límites en la selección docente y en el sistema de información."],
+ ["Resultados: desempeño","46–49",46,"Sin datos de culminación (tablas 2 y 3). En la p. 49, desempeño financiero (tabla 4)."],
+ ["Conclusiones y recomendaciones","50–52",50,"Crear un sistema de seguimiento, evaluar el desempeño estudiantil y sistematizar buenas prácticas antes de decidir si se cierra o se expande."]]},
+{id:"aapp",prog:"aapp",t:"Evaluación DID de Áreas Pedagógicas",org:"AGEV-OPP · INEEd",yr:"2014",url:"https://transparenciapresupuestaria.opp.gub.uy/sites/default/files/evaluacion/%C3%81reas%20Pedag%C3%B3gicas.pdf",ch:[
+ ["Introducción","7",7,"Las evaluaciones DID se distinguen de las evaluaciones de impacto y pedagógicas."],
+ ["Descripción de la intervención","8–11",8,"Programa del INAU y el CES para jóvenes extraedad o privados de libertad. Población potencial de unos 2.497 jóvenes. Recursos y personal en la p. 11."],
+ ["Estrategia general y servicios","12–15",12,"Modelo personalizado, semestral y con grupos chicos. Matriz de objetivos (cuadro 2, p. 15)."],
+ ["Resultados: diseño","15–16",15,"Coherente con las políticas nacionales, pero sin metas cuantificadas ni protocolos de selección."],
+ ["Resultados: implementación","16–18",16,"Equipo comprometido. Faltan administrativos y adscriptos, formación docente y sistemas de información."],
+ ["Resultados: desempeño","19–21",19,"Mejora la promoción y es alta la aspiración de seguir estudiando, pero la culminación global es baja (tablas 3 y 4)."],
+ ["Desempeño financiero y costos","21–22",21,"Presupuesto 2013, casi todo en salarios. Costo por inscripto y por egresado."],
+ ["Conclusiones y recomendaciones","22–23",22,"Justifica la continuidad. Recomienda coordinar INAU y CES, formar docentes, sumar equipos de apoyo y seguir a los egresados."]]},
+{id:"panorama",prog:"panorama",t:"Panorama de los programas educativos en 2012 y 2014",org:"INEEd",yr:"2016",url:"https://www.ineed.edu.uy/wp-content/uploads/2016/09/panorama-programas-ed.pdf",ch:[
+ ["Introducción","4",4,"132 intervenciones en 2012 y 140 en 2014, de las que 18 cumplen la definición de programa educativo."],
+ ["Metodología","5",5,"Estudio descriptivo con fuentes secundarias y entrevistas. Los presupuestos no se pudieron reconstruir."],
+ ["Encuadre conceptual","6–7",6,"Qué es un programa educativo para este estudio: intervención pública o mixta, de 4 a 24 años, fuera de la educación regular."],
+ ["Descripción de los programas","8–14",8,"Los 18 programas agrupados por nivel: inicial y primaria, media y multinivel."],
+ ["Análisis del conjunto","15–23",15,"Objetivos, organismos, tipo de implementación, tamaño y cobertura (cuadros 1 a 4)."],
+ ["Diseño frente a implementación","24–28",24,"Cambios en objetivos, población, modalidades y recursos. Dificultades: recursos humanos, presupuesto, lentitud administrativa, sobredemanda."],
+ ["Evaluación y monitoreo","29–36",29,"La mayoría tiene informes de actividad, pero pocos fueron evaluados. Las evaluaciones de impacto son escasas y no hay análisis de costo-eficiencia."],
+ ["Principales hallazgos","37–40",37,"Primaria apunta a aprendizajes, media a retención. La gestión recae en ANEP. Falta evaluación de impacto."]]}
+];
+
+/* Evidencia: dónde está cada criterio. [docId, capítulo, páginas, página para abrir, nota] */
+const EV={
+ espinola:{tdc:[["espinola","Objetivos y componentes","4–5",4,"Hay objetivos y ocho componentes en una tabla, pero no un diagrama de teoría del cambio."]],
+  dis:[["espinola","Conclusiones","46",46,"El informe concluye que el problema central es de diseño: la modalidad no se diferencia lo suficiente del control."],["espinola","Nuevas figuras de apoyo","25–26",25,"Evalúa el diseño del rol de los facilitadores."]],
+  imp:[["espinola","Implementación de los componentes","16–28",16,"Implementación despareja entre centros y cohortes. Criterios en el anexo (tabla A.8, pp. 57–58)."]],
+  res:[["espinola","Resultados (continuidad, promoción, lectura y matemática)","29–39",29,"Continuidad, promoción y lectura y matemática frente al grupo de control."]],
+  cau:[["espinola","Análisis de impacto","40–42",40,"Diferencias en diferencias con centros de control emparejados. El grupo de control se describe en las pp. 5–6."]],
+  cos:[["espinola","—","—",1,"El informe no analiza costos ni presupuesto."]],
+  mon:[["espinola","Conclusiones","46",46,"Señala la debilidad de los sistemas de monitoreo. Fuentes en la tabla 2 (p. 5) y en el anexo (tabla A.1)."]]},
+ revuelta:{tdc:[["revuelta","Teoría del cambio","14–15",14,"La teoría del cambio fue reconstruida por el equipo evaluador (figura 1)."]],
+  dis:[["revuelta","Síntesis y conclusiones","40",40,"Síntesis sobre el diseño. La lógica de la intervención se analiza en las pp. 14–16."]],
+  imp:[["revuelta","Estructura, figuras y roles","22–32",22,"Roles, actividades y comunicación entre componentes."]],
+  res:[["revuelta","Resultados y trayectoria educativa","34–38",34,"Trayectorias y resultados frente a los indicadores de 2021 (tablas 17 a 22)."]],
+  cau:[["revuelta","Resultados y trayectoria educativa","34–37",34,"No hay grupo de control: solo comparaciones descriptivas con no participantes."]],
+  cos:[["revuelta","Resultados frente a indicadores de 2021","38–39",38,"Costo total 2021 y costo por estudiante."]],
+  mon:[["revuelta","Centros y estudiantes participantes","18",18,"Apartado de registro, monitoreo y seguimiento: no existe un registro homogéneo de las actividades."]]},
+ maestros:{tdc:[["maestros","Diseño del programa","14",14,"Teoría del cambio reconstruida por el equipo (figura 1), porque no hay un documento de diseño."]],
+  dis:[["maestros","Diseño del programa","8–14",8,"Coherencia de las estrategias y vacíos de diseño."]],
+  imp:[["maestros","Implementación del programa","15–43",15,"Perfil docente, líneas de acción, visitas y nodos."]],
+  res:[["maestros","Resultados del programa","44–55",44,"Comparación descriptiva con Aristas 2020. No hay datos de trayectorias."]],
+  cau:[["maestros","Resultados del programa","44",44,"Compara escuelas con y sin programa, pero solo de forma descriptiva: no permite atribuir efectos."]],
+  cos:[["maestros","—","—",1,"El informe no analiza costos."]],
+  mon:[["maestros","Implementación del programa","40",40,"Registro, seguimiento y supervisión: cada maestro registra a su manera."]]},
+ tiempo:{tdc:[["tiempo","Recomendaciones","7",7,"Recomienda definir objetivos, población, estrategias y supuestos: hoy no están explícitos."]],
+  dis:[["tiempo","Cobertura y diseños","4",4,"Cómo son los diseños de tiempo completo y extendido."]],
+  imp:[["tiempo","Implementación frente al diseño","4–5",4,"Diferencias entre lo previsto y lo que declaran los directores."]],
+  res:[["tiempo","Desempeños","5–6",5,"Matemática y lectura frente a tiempo simple, y evolución 2017–2021."]],
+  cau:[["tiempo","Desempeños","5",5,"Comparación controlando el contexto. Los métodos (multinivel y descomposición) se describen en las pp. 9–10. No es una evaluación causal formal."]],
+  cos:[["tiempo","Sistematización de los estudios","9",9,"Solo menciona como pendiente un análisis de eficiencia del gasto."]],
+  mon:[["tiempo","Recomendaciones","7–8",7,"Recomienda crear un monitoreo estandarizado y reconoce la falta de información de monitoreo."]]},
+ proyectos:{tdc:[["proyectos","Marco teórico y documentos de referencia","12–15",12,"Teoría del cambio propuesta por el equipo (figura 1, p. 13)."]],
+  dis:[["proyectos","La mirada de los actores: elaboración","15–24",15,"Cómo se elaboran los proyectos. La normativa está en las pp. 9–10."]],
+  imp:[["proyectos","La mirada de los actores: implementación","25–34",25,"Actividades, roles, obstáculos y facilitadores."]],
+  res:[["proyectos","Resultados alcanzados","35",35,"Los resultados son percepciones de los actores, sin indicadores estandarizados."]],
+  cau:[["proyectos","—","—",1,"No hay comparación ni evaluación de impacto."]],
+  cos:[["proyectos","—","—",1,"No analiza costos."]],
+  mon:[["proyectos","La mirada de los actores: elaboración","23–24",23,"La evaluación y la autoevaluación de los proyectos no están estandarizadas."]]},
+ mandela:{tdc:[["mandela","Objeto de evaluación","13–15",13,"Teoría del cambio reconstruida por el equipo (figura 1). Se profundiza en las pp. 27–34."]],
+  dis:[["mandela","Pertinencia y coherencia","27–42",27,"Coherencia y alineación con estándares internacionales."]],
+  imp:[["mandela","Efectividad (implementación)","43–68",43,"Implementación despareja entre nodos."]],
+  res:[["mandela","Eficacia (resultados)","69–92",69,"Resultados según los actores. Los registros no alcanzaron para medir la inclusión."]],
+  cau:[["mandela","Metodología, limitaciones y matrices","22–26",22,"Evaluación formativa y descriptiva, sin grupo de control."]],
+  cos:[["mandela","Objeto de evaluación","18",18,"Hay una tabla con aportes de UNICEF, pero el presupuesto no era objeto de la evaluación."]],
+  mon:[["mandela","Metodología, limitaciones y matrices","23",23,"Falta de registros sobre niños con discapacidad. El componente de monitoreo se describe en la p. 13 y la tabla de la p. 42 indica que no se relevan datos."]]},
+ fpb:{tdc:[["fpb","La exclusión educativa como problema","10–17",10,"No hay teoría del cambio formal. Lo más cercano es el marco teórico, y los objetivos del plan están en la p. 15."]],
+  dis:[["fpb","Contexto, evolución y planes","20–37",20,"Revisión del diseño curricular, reglamentos y perfiles. Conclusiones sobre el diseño en las pp. 36–37."]],
+  imp:[["fpb","La FPB en la visión de los actores","53–93",53,"Valoraciones sobre la implementación."]],
+  res:[["fpb","Trayectorias educativas y laborales","111–126",111,"Egreso, repetición, desvinculación, continuidad y empleo formal."]],
+  cau:[["fpb","Contexto, evolución y planes","24–37",24,"Solo comparaciones descriptivas. El emparejamiento (PSM) está en el estudio complementario de Aristas Media 2018, que no es una evaluación de impacto."]],
+  cos:[["fpb","—","—",1,"El informe no analiza costos."]],
+  mon:[["fpb","Recomendaciones para las bases de datos","127",127,"Propone un identificador único de estudiante y mejorar la consistencia de los registros."]]},
+ pue:{tdc:[["pue21","Teoría del programa","15–18",15,"Esquema problema-causas-resultados (figura 1)."],["pueDID","1.4 Estrategia y servicios","11–13",11,"Matriz de objetivos: fin, propósito y componentes."]],
+  dis:[["pueDID","2.1 Diseño","14–15",14,"Diagnóstico e indicadores débiles."],["pue21","Teoría del programa","17–18",17,"Coherencia débil entre problema, propósito y actividades. La suficiencia de la beca se analiza en la p. 23."]],
+  imp:[["pueDID","2.2 Implementación","15–17",15,"Personal insuficiente y criterios de selección poco homogéneos."],["pue21","Servicios: becas, formación y orientación","19–38",19,"Funcionamiento de las becas, de los actores y de la Comisión Directiva."]],
+  res:[["pueDID","2.3 Desempeño","17–20",17,"Cobertura, culminación y aprobación (tablas 2 a 4)."]],
+  cau:[["pueDID","2.3 Desempeño","18",18,"No hay evaluación de impacto: el indicador de propósito no permite concluir. En la p. 23 recomienda un estudio de impacto."]],
+  cos:[["pueDID","2.3 Desempeño","20",20,"Gasto por beneficiario (tabla 5). Los recursos asignados están en la p. 11."],["pue21","Servicios: becas, formación y orientación","22",22,"Montos de cada línea de becas (tabla 3)."]],
+  mon:[["pueDID","2.2 Implementación","16–17",16,"Sistemas de información fragmentados. Los indicadores se tratan en la p. 15."]]},
+ cb2009:{tdc:[["cb2009","Descripción de la intervención","27–29",27,"Matriz de objetivos con fin, propósito y componente (cuadro 1, p. 29)."]],
+  dis:[["cb2009","Resultados: diseño","30–31",30,"Coherencia con la política y debilidades del diagnóstico."]],
+  imp:[["cb2009","Resultados: implementación","31–33",31,"Coordinación, supervisión y registros."]],
+  res:[["cb2009","Resultados: desempeño","33–36",33,"Culminación y valoraciones (tablas 2 a 5)."]],
+  cau:[["cb2009","Resultados: diseño","31",31,"Aclara que no se puede saber si el plan genera mejores aprendizajes que otros: no es una evaluación de impacto."]],
+  cos:[["cb2009","Resultados: desempeño","36",36,"Costos unitarios (tabla 6). El presupuesto y el personal están en las pp. 27–28."]],
+  mon:[["cb2009","Resultados: implementación","32–33",32,"Sistemas de información y registros en SECLI sin protocolo."]]},
+ cb2012:{tdc:[["cb2012","Descripción de la intervención","42–43",42,"Matriz de objetivos (cuadro 1)."]],
+  dis:[["cb2012","Resultados: diseño","43–45",43,"Valoración del diseño y falta de indicadores."]],
+  imp:[["cb2012","Resultados: implementación","45–46",45,"Selección docente y sistema de información."]],
+  res:[["cb2012","Resultados: desempeño","46–49",46,"Sin datos de culminación ni de abandono."]],
+  cau:[["cb2012","Introducción","7",7,"Las evaluaciones DID no miden impacto."]],
+  cos:[["cb2012","Resultados: desempeño","49",49,"Desempeño financiero (tabla 4). Los recursos están en la p. 40."]],
+  mon:[["cb2012","Resultados: diseño","44–46",44,"Sin línea de base ni sistema de información confiable. Recomendaciones en las pp. 50–51."]]},
+ aapp:{tdc:[["aapp","Estrategia general y servicios","12–15",12,"Matriz de objetivos (cuadro 2, p. 15)."]],
+  dis:[["aapp","Resultados: diseño","15–16",15,"Sin metas cuantificadas ni protocolos de selección."]],
+  imp:[["aapp","Resultados: implementación","16–18",16,"Personal, formación y sistemas de información."]],
+  res:[["aapp","Resultados: desempeño","19–21",19,"Promoción, culminación y aspiraciones (tablas 3 y 4)."]],
+  cau:[["aapp","Introducción","7–8",7,"Aclara que la evaluación DID no es de impacto."]],
+  cos:[["aapp","Desempeño financiero y costos","21–22",21,"Costo por inscripto y por egresado."]],
+  mon:[["aapp","Resultados: implementación","16",16,"Sistemas de información poco estructurados. Conclusiones sobre el tema en la p. 22."]]}
+};
+const docById=id=>DOCS.find(d=>d.id===id);
+const pdfAt=(d,pg)=>d.url+(pg>1?"#page="+pg:"");
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
+function hl(text,q){ if(!q) return text; return text.replace(new RegExp("("+esc(q)+")","gi"),"<mark>$1</mark>"); }
+function chIndex(d,name){ const i=d.ch.findIndex(c=>c[0]===name); return i; }
+
+function evHTML(pid,key){
+  const list=(EV[pid]||{})[key]; if(!list) return "";
+  return list.map(r=>{
+    const d=docById(r[0]); const ci=chIndex(d,r[1]);
+    const read = ci>=0 ? `<button class="mini" data-doc="${d.id}" data-ch="${ci}">📖 Leer en la biblioteca</button>` : "";
+    return `<div class="evbox">
+      <div class="evdoc">📄 ${d.t} <small>(${d.org}, ${d.yr})</small></div>
+      ${r[1]!=="—"?`<div class="evloc"><b>Capítulo:</b> ${r[1]} · <b>Pág.</b> ${r[2]}</div>`:""}
+      <p>${r[4]}</p>
+      <div class="btnrow">${read}<a class="mini ext" href="${pdfAt(d,r[3])}">↗ Abrir PDF${r[1]!=="—"?" en pág. "+r[3]:""}</a></div>
+    </div>`;}).join("");
+}
+
+function renderLib(){
+  const q=document.getElementById("lq").value.trim();
+  const box=document.getElementById("libBox");
+  if(q){
+    const ql=q.toLowerCase(); const hits=[];
+    DOCS.forEach(d=>d.ch.forEach((c,i)=>{ if((c[0]+" "+c[3]+" "+d.t).toLowerCase().includes(ql)) hits.push([d,c,i]); }));
+    box.innerHTML = hits.length ? `<p class="lead">${hits.length} capítulo(s) con "${q}"</p>`+hits.map(h=>`
+      <div class="card chhit" data-doc="${h[0].id}" data-ch="${h[2]}">
+        <small class="muted">${h[0].t}</small>
+        <h3 style="margin:4px 0">${hl(h[1][0],q)} <span class="cnt">p. ${h[1][1]}</span></h3>
+        <p style="margin:0;font-size:.9rem">${hl(h[1][3],q)}</p></div>`).join("") : `<p class="lead">Sin resultados.</p>`;
+    return;
+  }
+  box.innerHTML = DOCS.map(d=>`
+    <div class="card prog" data-doc="${d.id}" data-ch="-1">
+      <div class="top"><h2>${d.t}</h2><span class="yr">${d.yr}</span></div>
+      <p>${d.org} · ${d.ch.length} capítulos</p></div>`).join("");
+}
+function openDoc(arg){
+  const [id,ci]=String(arg).split("|"); const d=docById(id); const target=parseInt(ci);
+  const prog = d.prog ? P.find(p=>p.id===d.prog) : null;
+  document.getElementById("docView").innerHTML=`
+    <div class="card dhead"><h2>${d.t}</h2>
+      <div class="tags"><span class="tag">${d.org}</span><span class="tag">${d.yr}</span><span class="tag">${d.ch.length} capítulos</span></div>
+      <div class="btnrow" style="margin-top:10px"><a class="mini ext" href="${d.url}">↗ PDF completo</a>${prog?`<button class="mini" data-goto-prog="${prog.id}">🧪 Ver ficha del programa</button>`:""}</div>
+    </div>
+    <div class="tools"><input id="dq" type="search" placeholder="Buscar en este documento…"></div>
+    <p class="note">Los resúmenes de cada capítulo están escritos para esta app, no son el texto original. Las páginas son las impresas en el documento: el PDF puede abrirse una o dos páginas antes o después.</p>
+    <div class="toc card"><b>Índice</b><ol>${d.ch.map((c,i)=>`<li><a href="#" data-jump="${i}">${c[0]}</a> <span class="muted">p. ${c[1]}</span></li>`).join("")}</ol></div>
+    <div id="chList">${d.ch.map((c,i)=>chCard(d,c,i,"")).join("")}</div>`;
+  document.getElementById("dq").oninput=e=>{
+    const q=e.target.value.trim(); const ql=q.toLowerCase();
+    const list=d.ch.map((c,i)=>[c,i]).filter(x=>!q||(x[0][0]+" "+x[0][3]).toLowerCase().includes(ql));
+    document.getElementById("chList").innerHTML = list.length? list.map(x=>chCard(d,x[0],x[1],q)).join("") : `<p class="lead">No aparece "${q}" en los resúmenes de este documento.</p>`;
+  };
+  if(target>=0) setTimeout(()=>{ const el=document.getElementById("ch-"+target); if(el){ el.classList.add("flash"); el.scrollIntoView({behavior:"smooth",block:"start"}); } },60);
+}
+function chCard(d,c,i,q){
+  return `<div class="card chcard" id="ch-${i}">
+    <div class="top"><h3 style="margin:0">${hl(c[0],q)}</h3><span class="yr">p. ${c[1]}</span></div>
+    <p style="margin:8px 0 10px">${hl(c[3],q)}</p>
+    <a class="mini ext" href="${pdfAt(d,c[2])}">↗ Abrir PDF en pág. ${c[2]}</a></div>`;
+}
+document.addEventListener("click",e=>{
+  const ev=e.target.closest(".evbtn"); if(ev){ const box=document.getElementById(ev.dataset.box); box.hidden=!box.hidden; ev.classList.toggle("on",!box.hidden); return; }
+  const dc=e.target.closest("[data-doc]"); if(dc && !e.target.closest("a.ext")){ go("doc",dc.dataset.doc+"|"+dc.dataset.ch); return; }
+  const gp=e.target.closest("[data-goto-prog]"); if(gp){ go("programas",gp.dataset.gotoProg); return; }
+  const j=e.target.closest("[data-jump]"); if(j){ e.preventDefault(); const el=document.getElementById("ch-"+j.dataset.jump); if(el){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); el.scrollIntoView({behavior:"smooth",block:"start"}); } }
+});
+
+/* ================= INFORME: ¿Cómo está la educación en Uruguay? ================= */
+const IS={
+ e14:["Estado de la educación 2014 · Resumen ejecutivo","2014",B+"images/pdf/informe-estado-educacion.pdf"],
+ e15:["Estado de la educación 2015-2016 · Síntesis y desafíos","2015-16",B+"images/ieeuy/Informe-sobre-el-estado-de-la-educacion-en-Uruguay_Sintesis-y-desafios.pdf"],
+ e17:["Estado de la educación 2017-2018","2017-18",B+"images/ieeuy/2017-2018/pdf/Informe-sobre-el-estado-de-la-educacion-en-Uruguay-2017-2018.pdf"],
+ e19:["Estado de la educación 2019-2020 · Resumen ejecutivo","2019-20",B+"images/ieeuy/2019-2020/Informe-estado-educacion-Uruguay-2019-2020-Resumen-ejecutivo.pdf"],
+ e21:["Estado de la educación 2021-2022 · Resumen ejecutivo","2021-22",B+"images/ieeuy/2021-2022/Informe-estado-educacion-Uruguay-2021-2022-ResumenEjecutivo.pdf"],
+ e23:["Estado de la educación 2023-2024 · Tomo 1","2023-24",B+"images/ieeuy/2023-2024/Informe-estado-educacion-Uruguay-2023-2024-Tomo1.pdf"]
+};
+/* hallazgo: [texto, [[doc, sección, págs, pág PDF], ...]] */
+const INF={
+ hilos:[
+  {t:"🎓 Egreso de media superior: sube, pero sigue siendo el gran pendiente",d:"Es el indicador que todos los informes señalan como el problema central. Ojo: cada edición lo mide a edades algo distintas, así que la serie es orientativa.",
+   tl:[["2013","39%","24-29 años"],["2015","37%","22 años"],["2018","43%","23 años"],["2019","43%","21-23 años"],["2022","51%","21-23 años"],["2024","53%","21-23 años"]],
+   f:[["e14","Inclusión educativa","10",10],["e15","Acceso, avance y egreso","10–11",10],["e17","Cap. 5: Acceso, tránsito y egreso","87",87],["e19","Trayecto y egreso","6–7",6],["e21","Metas y desigualdad","7",7],["e23","Cap. 2: Egreso","47",47]]},
+  {t:"⚖️ La desigualdad por origen social no cede",d:"En todas las ediciones, el egreso de media de los jóvenes del quintil más rico es entre 3 y 5 veces el del más pobre. Uruguay está entre los países donde el contexto más pesa en los aprendizajes.",
+   tl:[["2015","15% vs 71%","egreso a los 22, quintil 1 vs 5"],["2019","<20% vs ≈80%","egreso media sup., contexto"],["2022","22,5% vs 82%","egreso 21-23, quintil 1 vs 5"],["2024","25,5% vs 85,1%","egreso 21-23, quintil 1 vs 5"]],
+   f:[["e15","Acceso, avance y egreso","12",12],["e19","Trayecto y egreso","6–7",6],["e21","Metas y desigualdad","7",7],["e23","Cap. 2: Egreso","50–51",50]]},
+  {t:"📉 Aprendizajes: estancados y muy desiguales",d:"Desde PISA 2003 hasta PISA 2022, alrededor de la mitad de los adolescentes de 15 años no alcanza el nivel básico en matemática. Las evaluaciones nacionales (Aristas) muestran lo mismo en 3.º de media.",
+   tl:[["PISA 2012","56%","bajo nivel 2 en matemática"],["PISA 2015","52%","bajo el mínimo en matemática"],["PISA 2018","50,7%","bajo nivel 2 en matemática"],["PISA 2022","56,5%","bajo nivel 2 en matemática"]],
+   f:[["e14","La insuficiencia de los logros","14",14],["e15","Logros de aprendizaje","15–16",15],["e19","Desempeños","8",8],["e23","Cap. 2: Aprendizajes","44",44]]},
+  {t:"🏫 Cobertura: casi universal hasta los 14 años",d:"Inicial 4 y 5 años y media básica ya son prácticamente universales. Los avances más grandes fueron a los 3 años y en media superior, que sigue sin ser universal.",
+   tl:[["2006","46%","asistencia a los 3 años"],["2015","68%","asistencia a los 3 años"],["2019","75,8%","asistencia a los 3 años"],["2024","86%","cobertura inicial 3"]],
+   f:[["e15","Acceso, avance y egreso","8",8],["e19","Cobertura","3–4",3],["e23","Cap. 2: Metas de acceso","39",39]]},
+  {t:"📅 Asistencia: el problema que empeora",d:"Estar matriculado no es lo mismo que asistir. La asistencia insuficiente ya preocupaba en 2015 y se disparó después de la pandemia.",
+   tl:[["2015","≈30%","inicial pública con asistencia insuficiente"],["2019","46,1%","ausentismo crónico, primaria pública"],["2024","63%","ausentismo crónico, primaria pública"]],
+   f:[["e15","Acceso, avance y egreso","9",9],["e19","Cobertura","4",4],["e23","Cap. 2: Inasistencia","59",59]]},
+  {t:"💲 Gasto: creció mucho, pero hoy pierde peso",d:"El gasto público en educación pasó de ≈3% a ≈5% del PIB entre 2004 y 2020, sobre todo en salarios. Desde la pandemia baja en relación con el PIB y se mantiene por debajo de lo que recomienda la UNESCO.",
+   tl:[["2004","3,2%","gasto público / PIB"],["2013","4,8%","gasto público / PIB"],["2024","4,8%","gasto público / PIB"]],
+   f:[["e14","Inversión e infraestructura","11",11],["e15","Los recursos","26–27",26],["e21","Gasto","9",9],["e23","Cap. 2: Gasto público","71–74",71]]}
+ ],
+ periodos:[
+  {id:"p1",yr:"2014",rango:"datos 2004–2013",t:"Más recursos, logros insuficientes",doc:"e14",
+   res:"El primer informe del INEEd encuentra un sistema que recibió mucho más dinero y retuvo más alumnos, pero que no mejora los aprendizajes y sigue con un egreso de media bajo para la región.",
+   g:[["Recursos",[
+      ["El gasto público en educación subió de 3,2% del PIB (2004) a 4,8% (2013), y los salarios crecieron 123% en términos reales. Las remuneraciones se llevan el 81% del gasto.",[["e14","Inversión e infraestructura","11",11]]]]],
+    ["Acceso y trayectorias",[
+      ["Inicial 4 y 5 años es casi universal. A los 3 años asisten 2 de cada 3 niños.",[["e14","Consolidación de la educación inicial","8",8]]],
+      ["La repetición en primaria bajó de 10,3% (2002) a 5,4% (2013). En 1.er año, de 20,1% a 13,4%.",[["e14","Inclusión educativa","10",10]]],
+      ["Terminan media básica 71,5% de los jóvenes de 21 a 23 años, y media superior 39,3% de los de 24 a 29.",[["e14","Inclusión educativa","10",10]]]]],
+    ["Aprendizajes",[
+      ["PISA 2012: 56% no alcanza el nivel 2 en matemática (48% en 2003). En centros muy desfavorables, 87%; en muy favorables, 14%.",[["e14","La insuficiencia de los logros educativos","14",14],["e14","Los principales desafíos (gráfico 4)","16",16]]]]],
+    ["Contexto y docentes",[
+      ["La segregación del territorio se traslada a los centros: 6 de cada 10 escuelas técnicas están en entornos desfavorables.",[["e14","Segregación sociocultural y educativa","6",6]]],
+      ["Solo el 60,5% de las horas de secundaria las dictaban docentes titulados (2013).",[["e14","Profesión docente","32",32]]]]]],
+   des:[["Repensar la estructura y el sentido de la educación media.",[["e14","Los principales desafíos","17–21",17]]],["Mejorar las condiciones de la profesión docente.",[["e14","Los principales desafíos","29–33",29]]],["Fijar metas y rendir cuentas de las políticas.",[["e14","Los principales desafíos","16–17",16]]]]},
+  {id:"p2",yr:"2015–2016",rango:"datos 2006–2015",t:"Más cobertura, trayectorias con rezago",doc:"e15",
+   res:"La cobertura crece en todas las edades, pero el rezago escolar es muy alto y casi no se recupera: quien repite en la adolescencia rara vez termina la media.",
+   g:[["Acceso",[
+      ["Asistencia a los 3 años: de 46% (2006) a 68% (2015). Pero 91% en hogares ricos frente a 54% en hogares pobres.",[["e15","Acceso, avance y egreso","8",8]]],
+      ["Cerca del 30% de los niños de inicial pública asiste de forma insuficiente.",[["e15","Acceso, avance y egreso","9",9]]]]],
+    ["Trayectorias y egreso",[
+      ["A los 17 años, solo 34% cursa el grado esperado, 39% tiene rezago y 27% no estudia.",[["e15","Acceso, avance y egreso","10",10]]],
+      ["A los 22 años, solo 37% completó la educación obligatoria: 15% en el quintil más pobre y 71% en el más rico.",[["e15","Acceso, avance y egreso","10–12",10]]],
+      ["De quienes tenían rezago a los 15 años, solo 6% terminó media superior seis años después (69% entre quienes no lo tenían).",[["e15","Logros de aprendizaje","16–17",16]]]]],
+    ["Aprendizajes",[
+      ["Los puntajes de 6.º de primaria no mejoraron entre 1996 y 2013. En PISA 2015, 52% no llega al mínimo en matemática.",[["e15","Logros de aprendizaje","14–16",14]]]]],
+    ["Docentes y recursos",[
+      ["Titulados en secundaria pública: de 59% (2007) a 67% (2015). Casi 6 de cada 10 profesores de media trabajan en más de un centro.",[["e15","Formación, trabajo y desarrollo docente","20–22",20]]],
+      ["En primaria la asignación de recursos compensa la desigualdad. En media no.",[["e15","Los recursos dirigidos a la educación","28",28]]]]]],
+   des:[["Detectar el rezago a tiempo, porque la repetición no lo compensa.",[["e15","Los principales desafíos","31–33",31]]],["Reducir el multiempleo docente y crear cargos por centro.",[["e15","Los principales desafíos","34–35",34]]],["Perfiles de egreso y un currículo menos fragmentado.",[["e15","Los principales desafíos","34–35",34]]],["Información integrada entre subsistemas.",[["e15","Los principales desafíos","37",37]]]]},
+  {id:"p3",yr:"2017–2018",rango:"datos 2006–2018",t:"Recursos que no compensan; primera medición Aristas",doc:"e17",
+   res:"El informe mira hacia adentro del sistema: cómo se reparten los recursos, quién elige ser docente, cuánto faltan los maestros. Aparecen los primeros datos de Aristas, la nueva evaluación nacional.",
+   g:[["Recursos",[
+      ["Los salarios son el 85% del gasto de la ANEP, y el presupuesto se arma por inercia.",[["e17","Cap. 1: Asignación de recursos","18–19",18]]],
+      ["Los liceos del norte, con más carencias, no reciben más recursos por estudiante. Los docentes de grado alto se concentran en los centros menos vulnerables.",[["e17","Cap. 1: Asignación de recursos","32–34",32]]]]],
+    ["Docentes",[
+      ["Quienes eligen formación docente vienen de hogares de menor nivel socioeconómico y tienen menor desempeño en PISA que quienes van a la universidad.",[["e17","Cap. 2: Elección de formación docente","44–50",44]]],
+      ["Los maestros faltaron en promedio 20 días en 2017 (≈11% de los días de clase). El 40% son licencias por enfermedad.",[["e17","Cap. 4: Inasistencias docentes","68–76",68]]],
+      ["El salario docente estuvo por debajo de otras profesiones durante casi un siglo.",[["e17","Cap. 3: Salarios docentes","66",66]]]]],
+    ["Acceso y egreso",[
+      ["A los 3 años, la asistencia subió 28 puntos desde 2006. El rezago a los 11 años bajó de 32% a 21%.",[["e17","Cap. 5: Acceso, tránsito y egreso","84–85",84]]],
+      ["Egreso de la educación obligatoria a los 23 años: de 32% a 43% (2006–2018). Aun así, 51% no la terminó.",[["e17","Cap. 5: Acceso, tránsito y egreso","87",87]]]]],
+    ["Aprendizajes (Aristas)",[
+      ["Aristas Primaria 2017: las diferencias entre escuelas dependen más del contexto del centro que del origen del alumno. Hay un efecto pares.",[["e17","Cap. 7: Aristas Primaria 2017","112–113",112]]],
+      ["Aristas Media 2018: 63% de los alumnos de 3.º de media en los niveles bajos de matemática (82% en centros muy desfavorables, 31% en muy favorables).",[["e17","Cap. 8: Aristas Media 2018","129–131",129]]]]]],
+   des:[["Revisar los criterios de asignación de recursos para que compensen.",[["e17","Cap. 1: Conclusiones","35–37",35]]],["Que la ANEP fije metas de egreso y aprendizaje.",[["e17","Conclusiones finales","137–138",137]]]]},
+  {id:"p4",yr:"2019–2020",rango:"datos 2019–2020",t:"Metas nuevas y pandemia",doc:"e19",
+   res:"Se fijan por primera vez metas nacionales de aprendizaje. Llega la pandemia: CREA explota en uso, los docentes se sobrecargan y los aprendizajes se resienten, sobre todo en contextos desfavorables.",
+   g:[["Acceso y asistencia",[
+      ["Cobertura de 94,7% a los 15 años y 83,9% a los 17. La brecha por contexto bajó a 16 puntos (casi 30 en 2015).",[["e19","Cobertura","4–5",4]]],
+      ["Casi 35% de los niños de inicial asiste de forma insuficiente.",[["e19","Cobertura","4",4]]]]],
+    ["Trayectorias y egreso",[
+      ["El rezago llega a 45,7% entre los 15 y 17 años.",[["e19","Trayecto y egreso","5–6",5]]],
+      ["Egreso de media superior a los 21–23 años: 42,7%. Casi 80% en contexto muy favorable y menos de 20% en muy desfavorable.",[["e19","Trayecto y egreso","6–7",6]]]]],
+    ["Aprendizajes",[
+      ["Al terminar primaria, 34,3% está en los niveles más bajos de matemática. En PISA 2018, Uruguay tiene aprendizajes similares a países con egreso mucho mayor.",[["e19","Desempeños","8–9",8]]],
+      ["La segregación entre centros aumentó entre 2013 y 2020.",[["e19","Desempeños","8–10",8]]]]],
+    ["Metas y pandemia",[
+      ["El plan de la ANEP fija 72 indicadores. La meta más ambiciosa es llevar el egreso de media superior de 43% a 75%.",[["e19","Metas 2021-2024","11–12",11]]],
+      ["CREA fue la plataforma que más creció. Solo 5% de los docentes no la usó.",[["e19","Particularidades 2020","18",18]]],
+      ["Más de la mitad de los maestros cree que sus alumnos aprendieron menos en 2020, sobre todo en contextos desfavorables.",[["e19","Oportunidades de aprendizaje","20–24",20]]]]],
+    ["Docentes",[
+      ["El bienestar docente es mucho menor en el sector público (20–30%) que en el privado (70–80%).",[["e19","Docentes","14–15",14]]]]]],
+   des:[["El egreso de media sigue siendo el gran pendiente.",[["e19","Desafíos","—",1]]],["Coordinar la política educativa con la social para enfrentar la segregación.",[["e19","Oportunidades de aprendizaje","24–26",24]]],["Monitorear el cambio curricular.",[["e19","Desafíos","—",1]]]]},
+  {id:"p5",yr:"2021–2022",rango:"datos 2021–2022",t:"Pospandemia: más egreso, más inequidad",doc:"e21",
+   res:"El egreso y la promoción mejoran, en parte por cambios de reglamento. La pandemia no causó caídas tan grandes como en la región, pero aumentó la inequidad. Crece la pobreza infantil.",
+   g:[["Acceso y asistencia",[
+      ["A los 3 años asiste 82,2%, por encima de la meta. Pero la asistencia regular en inicial 4 y 5 cayó de 66,8% a 55,2%.",[["e21","Metas","6",6]]]]],
+    ["Trayectorias y egreso",[
+      ["Egreso oportuno de media básica: 79,3%, por encima de la meta. La promoción en ciclo básico técnico pasó de 64,8% a 78,5%.",[["e21","Metas","6–7",6]]],
+      ["Egreso de media superior a los 21–23 años: 50,9%, pero 22,5% en el quintil 1 y 82% en el quintil 5.",[["e21","Metas y desigualdad","7",7]]]]],
+    ["Aprendizajes",[
+      ["Aristas Media 2022: 24,8% en los niveles bajos de lectura y 66,2% en matemática, sin cumplir las metas. Las brechas por contexto aumentaron.",[["e21","Aprendizajes","8, 11",8]]]]],
+    ["Recursos y contexto",[
+      ["El gasto creció 113% real entre 2007 y 2022, pero cae como porcentaje del PIB desde 2021. El salario docente real cayó 4,6% entre 2019 y 2022.",[["e21","Gasto","9",9]]],
+      ["Pobreza en menores de 6 años: 19,7% (el doble del total).",[["e21","Contexto","10",10]]],
+      ["Aumentó la sensación de inseguridad de los estudiantes y bajó el sentido de pertenencia en contextos desfavorables.",[["e21","Violencia","12–13",12]]]]]],
+   des:[["Cerrar las brechas territoriales y socioeconómicas.",[["e21","Conclusiones","—",1]]],["Implementar la transformación curricular con definiciones claras.",[["e21","Conclusiones","—",1]]],["Sostener el financiamiento y los salarios docentes.",[["e21","Gasto","9",9]]]]},
+  {id:"p6",yr:"2023–2024",rango:"datos 2023–2024",t:"Menos alumnos, más egreso, ausentismo récord",doc:"e23",
+   res:"Caen los nacimientos y la matrícula. Media básica es casi universal y el egreso de media sube 10 puntos desde 2019, pero sigue lejos de la meta. El ausentismo crónico alcanza niveles récord y la pobreza se concentra en la infancia.",
+   g:[["Población y acceso",[
+      ["Los nacimientos cayeron de casi 50.000 (2015) a 29.899 (2024). Para 2035 habrá unos 77.000 niños menos en edad escolar de primaria.",[["e23","Cap. 1: Población","12–14",12]]],
+      ["Media básica: 99,2% de cobertura. Media superior: 92,8%, pero uno de cada diez adolescentes del quintil 1 no asiste.",[["e23","Cap. 1: Matrícula","27–30",27]]]]],
+    ["Asistencia",[
+      ["El ausentismo crónico en primaria pública pasó de 46,1% (2019) a 63% (2024), y llega a 75% en el quintil 1.",[["e23","Cap. 2: Inasistencia","59–61",59]]]]],
+    ["Trayectorias y egreso",[
+      ["Egreso de media básica (18–20 años): 88,8%. Egreso de media superior (21–23): 53,2%, 10 puntos más que en 2019, pero la meta era 75%.",[["e23","Cap. 2: Egreso","47",47]]],
+      ["Brecha de egreso de media superior: 25,5% en el quintil 1 frente a 85,1% en el quintil 5.",[["e23","Cap. 2: Egreso","50–51",50]]]]],
+    ["Aprendizajes",[
+      ["Se cumplieron las metas de 3.º de primaria. En 6.º, matemática no llegó (37,3% en niveles bajos). PISA 2022: 56,5% bajo el nivel 2 en matemática.",[["e23","Cap. 2: Aprendizajes","43–44",43]]],
+      ["Uruguay es de los países de la región donde más pesa el nivel socioeconómico en los resultados.",[["e23","Cap. 2: Aprendizajes","46",46],["e23","Síntesis","142",142]]]]],
+    ["Recursos y docentes",[
+      ["Gasto público en educación: 4,8% del PIB y 14,5% del gasto público, por debajo del 15–20% que recomienda la UNESCO.",[["e23","Cap. 2: Gasto público","71–74",71]]],
+      ["El salario real docente público subió solo 0,5% entre 2019 y 2024.",[["e23","Cap. 2: Salarios docentes","86",86]]]]],
+    ["Transformación educativa",[
+      ["Se elaboraron los nuevos programas de todos los niveles, pero no hay documentos que evalúen el cambio curricular.",[["e23","Cap. 4: Transformación educativa","123–124",123]]],
+      ["Centros María Espínola: desvinculación algo menor que el control y sin diferencias en promoción.",[["e23","Cap. 4: María Espínola","133–134",133]]]]]],
+   des:[["Retener en media superior: casi uno de cada dos jóvenes no la termina.",[["e23","Cap. 1: Matrícula","34",34]]],["Usar la caída demográfica para ampliar el tiempo pedagógico sin construir más.",[["e23","Cap. 1: Población","14",14]]],["Más gasto y un uso más eficiente de los recursos.",[["e23","Síntesis","145",145]]]]}
+ ]
+};
+
+let fsrc=0;
+function fuentes(refs){
+  const id="fs"+(++fsrc);
+  return `<button class="fbtn" data-fbox="${id}">📎 Fuentes</button><div class="fpanel" id="${id}" hidden>${refs.map(r=>{
+    const d=IS[r[0]];
+    return `<div class="fref"><div><b>${d[0]}</b><br><span class="muted">${r[1]}${r[2]!=="—"?" · pág. "+r[2]:""}</span></div><a class="mini ext" href="${d[2]}${r[3]>1?"#page="+r[3]:""}">↗ ${r[3]>1?"Pág. "+r[3]:"PDF"}</a></div>`;}).join("")}</div>`;
+}
+function renderInforme(){
+  fsrc=0;
+  const per=INF.periodos;
+  document.getElementById("infView").innerHTML=`
+  <div class="card dhead">
+    <div class="by" style="color:var(--accent);font-weight:700">🏫 El sistema educativo</div>
+    <h2>¿Cómo está la educación en Uruguay?</h2>
+    <p class="lead" style="margin:6px 0 0">Informe resumido de los seis Informes sobre el estado de la educación del INEEd (2014 a 2023-2024). Cada dato tiene un botón <b>📎 Fuentes</b> que muestra el documento y la página donde está.</p>
+  </div>
+
+  <details class="card guide" open><summary>🧭 Guía: cómo leer este informe</summary><div class="in">
+    <ol>
+      <li><b>Empieza por "Lo que se repite"</b>: son los seis problemas que aparecen en todas las ediciones.</li>
+      <li><b>Después recorre los períodos</b> en orden. Cada uno tiene un resumen, los hallazgos por tema y los desafíos que planteó el INEEd en ese momento.</li>
+      <li><b>Toca 📎 Fuentes</b> para ver de dónde sale cada dato y abrir el PDF en esa página.</li>
+      <li><b>Cierra con las preguntas de repaso</b> al final.</li>
+    </ol>
+    <p class="note">Cuidado al comparar números entre ediciones: a veces cambian la edad que se mide (por ejemplo, egreso a los 22 o entre los 21 y 23 años) o la fuente (encuesta de hogares, registros de la ANEP). Las páginas son las impresas en cada PDF; puede abrir una o dos páginas antes o después.</p>
+  </div></details>
+
+  <div class="chips perchips">${per.map(p=>`<button class="chip" data-per="${p.id}">${p.yr}</button>`).join("")}</div>
+
+  <h2 class="sech">1 · Lo que se repite en todas las ediciones</h2>
+  ${INF.hilos.map(h=>`<div class="card">
+    <h3 style="margin:0 0 6px">${h.t}</h3>
+    <p style="margin:0 0 10px;font-size:.93rem">${h.d}</p>
+    <div class="tline">${h.tl.map(x=>`<div class="tl"><small>${x[0]}</small><b>${x[1]}</b><span>${x[2]}</span></div>`).join("")}</div>
+    ${fuentes(h.f)}
+  </div>`).join("")}
+
+  <h2 class="sech">2 · Período por período</h2>
+  ${per.map(p=>`<div class="card period" id="per-${p.id}">
+    <div class="top"><h3 style="margin:0">${p.t}</h3><span class="yr">${p.yr}</span></div>
+    <p class="muted" style="margin:2px 0 8px">Informe ${p.yr} · ${p.rango}</p>
+    <div class="analysis"><p>${p.res}</p></div>
+    ${p.g.map(g=>`<h4 class="gh">${g[0]}</h4>${g[1].map(f=>`<div class="find"><p>${f[0]}</p>${fuentes(f[1])}</div>`).join("")}`).join("")}
+    <h4 class="gh">🎯 Desafíos que plantea</h4>
+    ${p.des.map(f=>`<div class="find des"><p>${f[0]}</p>${fuentes(f[1])}</div>`).join("")}
+  </div>`).join("")}
+
+  <h2 class="sech">3 · Conclusión general</h2>
+  <div class="card">
+    <p>En diez años de informes, Uruguay <b>universalizó la educación hasta los 14 años</b>, amplió mucho la inicial y <b>subió el egreso de media superior de alrededor de 4 a más de 5 de cada 10 jóvenes</b>. Pero tres cosas casi no cambiaron: <b>los aprendizajes</b> (la mitad de los adolescentes no alcanza lo básico en matemática), <b>la desigualdad</b> (el origen social sigue definiendo quién termina) y <b>la falta de metas, registros y evaluación</b> de las políticas. A eso se suman dos problemas nuevos: el <b>ausentismo crónico</b> y la <b>pobreza concentrada en la infancia</b>.</p>
+    ${fuentes([["e14","Los principales desafíos","16–17",16],["e19","Trayecto y egreso","6–7",6],["e23","Síntesis","142–145",142]])}
+  </div>
+
+  <h2 class="sech">4 · Repaso</h2>
+  <details class="card"><summary>❓ Preguntas para estudiar</summary><div class="in"><ol>
+    <li>¿Por qué el egreso de media superior es el "gran pendiente"? ¿Cuánto mejoró entre 2013 y 2024 y por qué hay que comparar con cuidado?</li>
+    <li>¿Qué diferencia hay entre cobertura y asistencia suficiente? ¿Qué pasó con el ausentismo después de 2019?</li>
+    <li>¿Qué muestra Aristas 2017 sobre el peso del contexto de la escuela frente al origen del alumno?</li>
+    <li>¿Por qué el informe 2017-2018 dice que los recursos "no compensan"?</li>
+    <li>¿Qué efectos de la pandemia registran los informes 2019-2020 y 2021-2022?</li>
+    <li>¿Qué oportunidad abre la caída de la natalidad según el informe 2023-2024?</li>
+  </ol></div></details>
+  <details class="card"><summary>📖 Glosario</summary><div class="in"><ul>
+    <li><b>Rezago / extraedad:</b> estar uno o más grados por detrás del que corresponde a la edad.</li>
+    <li><b>Egreso oportuno:</b> terminar un ciclo a la edad esperada, sin rezago.</li>
+    <li><b>Asistencia suficiente:</b> en primaria, asistir a más de 140 días; en media básica, tener menos de 50 faltas.</li>
+    <li><b>Ausentismo crónico:</b> asistir al 90% de los días o menos.</li>
+    <li><b>Quintil:</b> quinta parte de los hogares ordenados por ingreso. Q1 = el 20% más pobre.</li>
+    <li><b>Contexto sociocultural:</b> clasificación de centros (de muy desfavorable a muy favorable) según el perfil de sus estudiantes.</li>
+    <li><b>Niveles de desempeño:</b> escala de Aristas o PISA. "Bajo nivel 2" en PISA significa no alcanzar el umbral básico.</li>
+    <li><b>Segregación:</b> cuánto se separan los estudiantes en centros distintos según su nivel socioeconómico.</li>
+  </ul></div></details>`;
+}
+document.addEventListener("click",e=>{
+  const fb=e.target.closest(".fbtn"); if(fb){ const p=document.getElementById(fb.dataset.fbox); p.hidden=!p.hidden; fb.classList.toggle("on",!p.hidden); return; }
+  const pc=e.target.closest("[data-per]"); if(pc){ const el=document.getElementById("per-"+pc.dataset.per); if(el){ el.scrollIntoView({behavior:"smooth",block:"start"}); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); } }
+});
+
+/* ---- tabs ---- */
+const tabs=document.querySelectorAll("#tabs button");
+let state={v:"categorias",d:null}; const hist=[];
+function go(v,d){ d=d||null; if(state.v===v && state.d===d) return; hist.push(state); state={v:v,d:d}; apply(); }
+function apply(){
+  const v=state.v;
+  const tv = (v==="cat"||v==="informe")?"categorias":(v==="doc"?"biblioteca":v);
+  tabs.forEach(b=>b.classList.toggle("on",b.dataset.v===tv));
+  document.querySelectorAll("section.view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+  if(v==="programas"){ state.d? openDetail(state.d) : closeDetail(); }
+  if(v==="cat") openCat(state.d);
+  if(v==="doc") openDoc(state.d);
+  if(v==="informe") renderInforme();
+  document.getElementById("btnBack").disabled = hist.length===0;
+  window.scrollTo(0,0);
+}
+function show(v){ go(v,null); }
+tabs.forEach(b=>b.onclick=()=>go(b.dataset.v,null));
+document.getElementById("btnBack").onclick=()=>{ if(hist.length){ state=hist.pop(); apply(); } };
+document.getElementById("btnHome").onclick=()=>go("categorias",null);
+document.getElementById("cq").oninput=renderCats;
+document.getElementById("lq").oninput=renderLib;
+
+/* ---- criteria list ---- */
+document.getElementById("critList").innerHTML=CRIT.map(c=>`<li>${c[1]}</li>`).join("");
+
+/* ---- list + filters ---- */
+const FILT=["Todos","Primaria","Media","Transversal","Impacto","Costos"];
+let curF="Todos";
+const chips=document.getElementById("chips");
+chips.innerHTML=FILT.map(f=>`<button class="chip${f==="Todos"?" on":""}" data-f="${f}">${f}</button>`).join("");
+chips.onclick=e=>{const b=e.target.closest(".chip"); if(!b) return; curF=b.dataset.f; chips.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c===b)); render();};
+document.getElementById("q").oninput=render;
+
+function dots(sc){ if(!sc) return ""; return `<div class="dots">${CRIT.map(c=>`<span class="dot s${sc[c[0]]}" title="${c[1]}"></span>`).join("")}</div>`;}
+function strip(h){return h.replace(/<[^>]+>/g,"");}
+function render(){
+  const q=document.getElementById("q").value.toLowerCase().trim();
+  const items=P.filter(p=>{
+    if(curF==="Primaria"||curF==="Media"||curF==="Transversal"){ if(p.nivel!==curF) return false; }
+    if(curF==="Impacto" && !(p.sc && p.sc.cau>0)) return false;
+    if(curF==="Costos" && !(p.sc && p.sc.cos>0)) return false;
+    if(!q) return true;
+    return strip(JSON.stringify(p)).toLowerCase().includes(q);
+  });
+  document.getElementById("cards").innerHTML = items.length? items.map(p=>`
+    <div class="card prog" data-id="${p.id}">
+      <div class="top"><h2>${p.t}</h2><span class="yr">${p.yr}</span></div>
+      <p>${p.short}</p>
+      <div class="tags"><span class="tag">${p.nivel}</span>${p.eval.map(e=>`<span class="tag ev">${e}</span>`).join("")}</div>
+      ${dots(p.sc)}
+    </div>`).join("") : `<p class="lead">No hay resultados.</p>`;
+}
+document.getElementById("cards").onclick=e=>{const c=e.target.closest(".prog"); if(c) go("programas",c.dataset.id);};
+
+function ul(arr,cls){return `<ul class="${cls||""}">${arr.map(x=>`<li>${x}</li>`).join("")}</ul>`;}
+function openDetail(id){
+  const p=P.find(x=>x.id===id);
+  const score = p.sc ? `<p class="note" style="margin:0 0 6px">Toca <b>📍 Evidencia</b> para ver en qué documento, capítulo y página está la información.</p><div class="score">${CRIT.map(c=>{
+      const bid="ev-"+p.id+"-"+c[0]; const has=EV[p.id]&&EV[p.id][c[0]];
+      return `<div class="sblock"><div class="srow"><span>${c[1]}</span><span class="sright"><span class="badge b${p.sc[c[0]]}">${LBL[p.sc[c[0]]]}</span>${has?`<button class="evbtn" data-box="${bid}">📍 Evidencia</button>`:""}</span></div>
+        ${has?`<div class="evpanel" id="${bid}" hidden>${evHTML(p.id,c[0])}</div>`:""}</div>`;}).join("")}</div>` : `<p class="note">Es un informe de relevamiento, no la evaluación de un programa: no aplica la grilla.</p>`;
+  const libDocs = DOCS.filter(d=>d.prog===p.id);
+  document.getElementById("detail").innerHTML=`
+    <button class="back" id="backBtn">← Todos los programas</button>
+    <div class="card dhead">
+      <h2>${p.t}</h2>
+      <div class="tags"><span class="tag">${p.nivel}</span><span class="tag">Informe ${p.yr}</span>${p.eval.map(e=>`<span class="tag ev">${e}</span>`).join("")}</div>
+      <div class="facts">${p.facts.map(f=>`<div class="fact"><small>${f[0]}</small><span>${f[1]}</span></div>`).join("")}</div>
+    </div>
+    <div class="card sec"><h3><i>📘</i>Qué es</h3><p>${p.que}</p>
+      <h3><i>🎯</i>Objetivos</h3>${ul(p.obj)}</div>
+    <div class="card sec"><h3><i>🔬</i>Cómo se evaluó</h3><p>${p.met}</p>
+      <h3><i>💲</i>Costos</h3><p>${p.cost}</p></div>
+    <div class="card sec"><h3><i>📊</i>Resultados principales</h3>${ul(p.res)}</div>
+    <div class="card sec"><h3><i>✅</i>Fortalezas</h3>${ul(p.fort,"pos")}
+      <h3><i>⚠️</i>Debilidades</h3>${ul(p.deb,"neg")}</div>
+    <div class="card sec"><h3><i>🧭</i>Recomendaciones del informe</h3>${ul(p.rec)}</div>
+    <div class="card sec"><h3><i>🧪</i>Lectura desde la guía metodológica</h3>${score}
+      <div class="analysis">${p.an.map(a=>`<p>${a}</p>`).join("")}</div></div>
+    ${libDocs.length?`<div class="card sec"><h3><i>📚</i>Leer en la biblioteca</h3><div class="btnrow">${libDocs.map(d=>`<button class="mini" data-doc="${d.id}" data-ch="-1">📖 ${d.t} (${d.yr})</button>`).join("")}</div></div>`:""}
+    <div class="card sec src"><h3><i>🔗</i>Informes originales</h3>${ul(p.src.map(s=>`<a href="${s[1]}">${s[0]}</a>`))}</div>
+    <button class="back" id="backBtn2">← Todos los programas</button>`;
+  document.getElementById("list").hidden=true;
+  document.getElementById("detail").hidden=false;
+  document.getElementById("backBtn").onclick=()=>go("programas",null);
+  document.getElementById("backBtn2").onclick=()=>go("programas",null);
+}
+function closeDetail(){document.getElementById("detail").hidden=true;document.getElementById("list").hidden=false;}
+
+/* ---- compare ---- */
+const sym={2:"●",1:"◐",0:"○"};
+const col={2:"var(--ok)",1:"var(--mid)",0:"#c9bdb6"};
+const shortC=["Teoría cambio","Diseño","Implem.","Resultados","Impacto","Costos","Monitoreo"];
+document.getElementById("cmpTable").innerHTML=
+  `<tr><th>Programa</th>${shortC.map(c=>`<th>${c}</th>`).join("")}</tr>`+
+  P.filter(p=>p.sc).map(p=>`<tr><td><a href="#" data-id="${p.id}">${p.t}</a></td>${CRIT.map(c=>`<td class="c"><span class="dot s${p.sc[c[0]]}" style="display:inline-block" title="${LBL[p.sc[c[0]]]}"></span></td>`).join("")}</tr>`).join("");
+document.getElementById("cmpTable").onclick=e=>{const a=e.target.closest("a[data-id]"); if(!a) return; e.preventDefault(); go("programas",a.dataset.id);};
+
+const COST=[
+ ["Revuelta Educativa","$17.857 por estudiante (4 meses, 2021)","—"],
+ ["Uruguay Estudia","$9.892 por becario (2013)","—"],
+ ["Plan 2009 CB","$15.969 por beneficiario (2013)","no calculado (egreso ≈45%)"],
+ ["Plan 2012 CB","≈$86.000 por estudiante (estimación)","sin datos de egreso"],
+ ["Áreas Pedagógicas","$21.600 por inscripto (2013)","$186.000 por egresado"]
+];
+document.getElementById("costTable").innerHTML=`<tr><th>Programa</th><th>Costo por participante</th><th>Costo por resultado</th></tr>`+COST.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+
+/* ---- sources ---- */
+const allSrc=[["Guía metodológica de evaluación de programas educativos (2016)","https://www.ineed.edu.uy/wp-content/uploads/2016/09/Guia_de_evaluacion_de_programas.pdf"]];
+P.forEach(p=>p.src.forEach(s=>allSrc.push([s[0],s[1]])));
+document.getElementById("srcList").innerHTML=allSrc.map(s=>`<li><a href="${s[1]}">${s[0]}</a></li>`).join("");
+
+render();
+renderCats();
+renderLib();
+apply();
+</script>
+</body>
+</html>
