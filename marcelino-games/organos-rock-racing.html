@@ -88,6 +88,14 @@ button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
 .mp p{margin:6px 0 10px}
 .mprow{display:flex;gap:8px;justify-content:center;align-items:center;margin:12px 0 4px}
 #mpCode{width:130px;font-family:var(--f-display);font-size:22px;text-transform:uppercase;text-align:center;padding:8px;border-radius:4px;border:2px solid var(--gold);background:#1a0d18;color:var(--ink)}
+.keyslots{display:flex;gap:8px;justify-content:center;margin:8px 0}
+.keyslots .slot{width:60px;height:60px;border-radius:12px;border:2px dashed rgba(255,243,228,.45);background:rgba(20,10,22,.6);display:flex;align-items:center;justify-content:center}
+.keyslots .slot img{width:54px;height:54px}
+.keyslots.show .slot{border:2px solid var(--gold);box-shadow:0 0 12px rgba(255,194,61,.35)}
+.keypad{display:grid;grid-template-columns:repeat(3,74px);gap:8px;justify-content:center;margin:6px 0}
+.keypad button{width:74px;height:78px;padding:3px 0 0;border-radius:12px;background:rgba(255,243,228,.1);border:2px solid rgba(255,243,228,.4);color:var(--ink);font-family:var(--f-display);font-size:9px;line-height:1}
+.keypad button img{width:52px;height:52px;display:block;margin:0 auto 3px}
+.keypad button:active{transform:scale(.94);border-color:var(--gold)}
 .mperr{color:#ffb3c8;min-height:1.2em;font-weight:700}
 .mpcode{font-family:var(--f-display);font-size:16px}
 .mpcode b{color:var(--gold);font-size:32px;letter-spacing:.14em;margin-left:6px}
@@ -176,7 +184,7 @@ button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
       <button id="contGameBtn" class="big" hidden>▶ CONTINUAR</button>
       <button id="playBtn" class="big">▶ NUEVO JUEGO</button>
     </div>
-    <div class="introrow"><button id="mpBtn" class="big alt">MULTIJUGADOR EN RED</button><button id="hsBtn" class="big alt">HOT SEAT</button></div>
+    <div class="introrow"><button id="mpBtn" class="big alt">PVP EN RED</button><button id="hsBtn" class="big alt">HOT SEAT</button></div>
     <span id="saveInfo" class="saveinfo" hidden></span>
     <p>PULSÁ PLAY PARA INICIAR LA CARRERA</p>
   </div>
@@ -235,16 +243,22 @@ button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
 
   <div id="msg" class="ui"></div>
 
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <div id="mpUI" class="ui overlay" hidden>
     <div class="card mp">
-      <h2>MULTIJUGADOR</h2>
+      <h2>PVP EN RED</h2>
       <div id="mpJoin">
-        <p>Creá una sala y pasales el código a tus compañeros, o escribí el código que te pasaron.</p>
+        <p>Corré contra tus compañeros, cada uno en su celular (hasta 4 autos). El que crea la sala recibe una <b>llave de 4 piezas</b>; los demás tocan esas mismas piezas para entrar.</p>
         <button id="mpCreate" class="big">CREAR SALA</button>
-        <div class="mprow"><input id="mpCode" maxlength="6" placeholder="CÓDIGO" autocomplete="off" aria-label="Código de la sala"><button id="mpEnter" class="big alt">ENTRAR</button></div>
+        <p class="mpsmall">¿Te pasaron una llave? Tocá las 4 piezas en orden:</p>
+        <div id="mpSlots" class="keyslots" aria-live="polite"></div>
+        <div id="mpPad" class="keypad"></div>
+        <div class="mprow"><button id="mpDel" class="big alt">BORRAR</button><button id="mpEnter" class="big" disabled>ENTRAR</button></div>
       </div>
       <div id="mpLobby" hidden>
-        <p class="mpcode">SALA <b id="mpCodeShow"></b></p>
+        <p class="mpcode">LLAVE DE LA SALA<b id="mpCodeShow" hidden></b></p>
+        <div id="mpKeyShow" class="keyslots show"></div>
+        <p class="mpsmall">Pasales esta llave a tus rivales: que toquen las mismas 4 piezas.</p>
         <p class="mpsmall">Elegí tu órgano (se puede repetir):</p>
         <div id="mpOrgans" class="mporgans"><button type="button" data-k="brain">CEREBRO</button><button type="button" data-k="eye">OJO</button><button type="button" data-k="heart">CORAZÓN</button><button type="button" data-k="lung">PULMÓN</button></div>
         <ul id="mpList" class="mplist"></ul>
@@ -3042,6 +3056,125 @@ function addBolt(b) {
   bolts.push(b);
   if (MP.active && b.owner && !b.owner.remote) MP.shots.push([++MP.shotSeq, b.kind === 'tear' ? 1 : 0, Math.round(b.x), Math.round(b.y), Math.round(b.vx), Math.round(b.vy), b.lvl || 0, b.owner.key, clock]);
 }
+/* ===== PvP en red con PeerJS: la llave son 4 piezas de auto ===== */
+const PART_KEYS = ['RUEDA', 'VOLANTE', 'MOTOR', 'PISTÓN', 'BUJÍA', 'ESCAPE', 'TUERCA', 'FARO', 'LLAVE'];
+const PART_BG = ['#3a4a5a', '#5a2a4a', '#2a4a2a', '#4a3a2a', '#2a3a5a', '#4a2a2a', '#5a4a1a', '#1a3a4a', '#3a2a5a'];
+function drawPartIcon(g, k) {
+  const r = (x, y, w, h, rr) => { g.beginPath(); g.roundRect ? g.roundRect(x, y, w, h, rr) : g.rect(x, y, w, h); };
+  g.clearRect(0, 0, 96, 96); r(2, 2, 92, 92, 18); g.fillStyle = PART_BG[k]; g.fill(); g.lineWidth = 3; g.strokeStyle = 'rgba(255,243,228,.35)'; g.stroke();
+  g.save(); g.translate(48, 48); g.lineCap = 'round'; g.lineJoin = 'round';
+  if (k === 0) { // rueda
+    g.fillStyle = '#16161a'; g.beginPath(); g.arc(0, 0, 34, 0, TAU); g.fill();
+    g.strokeStyle = '#2e2e36'; g.lineWidth = 4; for (let i = 0; i < 16; i++) { const a = i / 16 * TAU; g.beginPath(); g.moveTo(Math.cos(a) * 28, Math.sin(a) * 28); g.lineTo(Math.cos(a) * 34, Math.sin(a) * 34); g.stroke(); }
+    g.fillStyle = '#c9ced6'; g.beginPath(); g.arc(0, 0, 18, 0, TAU); g.fill(); g.fillStyle = '#7d848f'; for (let i = 0; i < 5; i++) { const a = i / 5 * TAU; g.beginPath(); g.arc(Math.cos(a) * 10, Math.sin(a) * 10, 3, 0, TAU); g.fill(); }
+    g.beginPath(); g.arc(0, 0, 4, 0, TAU); g.fill();
+  } else if (k === 1) { // volante
+    g.strokeStyle = '#1c1c22'; g.lineWidth = 10; g.beginPath(); g.arc(0, 0, 30, 0, TAU); g.stroke();
+    g.strokeStyle = '#3a3a44'; g.lineWidth = 7; for (const a of [Math.PI / 2, Math.PI * 7 / 6, -Math.PI / 6]) { g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(a) * 28, Math.sin(a) * 28); g.stroke(); }
+    g.fillStyle = '#ff3d5a'; g.beginPath(); g.arc(0, 0, 10, 0, TAU); g.fill(); g.fillStyle = '#ffc23d'; g.beginPath(); g.arc(0, 0, 4, 0, TAU); g.fill();
+  } else if (k === 2) { // motor
+    g.fillStyle = '#8a929c'; r(-30, -8, 60, 34, 6); g.fill(); g.fillStyle = '#5c636c'; for (let i = 0; i < 4; i++) { r(-26 + i * 14, -26, 10, 20, 3); g.fill(); }
+    g.fillStyle = '#ff7a2a'; r(-30, -12, 60, 7, 3); g.fill(); g.strokeStyle = '#3e444b'; g.lineWidth = 3; g.beginPath(); g.arc(-14, 10, 8, 0, TAU); g.stroke(); g.beginPath(); g.arc(14, 10, 8, 0, TAU); g.stroke();
+  } else if (k === 3) { // pistón
+    g.fillStyle = '#c9ced6'; r(-20, -32, 40, 26, 6); g.fill(); g.strokeStyle = '#7d848f'; g.lineWidth = 3; for (const y of [-26, -20, -14]) { g.beginPath(); g.moveTo(-20, y); g.lineTo(20, y); g.stroke(); }
+    g.strokeStyle = '#9aa1ab'; g.lineWidth = 9; g.beginPath(); g.moveTo(0, -6); g.lineTo(0, 22); g.stroke(); g.lineWidth = 6; g.beginPath(); g.arc(0, 26, 9, 0, TAU); g.stroke();
+  } else if (k === 4) { // bujía
+    g.fillStyle = '#f4f0e6'; r(-9, -34, 18, 34, 6); g.fill(); g.fillStyle = '#9aa1ab'; g.beginPath(); for (let i = 0; i < 6; i++) { const a = i / 6 * TAU; g.lineTo(Math.cos(a) * 15, 8 + Math.sin(a) * 9); } g.closePath(); g.fill();
+    g.fillStyle = '#7d848f'; r(-6, 14, 12, 12, 2); g.fill(); g.strokeStyle = '#ffd56b'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 28); g.lineTo(8, 33); g.lineTo(-2, 36); g.lineTo(10, 42); g.stroke();
+  } else if (k === 5) { // escape
+    g.strokeStyle = '#c9ced6'; g.lineWidth = 14; g.beginPath(); g.moveTo(-30, 20); g.lineTo(0, 20); g.quadraticCurveTo(14, 20, 14, 6); g.lineTo(14, -6); g.stroke();
+    g.fillStyle = '#3e444b'; g.beginPath(); g.ellipse(14, -8, 8, 4, 0, 0, TAU); g.fill();
+    g.fillStyle = 'rgba(220,220,230,.8)'; for (const [x, y, rr] of [[16, -20, 7], [8, -30, 9], [20, -36, 6]]) { g.beginPath(); g.arc(x, y, rr, 0, TAU); g.fill(); }
+  } else if (k === 6) { // tuerca
+    g.fillStyle = '#ffc23d'; g.beginPath(); for (let i = 0; i < 6; i++) { const a = i / 6 * TAU + Math.PI / 6; g.lineTo(Math.cos(a) * 32, Math.sin(a) * 32); } g.closePath(); g.fill();
+    g.strokeStyle = '#a8761a'; g.lineWidth = 3; g.stroke(); g.fillStyle = PART_BG[k]; g.beginPath(); g.arc(0, 0, 13, 0, TAU); g.fill(); g.strokeStyle = '#a8761a'; g.stroke();
+  } else if (k === 7) { // faro
+    g.strokeStyle = 'rgba(255,240,150,.8)'; g.lineWidth = 4; for (let i = -2; i <= 2; i++) { g.beginPath(); g.moveTo(14, i * 9); g.lineTo(38, i * 13); g.stroke(); }
+    g.fillStyle = '#9aa1ab'; g.beginPath(); g.arc(-6, 0, 26, 0, TAU); g.fill(); g.fillStyle = '#fff6b0'; g.beginPath(); g.arc(-6, 0, 19, 0, TAU); g.fill(); g.fillStyle = '#ffffff'; g.beginPath(); g.arc(-12, -6, 6, 0, TAU); g.fill();
+  } else { // llave inglesa
+    g.rotate(-Math.PI / 4); g.fillStyle = '#b7bec8'; r(-6, -10, 12, 46, 5); g.fill();
+    g.beginPath(); g.arc(0, -20, 16, 0, TAU); g.fill(); g.fillStyle = PART_BG[k]; r(-6, -40, 12, 20, 2); g.fill();
+  }
+  g.restore();
+}
+const PART_URL = PART_KEYS.map((_, k) => { const c = document.createElement('canvas'); c.width = c.height = 96; drawPartIcon(c.getContext('2d'), k); return c.toDataURL(); });
+function renderKey(el, key) {
+  el.textContent = '';
+  for (let i = 0; i < 4; i++) { const d = document.createElement('div'); d.className = 'slot'; const k = key[i]; if (k != null) { const im = document.createElement('img'); im.src = PART_URL[k]; im.alt = PART_KEYS[k]; d.appendChild(im); } el.appendChild(d); }
+  el.setAttribute('aria-label', 'Llave: ' + key.map(k => PART_KEYS[k]).join(', '));
+}
+const PEER_PREFIX = 'organosrr-v1-';
+// Una sala con la misma forma que la sala de Claude (peers, presence, onPeers, leave), armada como estrella:
+// el anfitrión recibe lo de cada invitado y lo reparte a los demás.
+function peerRoom(code, asHost) {
+  return new Promise((resolve, reject) => {
+    if (typeof Peer === 'undefined') { reject({ type: 'nopeer' }); return; }
+    const L = new Set(), E = new Set(), st = {}, conns = new Map();
+    let myId = asHost ? 'h' : null, hostConn = null, done = false, closed = false, peer;
+    const send = (c, m) => { try { if (c && c.open) c.send(m); } catch (_) {} };
+    const bcast = (m, except) => { for (const [id, c] of conns) if (id !== except) send(c, m); };
+    const api = {
+      peers: () => Object.keys(st).map(id => ({ peer: id, presence: st[id], isMe: id === myId, sameTab: id === myId })),
+      presence: patch => {
+        if (!myId || closed) return Promise.resolve();
+        st[myId] = Object.assign(st[myId] || {}, patch);
+        if (asHost) bcast({ t: 's', id: myId, d: patch }); else send(hostConn, { t: 'p', d: patch });
+        notify(); return Promise.resolve();
+      },
+      onPeers: (f, e) => { L.add(f); if (e) E.add(e); setTimeout(() => { if (L.has(f)) f({ peers: api.peers(), left: [] }); }, 0); return () => { L.delete(f); if (e) E.delete(e); }; },
+      leave: () => { closed = true; send(hostConn, { t: 'bye' }); setTimeout(() => { try { peer.destroy(); } catch (_) {} }, 150); return Promise.resolve(); }
+    };
+    function notify(left) { if (closed) return; const ch = { peers: api.peers(), left: left || [] }; for (const f of L) { try { f(ch); } catch (e) { console.error(e); } } }
+    const fail = why => { if (closed) return; for (const e of E) { try { e(why); } catch (_) {} } };
+    const finish = (ok, v) => { if (done) return; done = true; clearTimeout(to); if (ok) resolve(api); else { try { peer.destroy(); } catch (_) {} reject(v); } };
+    const to = setTimeout(() => finish(false, { type: 'timeout' }), 15000);
+    try { peer = asHost ? new Peer(PEER_PREFIX + code, { debug: 0 }) : new Peer({ debug: 0 }); } catch (e) { clearTimeout(to); reject({ type: 'nopeer' }); return; }
+    if (asHost) {
+      peer.on('open', () => { st.h = {}; finish(true); });
+      peer.on('connection', c => {
+        const id = 'p' + String(c.peer).replace(/[^a-z0-9]/gi, '').slice(0, 14);
+        c.on('open', () => {
+          if (closed) return;
+          if (conns.size >= 3) { send(c, { t: 'full' }); setTimeout(() => { try { c.close(); } catch (_) {} }, 400); return; }
+          conns.set(id, c); st[id] = st[id] || {};
+          send(c, { t: 'hi', you: id, all: st });
+          notify();
+        });
+        c.on('data', m => {
+          if (!m || closed || conns.get(id) !== c) return;
+          if (m.t === 'p' && m.d) { st[id] = Object.assign(st[id] || {}, m.d); bcast({ t: 's', id, d: m.d }, id); notify(); }
+          else if (m.t === 'bye') { try { c.close(); } catch (_) {} gone(); }
+        });
+        const gone = () => { if (conns.get(id) !== c) return; conns.delete(id); delete st[id]; bcast({ t: 'l', id }); notify([{ peer: id }]); };
+        c.on('close', gone); c.on('error', gone);
+      });
+    } else {
+      peer.on('open', () => {
+        const c = peer.connect(PEER_PREFIX + code, { reliable: true }); hostConn = c;
+        c.on('data', m => {
+          if (!m || closed) return;
+          if (m.t === 'hi') { myId = m.you; for (const k in st) delete st[k]; Object.assign(st, m.all || {}); st[myId] = st[myId] || {}; finish(true); notify(); }
+          else if (m.t === 's') { if (m.id !== myId) { st[m.id] = Object.assign(st[m.id] || {}, m.d); notify(); } }
+          else if (m.t === 'l') { delete st[m.id]; notify([{ peer: m.id }]); }
+          else if (m.t === 'full') finish(false, { type: 'full' });
+        });
+        c.on('close', () => { if (done) fail('host'); else finish(false, { type: 'peer-unavailable' }); });
+      });
+    }
+    peer.on('error', err => { if (!done) finish(false, err); else if (!asHost && err && (err.type === 'network' || err.type === 'disconnected')) fail(err.type); });
+  });
+}
+function newKey() { return [0, 1, 2, 3].map(() => Math.floor(Math.random() * PART_KEYS.length)); }
+MP.typed = [];
+function refreshPad() { renderKey($('mpSlots'), MP.typed); $('mpEnter').disabled = MP.typed.length < 4; }
+PART_KEYS.forEach((name, k) => {
+  const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', name);
+  const im = document.createElement('img'); im.src = PART_URL[k]; im.alt = ''; b.appendChild(im); b.appendChild(document.createTextNode(name));
+  b.addEventListener('click', () => { if (MP.typed.length >= 4) return; MP.typed.push(k); Snd.init(); Snd.sfx('coin'); refreshPad(); });
+  $('mpPad').appendChild(b);
+});
+$('mpDel').addEventListener('click', () => { MP.typed.pop(); refreshPad(); });
+refreshPad();
 function mpPeers() { return MP.r ? MP.r.peers().filter(p => p.presence && p.presence.g === 'org') : []; }
 function mpHostPeer() { const ps = mpPeers().map(p => p.peer).sort(); return ps[0] || null; }
 function periMsg(l) {
@@ -3112,23 +3245,30 @@ function mpBackToLobby() {
   if (MP.r) MP.r.presence({ c: null, sh: null, sq: null, b: null, pe: null, rd: false }).catch(() => {});
   Snd.play('intro'); setState('mp'); showMPPanel();
 }
-function setJoinEnabled(on) { $('mpCreate').disabled = !on; $('mpEnter').disabled = !on; $('mpCode').disabled = !on; }
+function setJoinEnabled(on) { $('mpCreate').disabled = !on; $('mpDel').disabled = !on; $('mpPad').querySelectorAll('button').forEach(b => { b.disabled = !on; }); $('mpEnter').disabled = !on || MP.typed.length < 4; }
 function showMPPanel() { $('mpJoin').hidden = !!MP.r; $('mpLobby').hidden = !MP.r; if (MP.r) refreshLobby(); }
 async function openMP() {
   Snd.init(); Snd.play('intro'); setState('mp'); showMPPanel();
   if (MP.r) return;
-  $('mpErr').textContent = 'Conectando…'; setJoinEnabled(false);
-  if (!MP.room) { try { MP.room = window.claude && window.claude.use ? await window.claude.use('room') : null; } catch (_) { MP.room = null; } }
-  if (!MP.room) { $('mpErr').textContent = 'El multijugador funciona abriendo el juego dentro de Claude (el artefacto compartido). En el archivo descargado no hay conexión.'; return; }
+  MP.typed = []; refreshPad();
+  if (typeof Peer === 'undefined') { setJoinEnabled(false); $('mpErr').textContent = 'No se pudo cargar la conexión. El PvP necesita internet: abrí el juego desde la página de GitHub.'; return; }
   $('mpErr').textContent = ''; setJoinEnabled(true);
 }
-async function mpJoin(code) {
-  code = String(code || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 6);
-  if (code.length < 3) { $('mpErr').textContent = 'Escribí el código de la sala.'; return; }
-  setJoinEnabled(false); $('mpErr').textContent = 'Entrando a la sala…';
-  try { MP.r = await MP.room.join('org-' + code); } catch (e) { MP.r = null; $('mpErr').textContent = 'No se pudo entrar a la sala. Probá de nuevo.'; setJoinEnabled(true); return; }
-  MP.code = code; MP.organ = null; MP.ready = false; MP.seenQ = 0;
-  MP.unsubs.push(MP.r.onPeers(mpOnPeers, () => { $('mpErr').textContent = 'Se perdió la conexión con la sala.'; }));
+async function mpJoin(key, asHost, tries) {
+  if (!Array.isArray(key) || key.length !== 4) return;
+  setJoinEnabled(false); $('mpErr').textContent = asHost ? 'Creando la sala…' : 'Entrando a la sala…';
+  try { MP.r = await peerRoom(key.join(''), asHost); }
+  catch (e) {
+    MP.r = null; const t = e && e.type;
+    if (asHost && t === 'unavailable-id' && (tries || 0) < 4) return mpJoin(newKey(), true, (tries || 0) + 1);
+    $('mpErr').textContent = t === 'peer-unavailable' ? 'No hay ninguna sala con esa llave. Revisá las piezas y el orden.' : t === 'full' ? 'Esa sala ya tiene 4 jugadores.' : t === 'nopeer' ? 'No se pudo cargar la conexión. El PvP necesita internet.' : 'No se pudo conectar. Revisá internet o probá con los datos del celular.';
+    setJoinEnabled(true); return;
+  }
+  MP.key = key.slice(); MP.code = key.join(''); MP.organ = null; MP.ready = false; MP.seenQ = 0; MP.typed = []; refreshPad();
+  MP.unsubs.push(MP.r.onPeers(mpOnPeers, async () => {
+    $('mpErr').textContent = 'Se cortó la conexión con el anfitrión de la sala.';
+    if (state === 'mp') { await mpLeave(); showMPPanel(); }
+  }));
   MP.r.presence({ g: 'org', o: null, rd: false }).catch(() => {});
   $('mpErr').textContent = ''; setJoinEnabled(true); showMPPanel();
 }
@@ -3140,7 +3280,7 @@ async function mpLeave() {
 }
 function refreshLobby() {
   if (!MP.r) return;
-  $('mpCodeShow').textContent = MP.code.toUpperCase();
+  $('mpCodeShow').textContent = MP.code; renderKey($('mpKeyShow'), MP.key || []);
   const ps = mpPeers().slice().sort((a, b) => (a.peer < b.peer ? -1 : 1)), host = mpHostPeer();
   MP.host = !!MP.me && host === MP.me;
   document.querySelectorAll('#mpOrgans button').forEach(b => { b.disabled = false; b.classList.toggle('on', MP.organ === b.dataset.k); });
@@ -3175,9 +3315,8 @@ function mpStartRace() {
   beginMPRace(st);
 }
 $('mpBtn').addEventListener('click', openMP);
-$('mpCreate').addEventListener('click', () => { const al = 'abcdefghjkmnpqrstuvwxyz23456789'; let c = ''; for (let i = 0; i < 4; i++) c += al[Math.floor(Math.random() * al.length)]; mpJoin(c); });
-$('mpEnter').addEventListener('click', () => mpJoin($('mpCode').value));
-$('mpCode').addEventListener('keydown', e => { if (e.key === 'Enter') mpJoin($('mpCode').value); });
+$('mpCreate').addEventListener('click', () => mpJoin(newKey(), true));
+$('mpEnter').addEventListener('click', () => { if (MP.typed.length === 4) mpJoin(MP.typed.slice(), false); });
 document.querySelectorAll('#mpOrgans button').forEach(b => b.addEventListener('click', () => {
   if (b.disabled || !MP.r) return;
   MP.organ = b.dataset.k; MP.ready = false; Snd.sfx('pose');
