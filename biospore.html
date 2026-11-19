@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BioSpore: de molécula a célula</title>
+<style>
+:root{--bg:#e9f1ee;--fg:#10302a;--panel:#fbfffeF0;--bd:#a9c8bf;--ac:#0b7d68;--mut:#4b6b63;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#06141a;--fg:#d8f2ea;--panel:#0b2229F0;--bd:#1f4d55;--ac:#4fe0bd;--mut:#8fb8ae}}
+:root[data-theme="dark"]{--bg:#06141a;--fg:#d8f2ea;--panel:#0b2229F0;--bd:#1f4d55;--ac:#4fe0bd;--mut:#8fb8ae}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:"Trebuchet MS",Verdana,sans-serif;overflow:hidden}
+#app{height:100%;display:flex;flex-direction:column}
+#hud{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center;padding:8px 12px;font-size:13px;min-height:42px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:20px;padding:3px 10px;background:var(--panel)}
+.dot{width:10px;height:10px;border-radius:50%}
+.bar{display:inline-flex;align-items:center;gap:6px}
+.bar i{display:block;width:80px;height:8px;border-radius:5px;background:var(--bd);overflow:hidden}
+.bar b{display:block;height:100%}
+#wrap{position:relative;flex:1;min-height:0;margin:0 8px 8px;border-radius:14px;overflow:hidden;border:1px solid var(--bd)}
+canvas#cv{width:100%;height:100%;display:block;touch-action:none}
+#ov{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:12px;overflow:auto;background:rgba(2,12,16,.55)}
+.card{background:var(--panel);color:var(--fg);border:1px solid var(--bd);border-radius:14px;padding:18px;max-width:600px;width:100%;margin:auto}
+.card h2{margin:0 0 8px;font-size:22px}
+.card p{line-height:1.5;margin:8px 0}
+.pl{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:10px 0}
+.pt{text-align:left;font:inherit;color:var(--fg);background:transparent;border:1px solid var(--bd);border-radius:10px;padding:8px;cursor:pointer}
+.pt small{color:var(--mut)}
+.pt.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 18%,transparent)}
+#ov.m{background:none}.card.mm{background:transparent;border:0;max-width:360px;color:#e9fff8}.mm h2{font-size:46px;margin:0;letter-spacing:2px;text-shadow:0 0 18px #4fe0bd,0 2px 0 #06303a}.mm p{color:#b9e8dd}.mm .pt{background:rgba(6,40,48,.6);color:#e9fff8;border:1px solid rgba(127,240,214,.5);border-radius:30px;backdrop-filter:blur(4px);transition:transform .15s,background .15s}.mm .pt:hover:not(:disabled){transform:scale(1.04);background:rgba(20,110,100,.65)}.mb{display:block;width:100%;margin:7px 0;font-size:17px;text-align:center}.pt:disabled{opacity:.4;cursor:default}.bt{cursor:pointer;color:var(--fg);font:inherit}.go{font:inherit;font-weight:700;background:var(--ac);color:#04201a;border:0;border-radius:10px;padding:10px 18px;cursor:pointer;margin-top:6px}
+.go:focus-visible,.pt:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+#toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);max-width:92%;background:var(--panel);border:1px solid var(--ac);border-radius:12px;padding:8px 14px;font-size:14px;line-height:1.4;display:none;text-align:center}
+</style></head>
+<body>
+<!-- INTRO: INSTITUTO CAMPOS GAMES (igual en todos los juegos) -->
+<div id="icgIntro" role="button" aria-label="Instituto Campos Games presenta. Tocá para continuar">
+<style>
+#icgIntro{position:fixed;inset:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;color:#fff;background:radial-gradient(ellipse at center,#12304a 0%,#05090c 70%);cursor:pointer;overflow:hidden;transition:opacity .7s ease,filter .7s ease;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+#icgIntro.icg-out{opacity:0;filter:blur(6px);pointer-events:none}
+#icgIntro .icg-shock{position:absolute;left:50%;top:42%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:6px solid #ffd27a;box-shadow:0 0 40px #ff8c1a,inset 0 0 30px #ff8c1a;opacity:0;pointer-events:none;animation:icgShock 1.1s .05s ease-out both}
+#icgIntro .icg-emblem{width:min(30vmin,170px);animation:icgPop 1s cubic-bezier(.2,1.5,.4,1) both;filter:drop-shadow(0 10px 25px #000c) drop-shadow(0 0 30px #e8b43c33)}
+#icgIntro .icg-emblem svg{width:100%;height:auto;display:block}
+#icgIntro .icg-brand{display:flex;flex-direction:column;line-height:1;animation:icgUp .7s .55s both}
+#icgIntro .icg-brand span{font:900 clamp(18px,4.2vmin,34px)/1.1 Inter,Arial,Helvetica,sans-serif;letter-spacing:4px;background:linear-gradient(180deg,#fff3c4,#e8b43c 60%,#a8741a);-webkit-background-clip:text;background-clip:text;color:transparent}
+#icgIntro .icg-brand b{font:700 clamp(12px,2.6vmin,18px) "Courier New",monospace;letter-spacing:12px;color:#86f6d9;margin-top:6px;padding-left:12px}
+#icgIntro .icg-brand sup{font-size:.6em;letter-spacing:0;margin-left:-8px;vertical-align:top;color:#e8b43c}
+#icgIntro .icg-pres{margin:10px 0 0;font:12px "Courier New",monospace;letter-spacing:3px;color:#8fa3ad;text-transform:uppercase;animation:icgUp .6s 1.1s both}
+#icgIntro .icg-tap{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);font:10px "Courier New",monospace;letter-spacing:2px;color:#6f8f98;animation:icgUp .5s 1.6s both}
+@keyframes icgShock{0%{opacity:1;transform:scale(.2)}100%{opacity:0;transform:scale(40)}}
+@keyframes icgPop{0%{opacity:0;transform:scale(.3) rotate(-12deg)}100%{opacity:1;transform:none}}
+@keyframes icgUp{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){#icgIntro *{animation:none!important}}
+</style>
+<div class="icg-shock"></div>
+<div class="icg-emblem"><svg viewBox="0 0 200 230" aria-hidden="true">
+<defs><linearGradient id="icgSh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f4f7a"/><stop offset="1" stop-color="#0b2240"/></linearGradient>
+<linearGradient id="icgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#e8b43c"/><stop offset="1" stop-color="#9c6a12"/></linearGradient></defs>
+<path d="M100 8L182 34V112C182 165 146 200 100 222C54 200 18 165 18 112V34Z" fill="url(#icgSh)" stroke="url(#icgGold)" stroke-width="7"/>
+<path d="M100 26L166 47V112C166 156 137 185 100 204C63 185 34 156 34 112V47Z" fill="none" stroke="#e8b43c" stroke-width="1.6" opacity=".7"/>
+<text x="100" y="104" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="62" fill="url(#icgGold)">IC</text>
+<g transform="translate(100 150)"><rect x="-44" y="-17" width="88" height="34" rx="17" fill="#86f6d9" stroke="#0b2240" stroke-width="3"/><path d="M-26 0h14M-19-7v14" stroke="#0b2240" stroke-width="5" stroke-linecap="round"/><circle cx="18" cy="-5" r="4.5" fill="#ed7db8"/><circle cx="28" cy="4" r="4.5" fill="#d6fa79"/></g>
+<path d="M58 182h84" stroke="#e8b43c" stroke-width="2" opacity=".6"/>
+</svg></div>
+<div class="icg-brand"><span>INSTITUTO CAMPOS</span><b>GAMES<sup>™</sup></b></div>
+<p class="icg-pres">presenta</p>
+<div class="icg-tap">TOCÁ PARA SALTAR</div>
+<script>
+(function(){var el=document.getElementById('icgIntro'),done=false;
+function go(e){if(done)return;done=true;if(e){e.stopPropagation();if(e.preventDefault)e.preventDefault();}el.classList.add('icg-out');setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},750);}
+el.addEventListener('pointerdown',go);el.addEventListener('click',function(e){e.stopPropagation();});
+setTimeout(go,3000);})();
+</script>
+</div>
+<!-- /INTRO -->
+<div id="app">
+<div id="hud"></div>
+<div id="wrap"><canvas id="cv"></canvas><div id="toast"></div><div id="ov"></div></div>
+</div>
+<script>
+const $=i=>document.getElementById(i),cv=$('cv'),ctx=cv.getContext('2d');
+let W=800,H=500;
+function rs(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',rs);
+const M={glu:{n:'Glucosa',t:'Carbohidrato',c:'#f4c542',f:'Glucosa: monómero de los carbohidratos. Unida en cadenas forma almidón o glucógeno, la reserva de energía.'},
+lip:{n:'Ácido graso',t:'Lípido',c:'#ff8a4c',f:'Ácidos grasos: forman fosfolípidos que se ordenan en bicapa y crean la membrana que separa la célula del exterior.'},
+aa:{n:'Aminoácido',t:'Proteína',c:'#5aa9ff',f:'Aminoácidos: hay 20 tipos. Unidos por enlaces peptídicos forman proteínas: enzimas, transportadores, estructura.'},
+nuc:{n:'Nucleótido',t:'Ácido nucleico',c:'#6fdc7a',f:'Nucleótidos (A, T/U, C, G): su secuencia en el ADN guarda la información genética de la célula.'},
+rad:{n:'Radical libre',t:'',c:'#c05cff'}};
+const PARTS={fla:{n:'Flagelo',c:2,d:'Más velocidad: filamentos de proteína que giran como hélice.'},
+mit:{n:'Mitocondria',c:3,d:'Comida da 60% más energía: produce ATP en la respiración celular.'},
+rib:{n:'Ribosoma',c:2,d:'Creces más rápido: sintetizan proteínas a partir del ARN.'},
+nuc:{n:'Núcleo',c:3,d:'Más salud máxima: protege y organiza el ADN.'},
+chl:{n:'Cloroplasto',c:3,d:'Energía gratis en la zona iluminada: fotosíntesis.'},
+vac:{n:'Vacuola',c:2,d:'Gastas energía más lento: almacena agua y nutrientes.'},lis:{n:'Lisosoma',c:3,d:'Digiere a los virus que te tocan: contiene enzimas digestivas.'},eye:{n:'Mancha ocular',c:2,d:'Fotorreceptor: marca con un aro a los peligros cercanos.'},pil:{n:'Pili',c:2,d:'Atrae biomoléculas cercanas: filamentos de adhesión.'},wal:{n:'Pared celular',c:2,d:'Recibes 40% menos daño: refuerzo rígido externo.'}};
+const TYPES={pro:{n:'Procariota',a:['fla','pil','rib','wal'],d:'Sin núcleo ni mitocondrias: pequeña, rápida y ahorrativa.'},euk:{n:'Eucariota animal',a:['fla','pil','mit','rib','nuc','vac','lis','eye'],d:'Núcleo y mitocondrias; sin pared ni cloroplastos.'},veg:{n:'Eucariota vegetal',a:['mit','rib','nuc','chl','wal','vac','eye'],d:'Pared y cloroplastos; algo más lenta pero autosuficiente.'}};
+const LV=[{n:'Charco',g:14,v:2,f:0},{n:'Estanque',g:20,v:3,f:1},{n:'Pantano',g:24,v:4,f:2},{n:'Arrecife',g:28,v:5,f:3},{n:'Colonia multicelular',g:28,v:4,f:2,m:1},{n:'Tejidos y órganos',g:36,v:5,f:3,m:1}];
+const QZ=[{q:'¿Qué biomolécula forma la membrana celular?',o:['Fosfolípidos','Almidón','ADN'],a:0,e:'Los fosfolípidos forman una bicapa con las colas hidrofóbicas hacia dentro.'},{q:'¿Dónde se produce la mayor parte del ATP en una célula eucariota?',o:['Ribosoma','Mitocondria','Núcleo'],a:1,e:'La mitocondria realiza la respiración celular y produce ATP.'},{q:'¿Qué caracteriza a una célula procariota?',o:['No tiene núcleo definido','No tiene ADN','No tiene membrana'],a:0,e:'Su ADN está libre en el citoplasma, en una zona llamada nucleoide.'},{q:'¿Qué hacen los ribosomas?',o:['Digieren lípidos','Sintetizan proteínas','Almacenan ADN'],a:1,e:'Traducen el ARN mensajero en cadenas de aminoácidos.'},{q:'¿Qué organelo realiza la fotosíntesis?',o:['Cloroplasto','Lisosoma','Aparato de Golgi'],a:0,e:'Los cloroplastos convierten luz, agua y CO₂ en glucosa y oxígeno.'},{q:'¿Cómo se llama la unión entre dos aminoácidos?',o:['Enlace glucosídico','Enlace peptídico','Enlace fosfodiéster'],a:1,e:'El enlace peptídico une el grupo carboxilo de un aminoácido con el grupo amino del siguiente.'}];
+const ACH={bio:['Químico','Completaste las 4 biomoléculas.'],clean:['Intocable','Superaste un nivel sin recibir daño.'],fag:['Fagocitador','Devoraste un fagocito.'],euk:['Eucariota','Superaste un nivel como eucariota.'],pho:['Fotosintético','Superaste un nivel con cloroplasto.'],mul:['Multicelular','Completaste la colonia multicelular.'],sab:['Sabio','Respondiste bien 4 preguntas.'],fin:['Evolución completa','Terminaste los 6 niveles.'],cac:['Superdepredador','Cazaste 10 presas en una partida.'],mut:['Mutante','Resististe 45 s en Mutaciones.']};
+const DF={f:{v:.6,d:.65,e:.8,n:'Fácil'},n:{v:1,d:1,e:1,n:'Normal'},h:{v:1.4,d:1.3,e:1.2,n:'Difícil'}};
+const LES=['La célula es la unidad básica de la vida: una membrana encierra el citoplasma, el ADN y los ribosomas. Come para obtener energía (ATP) y crece hasta dividirse.','Procariotas (bacterias): sin núcleo, ADN libre. Eucariotas: núcleo y organelos con membrana. Los organelos reparten el trabajo de la célula.','Respiración celular: la mitocondria usa glucosa y oxígeno para producir ATP. Fotosíntesis: el cloroplasto usa luz para fabricar glucosa. Son dos formas de obtener energía.','Mitosis: la célula copia su ADN, reparte los cromosomas y se divide en dos células hijas idénticas. Así crecen los tejidos y se reproducen los seres unicelulares.','Multicelularidad: células que no se separan tras dividirse y cooperan. Con el tiempo se especializan: dividir el trabajo hace al organismo más eficiente.','Células similares forman tejidos y varios tejidos forman órganos. Cada tipo de célula usa solo una parte de su ADN (diferenciación celular).'];
+const INFO='<h3>Biomoléculas</h3><p><b>Carbohidratos</b> (glucosa, almidón): energía rápida. <b>Lípidos</b> (fosfolípidos): membrana y reserva. <b>Proteínas</b> (cadenas de aminoácidos): enzimas, transporte, estructura. <b>Ácidos nucleicos</b> (ADN, ARN): guardan y copian la información genética.</p><h3>Organelos</h3><p><b>Núcleo</b>: guarda el ADN. <b>Ribosoma</b>: fabrica proteínas. <b>Mitocondria</b>: produce ATP. <b>Cloroplasto</b>: fotosíntesis. <b>Pared celular</b>: soporte y protección. <b>Flagelo</b>: movimiento. <b>Pili</b>: adhesión a superficies y a otras células.</p><h3>Tipos de célula</h3><p><b>Procariota</b>: sin núcleo, pequeña (bacterias). <b>Eucariota animal</b>: núcleo y organelos, sin pared. <b>Eucariota vegetal</b>: pared celular y cloroplastos.</p><h3>Ciclo celular</h3><p>Interfase (crece y copia el ADN), mitosis (profase, metafase, anafase, telofase) y citocinesis: nacen dos células hijas idénticas.</p><h3>Multicelularidad</h3><p>Células que cooperan y se especializan forman tejidos; los tejidos forman órganos.</p><h3>Peligros del juego</h3><p><b>Virus</b>: no son células; invaden y usan tu maquinaria. <b>Fagocito</b>: célula que engulle partículas (fagocitosis). <b>Radicales libres</b>: moléculas inestables que dañan otras por oxidación.</p>';
+function go2(g){gen=g;pts=mode==='lab'?20:14;for(const p in parts)parts[p]=0;lin=[];edit()}
+function info(){if(tr)return;tr={p:st,h:$('ov').innerHTML};if(st==='s1'||st==='s3')st='pause';else if(st==='wait'){tr=null;return}ov('<div class="card"><h2>📖 Bioenciclopedia</h2>'+INFO+'<button class="go" onclick="back()">Volver</button></div>')}
+const SC=[220,261.63,293.66,329.63,392,440,523.25,659.25],RT=[110,87.31,130.81,98];
+function loadO(){try{const o=JSON.parse(localStorage.getItem('biospore_o')||'{}');if(o.vol!=null)vol=o.vol;if(o.mus!=null)mus=o.mus;if(o.sf!=null)sf=o.sf;if(o.df)df=o.df}catch(e){}try{const s=JSON.parse(localStorage.getItem('biospore')||'null');if(s&&s.ach)ach=s.ach}catch(e){}}
+function saveO(){try{localStorage.setItem('biospore_o',JSON.stringify({vol,mus,sf,df}))}catch(e){}}
+function save(){try{localStorage.setItem('biospore',JSON.stringify({mode,df,gen,pts,parts,type,lin,ach,qOk,sp}))}catch(e){}}
+function load(){try{return JSON.parse(localStorage.getItem('biospore')||'null')}catch(e){return null}}
+function ainit(){if(AC)return;try{AC=new(window.AudioContext||window.webkitAudioContext)();bus=AC.createGain();bus.gain.value=0;bus.connect(AC.destination);dl=AC.createDelay(1);dl.delayTime.value=.55;const fb=AC.createGain();fb.gain.value=.45;dl.connect(fb);fb.connect(dl);dl.connect(bus);ap();setInterval(tick,2200);tick()}catch(e){AC=null}}
+function au(){ainit();if(AC&&AC.state==='suspended')AC.resume()}
+function ap(){if(AC)bus.gain.setTargetAtTime(mus?vol*.55:0,AC.currentTime,.15)}
+function nt(f,d,ty,g,w){const t=AC.currentTime+(w||0),o=AC.createOscillator(),e=AC.createGain();o.type=ty;o.frequency.value=f;e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(g,t+.05);e.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(e);e.connect(bus);e.connect(dl);o.start(t);o.stop(t+d+.1)}
+function pad(r){const t=AC.currentTime,fl=AC.createBiquadFilter();fl.type='lowpass';fl.frequency.value=700;fl.connect(bus);[r,r*1.5,r*2,r*2.5].forEach((f,i)=>{const o=AC.createOscillator(),e=AC.createGain();o.type=i%2?'sine':'triangle';o.frequency.value=f;o.detune.value=(i-1.5)*6;e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(.12,t+3);e.gain.linearRampToValueAtTime(0,t+9);o.connect(e);e.connect(fl);o.start(t);o.stop(t+9.5)})}
+function tick(){if(!AC||AC.state!=='running'||!mus)return;aN++;if(aN%4===1)pad(RT[(aN>>2)%4]);const pl=st==='s3'||st==='over';if(Math.random()<.75)nt(SC[rnd(8)],3.5,'sine',.07);if(pl){nt(SC[(aN*3)%8]*2,.9,'triangle',.04);nt(SC[(aN*3+2)%8]*2,.9,'triangle',.03,1.1)}else if(Math.random()<.4)nt(SC[rnd(4)]/2,2,'sine',.09)}
+function sfx(f,d,ty){if(!AC||!sf||!mus)return;nt(f,d,ty||'sine',.12)}
+function setVol(v){vol=v/100;ap();saveO()}
+function mt(){mus=!mus;ap();saveO()}
+function ng(){gen=1;pts=10;for(const p in parts)parts[p]=0;lin=[];qOk=0;type='euk';intro()}
+function cont(){const s=load();if(!s)return;({mode,df,gen,pts,parts,type,lin,ach,qOk,sp}=s);sp=sp||'';lin=lin||[];ach=ach||{};qOk=qOk||0;gen=Math.min(gen||1,LV.length);ov('');edit()}
+function menu(){st='menu';tr=null;$('toast').style.display='none';P={x:-999,y:-999,vx:0,vy:0,a:0,r:14};preds=[];mols=[];for(let i=0;i<22;i++)mols.push(newMol());const s=load();
+ ov(`<div class="card mm" style="text-align:center"><h2>BioSpore</h2><p>De molécula a organismo · biología celular</p><button class="pt mb" onclick="ng()"><b>Nueva partida</b></button><button class="pt mb" onclick="cont()"${s?'':' disabled'}><b>Continuar</b>${s?'<br><small>'+(s.mode==='sur'?'Supervivencia':s.mode==='cac'?'Cacería':s.mode==='lab'?'Laboratorio':'Aventura')+' · Nivel '+Math.min(s.gen||1,LV.length)+'</small>':'<br><small>No hay partida guardada</small>'}</button><button class="pt mb" onclick="opts()"><b>Opciones</b></button><button class="pt mb" onclick="quit()"><b>Salir</b></button>${AC?'':'<p><small>🎵 La música empieza cuando toques la pantalla.</small></p>'}</div>`)}
+function opts(){st='menu';ov(`<div class="card"><h2>Opciones</h2><p>Volumen de la música:<input type="range" min="0" max="100" value="${Math.round(vol*100)}" oninput="setVol(this.value)" style="width:100%"></p><p><button class="pt" style="display:inline-block;width:auto" onclick="mt();opts()">Música: ${mus?'activada':'desactivada'}</button> <button class="pt" style="display:inline-block;width:auto" onclick="sf=!sf;saveO();opts()">Efectos: ${sf?'activados':'desactivados'}</button></p><p>Dificultad por defecto:</p><div>${Object.keys(DF).map(k=>`<button class="pt ${df===k?'on':''}" style="display:inline-block;width:auto;margin:2px" onclick="df='${k}';saveO();opts()">${DF[k].n}</button>`).join('')}</div><p><button class="pt" onclick="delSave()">Borrar partida guardada</button></p><button class="go" onclick="menu()">Volver</button></div>`)}
+function delSave(){try{localStorage.removeItem('biospore')}catch(e){}toast('Partida borrada.',2);menu()}
+function quit(){try{window.close()}catch(e){}st='menu';ov('<div class="card" style="text-align:center"><h2>¡Hasta pronto!</h2><p>Gracias por jugar. Tu partida queda guardada en este navegador. Ya puedes cerrar la pestaña.</p><button class="go" onclick="menu()">Volver al menú</button></div>')}
+function pm(){if(tr||st==='menu'||st==='wait')return;tr={p:st,h:$('ov').innerHTML};if(st==='s1'||st==='s3')st='pause';ov('<div class="card" style="text-align:center"><h2>Pausa</h2><button class="pt mb" onclick="back()">Reanudar</button><button class="pt mb" onclick="menu()">Salir al menú</button><p><small>El progreso se guarda al llegar al editor de cada nivel.</small></p></div>')}
+let qa=0,qt=[];
+const QZ2=[
+{r:['Una <b>célula</b> es la unidad básica de la vida.','Su <b>membrana</b> está hecha de <b>fosfolípidos</b>: tienen una cabeza que atrae el agua y colas que la rechazan, y se ordenan en <b>bicapa</b>.','Los <b>ribosomas</b> fabrican proteínas y el <b>ADN</b> guarda la información.'],q:'¿De qué biomolécula está hecha principalmente la membrana celular?',o:['Fosfolípidos','Almidón','ADN'],a:0,h:'Es un lípido con una cabeza que atrae el agua y dos colas que la rechazan.',e:'Los fosfolípidos se acomodan en bicapa: colas hacia dentro y cabezas hacia el agua. Así separan el interior de la célula del exterior.'},
+{r:['<b>Procariota</b>: sin núcleo; el ADN flota libre (nucleoide). Ejemplo: bacterias. Es pequeña.','<b>Eucariota</b>: tiene núcleo y organelos con membrana. Ejemplo: animales, plantas y hongos.','Las dos tienen membrana, citoplasma, ribosomas y ADN.'],q:'¿Qué caracteriza a una célula procariota?',o:['Su ADN no está dentro de un núcleo','No tiene ADN','Tiene muchas mitocondrias'],a:0,h:'«Pro» significa «antes de»: es anterior al núcleo.',e:'Las procariotas no tienen núcleo: el ADN está libre en el citoplasma. Aun así tienen ADN, membrana y ribosomas.'},
+{r:['<b>Respiración celular</b> (mitocondria): glucosa + oxígeno → <b>ATP</b> + CO₂ + agua. El ATP es la moneda de energía de la célula.','<b>Fotosíntesis</b> (cloroplasto): luz + agua + CO₂ → glucosa + oxígeno.','Una rompe glucosa para sacar energía; la otra fabrica glucosa.'],q:'¿Qué organelo produce la mayor parte del ATP en una célula eucariota?',o:['Ribosoma','Mitocondria','Núcleo'],a:1,h:'Se la llama «la central energética» de la célula.',e:'La mitocondria hace la respiración celular y produce la mayor parte del ATP. El ribosoma fabrica proteínas y el núcleo guarda el ADN.'},
+{r:['Antes de dividirse, la célula <b>copia su ADN</b> (interfase).','<b>Mitosis</b>: profase, metafase, anafase y telofase; los cromosomas se reparten en partes iguales.','Termina con la <b>citocinesis</b>: el citoplasma se divide en dos.'],q:'¿Qué resultado tiene la mitosis?',o:['Dos células hijas idénticas a la original','Cuatro células distintas','Una célula con el doble de tamaño'],a:0,h:'Se copia el ADN una vez y se reparte en partes iguales.',e:'La mitosis produce dos células hijas genéticamente idénticas. Así crecen y se reparan los tejidos.'},
+{r:['Un organismo <b>multicelular</b> tiene muchas células que cooperan.','Las células se quedan unidas tras dividirse y empiezan a <b>especializarse</b>.','Ventaja: dividir el trabajo (unas protegen, otras se mueven, otras digieren).'],q:'¿Cuál es la principal ventaja de ser multicelular?',o:['Las células se especializan y se reparten el trabajo','Cada célula hace todo sola','Ya no necesitan energía'],a:0,h:'Piensa en el trabajo en equipo.',e:'La especialización permite que unas células protejan, otras muevan el cuerpo y otras absorban nutrientes: el organismo es más eficiente.'},
+{r:['Células parecidas forman un <b>tejido</b>; varios tejidos forman un <b>órgano</b>.','Todas las células de un organismo tienen el mismo ADN, pero cada tipo usa solo una parte: <b>diferenciación celular</b>.','Los aminoácidos se unen con <b>enlaces peptídicos</b> para formar proteínas.'],q:'¿Por qué una célula de la piel y una neurona son distintas si tienen el mismo ADN?',o:['Cada una usa (expresa) genes diferentes','Tienen ADN diferente','Una de ellas no tiene núcleo'],a:0,h:'No cambia el ADN: cambia cuáles genes se usan.',e:'Es la diferenciación celular: cada tipo de célula activa solo los genes que necesita.'}];
+function qz(){qa=0;qt=[];qv('')}
+function qv(m){const q=QZ2[gen-1],L=LV[gen-1];ov(`<div class="card"><h2>¡Nivel ${gen} completado!</h2><p>${L.m?'Tu colonia se dividió y sus células empiezan a especializarse.':'Mitosis completada: tu célula se dividió en dos hijas idénticas.'}</p><div style="background:color-mix(in srgb,var(--ac) 14%,transparent);padding:10px;border-radius:8px;font-size:14px"><b>📘 Repaso: lo que necesitas saber</b><ul style="margin:6px 0 0;padding-left:18px">${q.r.map(x=>`<li>${x}</li>`).join('')}</ul></div><p><b>Pregunta bonus</b> (+3 pts al primer intento, +1 al segundo):<br>${q.q}</p>${q.o.map((o,i)=>`<button class="pt mb" style="text-align:left;font-size:15px" ${qt.includes(i)?'disabled':''} onclick="ans(${i})">${o}</button>`).join('')}${m?'<p>'+m+'</p>':''}<button class="pt" style="display:inline-block;width:auto" onclick="qv('💡 Pista: '+QZ2[gen-1].h)">💡 Ver pista</button></div>`)}
+function ans(i){const q=QZ2[gen-1];if(i!==q.a&&qa<1){qa=1;qt.push(i);qv('❌ No es esa. 💡 Pista: '+q.h+' Tienes un intento más.');return}
+ const ok=i===q.a,b=ok?(qa?1:3):0;if(b===3){qOk++;if(qOk>=4)gain('sab')}qa=0;pts+=b+5;gen++;save();const done=gen>LV.length;if(done)gain('fin');
+ ov(`<div class="card"><h2>${ok?(b===3?'¡Correcto! +3 pts':'¡Bien! +1 pt'):'La respuesta era: '+q.o[q.a]}</h2><p>${q.e}</p>${done?'<h2>¡Organismo completo!</h2><p>Pasaste de biomoléculas a un organismo multicelular con tejidos.</p>':'<p>Ganaste 5 pts de ADN por superar el nivel.</p>'}<button class="go" onclick="${done?'tree()':'edit()'}">${done?'Ver árbol y logros':'Evolucionar: nivel '+gen}</button></div>`)}
+let mu=false,mN=0,score=0,sp='',mod={s:1,d:1,e:1};
+const MUT=[['Membrana hiperflexible','Un cambio en los genes de la membrana te hace más veloz.',()=>mod.s=1.4],['Error de copia','Un error al copiar el ADN te vuelve frágil: recibes más daño.',()=>mod.d=1.5],['Enzima eficiente','Una enzima mutada ahorra energía.',()=>mod.e=.6],['Gigantismo','Mutación en genes de crecimiento: ganas tamaño.',()=>growth+=8],['Receptores bloqueados','Los virus ya no reconocen tu membrana: menos daño.',()=>mod.d=.5],['Flagelo débil','Mutación en las proteínas del flagelo: eres más lento.',()=>mod.s=.7]];
+function mut(){const m=MUT[rnd(MUT.length)];mod={s:1,d:1,e:1};m[2]();toast('🧬 Mutación: '+m[0]+'. '+m[1],6);sfx(300,.4,'triangle')}
+function prey(){return{t:'pre',x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,r:9,w:Math.random()*6}}
+function tier(){const n=Object.values(parts).filter(Boolean).length;return ['Protocélula','Célula simple','Célula compleja','Célula avanzada','Superorganismo'][n===0?0:n<3?1:n<5?2:n<7?3:4]}
+function endCac(){st='over';if(score>=10)gain('cac');const r=score>=18?'🏆 Superdepredador':score>=10?'🦈 Cazador experto':score>=5?'🐟 Depredador en formación':'🌱 Aprendiz';ov(`<div class="card"><h2>¡Tiempo! Cazaste ${score} presas</h2><p>Rango: <b>${r}</b></p><p>Los depredadores obtienen energía de otros organismos (son heterótrofos). Las plantas y las algas son autótrofas: fabrican su alimento con fotosíntesis.</p><button class="go" onclick="s3()">Cazar de nuevo</button> <button class="go" onclick="edit()">Evolucionar</button> <button class="go" onclick="menu()">Menú</button></div>`)}
+function gain(k){if(ach[k])return;ach[k]=1;toast('🏆 Logro: '+ACH[k][0]+'. '+ACH[k][1],4)}
+let mus=true,vol=.5,sf=true,AC,bus,dl,aN=0,mode='adv',df='n',tS=0,sN=0,tr=null,type='euk',hitsL=0,lin=[],ach={},qOk=0,trail=[],st='intro',gen=1,pts=10,parts={pil:0,fla:0,mit:0,rib:0,nuc:0,chl:0,wal:0},P,mols=[],preds=[],got={},NEED=5,GOAL=20,growth=0,energy=80,hp=100,maxHp=100,hitCd=0,tgt={x:0,y:0},ptr=false,keys={},time=0,last=0,toastT=0,bub=[];
+const rnd=n=>Math.floor(Math.random()*n),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function toast(t,s=4){const e=$('toast');e.textContent=t;e.style.display='block';toastT=s}
+function ov(h){const o=$('ov');o.className=h.includes('card mm')?'m':'';o.innerHTML=h;o.style.display=h?'flex':'none'}
+cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;ptr=true});
+cv.addEventListener('pointerdown',e=>{const r=cv.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;ptr=true});
+cv.addEventListener('pointerup',e=>{if(e.pointerType==='touch')ptr=false});
+const KM={ArrowLeft:'l',a:'l',ArrowRight:'r',d:'r',ArrowUp:'u',w:'u',ArrowDown:'d',s:'d'};
+addEventListener('keydown',e=>{const k=KM[e.key];if(k){keys[k]=1;e.preventDefault()}});
+addEventListener('keyup',e=>{const k=KM[e.key];if(k)keys[k]=0});
+
+function newMol(){let k;
+ if(st==='s1'){const o=Object.keys(got).filter(q=>got[q]<NEED);k=Math.random()<.14?'rad':(o.length?o[rnd(o.length)]:'glu')}
+ else k=['glu','glu','lip','aa','nuc'][rnd(5)];
+ let x,y,n=0;do{x=Math.random()*W;y=Math.random()*H}while(Math.hypot(x-P.x,y-P.y)<130&&n++<20);
+ const a=Math.random()*6.28,s=8+Math.random()*16;return{k,x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:k==='rad'?13:11}}
+function intro(){st='intro';ov(`<div class="card"><h2>BioSpore: de molécula a célula</h2>
+<p>Empiezas como una gota en la sopa primordial. Recolecta <b>biomoléculas</b>, arma tu primera célula, evoluciónala con <b>organelos</b> y sobrevive hasta dividirte por <b>mitosis</b>. Cada generación es más difícil.</p>
+<p><b>Controles:</b> mueve el mouse (o arrastra el dedo) o usa WASD / flechas. Evita los radicales libres morados.</p>
+<p><b>Dificultad:</b> ${Object.keys(DF).map(k=>`<button class="pt ${df===k?'on':''}" style="display:inline-block;width:auto;margin:2px" onclick="df='${k}';intro()">${DF[k].n}</button>`).join('')}</p><p><b>Elige modo:</b></p><button class="pt" style="display:block;width:100%;margin:4px 0" onclick="mode='adv';s1()"><b>Aventura</b><br><small>Sopa primordial y 6 niveles hasta la multicelularidad, con lecciones y quiz.</small></button><button class="pt" style="display:block;width:100%;margin:4px 0" onclick="mode='sur';mu=false;go2(4)"><b>Supervivencia</b><br><small>Sin meta: aguanta el mayor tiempo mientras llegan más depredadores.</small></button><button class="pt" style="display:block;width:100%;margin:4px 0" onclick="mode='lab';go2(1)"><b>Laboratorio</b><br><small>Sin enemigos y con 20 puntos de ADN: prueba organelos y aprende con calma.</small></button><button class="pt mb" style="display:block;width:100%;margin:4px 0" onclick="mode='cac';go2(1)"><b>🦈 Cacería</b><br><small>Eres el depredador: atrapa las presas verdes en 60 s sin que te alcancen los virus.</small></button><button class="pt mb" style="display:block;width:100%;margin:4px 0" onclick="mode='sur';mu=true;go2(4)"><b>🧬 Mutaciones</b><br><small>Supervivencia donde cada 15 s tu ADN muta al azar: ventajas, desventajas y evolución en vivo.</small></button><button class="pt mb" onclick="menu()">← Volver al menú</button></div>`)}
+function s1(){ov('');st='s1';rs();P={x:W/2,y:H/2,vx:0,vy:0,a:0,r:16};got={glu:0,lip:0,aa:0,nuc:0};mols=[];preds=[];for(let i=0;i<24;i++)mols.push(newMol());toast('Recolecta 5 de cada biomolécula. ¡Cuidado con los radicales libres!',5)}
+function spent(){return Object.keys(parts).reduce((s,k)=>s+(parts[k]?PARTS[k].c:0),0)}
+function tg(k){if(parts[k])parts[k]=0;else if(pts-spent()>=PARTS[k].c&&TYPES[type].a.includes(k))parts[k]=1;edit()}function sty(k){type=k;for(const p in parts)if(!TYPES[k].a.includes(p))parts[p]=0;edit()}
+function edit(){st='editor';save();$('toast').style.display='none';
+ ov(`<div class="card"><h2>Editor de célula · Nivel ${gen}: ${LV[gen-1].n}</h2><p>${LV[gen-1].m?'Tu célula forma una colonia: cada bocado suma una célula especializada a tu cadena.':'Objetivo: llenar la barra de división ('+LV[gen-1].g+' de crecimiento).'}</p><div class="pl">${Object.keys(TYPES).map(k=>`<button class="pt ${type===k?'on':''}" onclick="sty('${k}')"><b>${TYPES[k].n}</b><br><small>${TYPES[k].d}</small></button>`).join('')}</div>
+ <canvas id="pv" width="170" height="170" style="display:block;margin:0 auto"></canvas>
+ <p style="background:color-mix(in srgb,var(--ac) 14%,transparent);padding:8px;border-radius:8px;font-size:14px"><b>📘 Lección:</b> ${LES[gen-1]}</p><details style="font-size:14px;margin:6px 0"><summary><b>🧠 Para el quiz de este nivel</b></summary><ul style="padding-left:18px;margin:6px 0">${QZ2[gen-1].r.map(x=>`<li>${x}</li>`).join('')}</ul></details><p>Etapa evolutiva: <b>${tier()}</b></p><input value="${sp}" placeholder="Ponle nombre a tu especie" maxlength="18" oninput="sp=this.value" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--bd);background:transparent;color:var(--fg);font:inherit;margin-bottom:6px"><p>Puntos de ADN disponibles: <b>${pts-spent()}</b></p>
+ <div class="pl">${Object.keys(PARTS).map(k=>`<button class="pt ${parts[k]?'on':''}" onclick="tg('${k}')" ${TYPES[type].a.includes(k)?'':'disabled style="opacity:.35"'}><b>${PARTS[k].n}</b> (${PARTS[k].c} pts)<br><small>${PARTS[k].d}</small></button>`).join('')}</div>
+ <button class="go" onclick="s3()">Entrar al mundo celular</button></div>`);
+ const c=$('pv').getContext('2d');c.fillStyle='#04141a';c.fillRect(0,0,170,170);drawCell(c,85,85,52,parts,time,0)}
+function s3(){ov('');st='s3';rs();P={x:W/2,y:H/2,vx:0,vy:0,a:0,r:14};growth=0;energy=80;maxHp=parts.nuc?150:100;hp=maxHp;hitCd=0;
+ mols=[];for(let i=0;i<26;i++)mols.push(newMol());preds=[];
+ const L=LV[gen-1],nv=mode==='lab'?0:Math.round(L.v*DF[df].v),nf=mode==='lab'?0:Math.round(L.f*DF[df].v);GOAL=mode==='adv'?L.g:9999;hitsL=0;trail=[];tS=0;sN=0;mN=0;score=0;mod={s:1,d:1,e:1};
+ for(let i=0;i<nv+nf;i++){const f=i>=nv,a=Math.random()*6.28;preds.push({t:f?'fag':'vir',x:clamp(W/2+Math.cos(a)*W*.45,20,W-20),y:clamp(H/2+Math.sin(a)*H*.45,20,H-20),vx:0,vy:0,r:f?27:10,w:Math.random()*6})}
+ if(mode==='cac')for(let i=0;i<9;i++)preds.push(prey());toast((mode==='cac'?'¡Caza las presas verdes en 60 s! ':'')+LV[gen-1].n+': come, esquiva y '+(LV[gen-1].m?'suma células a tu colonia.':'¡divídete!'),5)}
+function pr(){const g=mode==='adv'?GOAL:30;return LV[gen-1].m?14:14+Math.min(growth,g)/g*14}
+function fin(){const L=LV[gen-1];sfx(660,.4);setTimeout(()=>sfx(880,.5),180);lin.push({n:L.n,t:type,p:Object.keys(parts).filter(k=>parts[k])});if(!hitsL)gain('clean');if(type!=='pro')gain('euk');if(parts.chl)gain('pho');if(L.m)gain('mul');qz();return;
+ ov(`<div class="card"><h2>¡Nivel ${gen} completado!</h2><p>${L.m?'Tu colonia se dividió y sus células empiezan a especializarse.':'Mitosis completada: tu célula se dividió en dos hijas idénticas.'}</p><p><b>Pregunta bonus (+3 pts de ADN):</b><br>${q.q}</p>${q.o.map((o,i)=>`<button class="pt" style="display:block;width:100%;margin:4px 0" onclick="ans(${i})">${o}</button>`).join('')}</div>`)}
+function ansOld(i){const q=QZ[(gen-1)%QZ.length],ok=i===q.a;if(ok){qOk++;pts+=3;if(qOk>=4)gain('sab')}gen++;pts+=5;save();const done=gen>LV.length;if(done)gain('fin');
+ ov(`<div class="card"><h2>${ok?'¡Correcto! +3 pts':'Casi'}</h2><p>${q.e}</p>${done?'<h2>¡Organismo completo!</h2><p>Pasaste de biomoléculas a un organismo multicelular con tejidos.</p>':'<p>Ganaste 5 pts de ADN por superar el nivel.</p>'}<button class="go" onclick="${done?'tree()':'edit()'}">${done?'Ver árbol y logros':'Evolucionar: nivel '+gen}</button></div>`)}
+function tree(){if(tr)return;tr={p:st,h:$('ov').innerHTML};if(st==='s1'||st==='s3')st='pause';else if(st==='wait'){tr=null;return}
+ ov(`<div class="card"><h2>Árbol evolutivo${sp?' de '+sp:''}</h2>${lin.length?lin.map((l,i)=>`<p style="margin:4px 0;padding-left:${i*14}px">↳ <b>${l.n}</b>: ${TYPES[l.t].n}${l.p.length?' con '+l.p.map(k=>PARTS[k].n.toLowerCase()).join(', '):''}</p>`).join(''):'<p>Aún no completaste ningún nivel.</p>'}<h2>Logros ${Object.keys(ach).length}/${Object.keys(ACH).length}</h2>${Object.keys(ACH).map(k=>`<p style="margin:3px 0;opacity:${ach[k]?1:.4}">${ach[k]?'🏆':'🔒'} <b>${ACH[k][0]}</b>: ${ACH[k][1]}</p>`).join('')}<button class="go" onclick="back()">Volver</button> ${gen>LV.length?'<button class="go" onclick="again()">Jugar de nuevo</button>':''}</div>`)}
+function back(){if(!tr)return;const t=tr;tr=null;st=t.p;t.p==='editor'?edit():ov(t.h)}
+function again(){gen=1;pts=10;for(const p in parts)parts[p]=0;lin=[];qOk=0;tr=null;menu()}
+function end(win){st='over';if(win){fin();return}
+ if(win){gen++;pts+=6;ov(`<div class="card"><h2>¡Mitosis completada!</h2><p>Tu célula duplicó su ADN (fase S), alineó los cromosomas y se dividió en dos células hijas idénticas. Ahora existen dos copias de tu linaje.</p>
+ <p>${gen>=4?'Tus células ya viven en colonia: así empezó la <b>multicelularidad</b> hace más de mil millones de años.':'Ganaste 6 puntos de ADN para evolucionar mejor.'}</p>
+ <button class="go" onclick="edit()">Evolucionar (generación ${gen})</button></div>`)}
+ else ov(`<div class="card"><h2>Tu célula se lisó${mode==='sur'?' · sobreviviste '+Math.round(tS)+' s':''}${mode==='cac'?' · cazaste '+score:''}</h2><p>La membrana se rompió y el contenido se derramó. Prueba otra mezcla de organelos: la pared celular reduce el daño y el núcleo aumenta la salud.</p>
+ <button class="go" onclick="edit()">Volver al editor</button> <button class="go" onclick="s3()">Reintentar</button></div>`)}
+
+function upd(dt){
+ let dx=0,dy=0;
+ if(keys.l||keys.r||keys.u||keys.d){dx=(keys.r?1:0)-(keys.l?1:0);dy=(keys.d?1:0)-(keys.u?1:0);const n=Math.hypot(dx,dy)||1;dx/=n;dy/=n}
+ else if(ptr){const vx=tgt.x-P.x,vy=tgt.y-P.y,d=Math.hypot(vx,vy);if(d>6){const k=Math.min(1,d/90);dx=vx/d*k;dy=vy/d*k}}
+ const sp=(st==='s1'?125:135)*(st==='s3'&&parts.fla?1.45:1)*(st==='s3'?(type==='pro'?1.15:type==='veg'?.9:1):1)*mod.s,e=Math.min(1,dt*5);
+ P.vx+=(dx*sp-P.vx)*e;P.vy+=(dy*sp-P.vy)*e;
+ P.x=clamp(P.x+P.vx*dt,P.r,W-P.r);P.y=clamp(P.y+P.vy*dt,P.r,H-P.r);
+ if(Math.hypot(P.vx,P.vy)>8)P.a=Math.atan2(P.vy,P.vx);if(st==='s3'){trail.push([P.x,P.y,P.a]);if(trail.length>400)trail.shift()}
+ for(const m of mols){if(st==='s3'&&parts.pil&&m.k!=='rad'){const ax=P.x-m.x,ay=P.y-m.y,ad=Math.hypot(ax,ay);if(ad<110&&ad>1){m.x+=ax/ad*70*dt;m.y+=ay/ad*70*dt}}m.x+=m.vx*dt;m.y+=m.vy*dt;if(m.x<-20)m.x=W+20;if(m.x>W+20)m.x=-20;if(m.y<-20)m.y=H+20;if(m.y>H+20)m.y=-20}
+ for(const m of mols){if(Math.hypot(m.x-P.x,m.y-P.y)>=P.r+m.r)continue;
+  if(st==='s1'){
+   if(m.k==='rad'){const o=Object.keys(got).filter(q=>got[q]>0&&got[q]<NEED);if(o.length){got[o[rnd(o.length)]]--;toast('Un radical libre dañó una molécula: oxidación. Pierdes 1 unidad.',3)}Object.assign(m,newMol())}
+   else{if(got[m.k]<NEED){got[m.k]++;sfx(520+rnd(200),.12);if(got[m.k]===NEED)toast(M[m.k].f,7)}Object.assign(m,newMol());
+    if(Object.values(got).every(v=>v>=NEED)){st='wait';toast('¡Protocélula lista! Tienes 10 puntos de ADN para evolucionar.',2);setTimeout(()=>gain('bio'),1900);setTimeout(edit,4300)}}
+  }else{
+   const g=m.k==='aa'?2:1;sfx(380+rnd(160),.1);energy=Math.min(100,energy+(m.k==='glu'?14:7)*(parts.mit?1.6:1));
+   growth+=g*(parts.rib?1.5:1);P.r=pr();Object.assign(m,newMol());
+   if(growth>=GOAL){end(true);return}}}
+ if(st!=='s3')return;
+ energy-=(mode==='lab'?0:(type==='pro'?1.9:2.4)*DF[df].e*(parts.vac?.7:1)*mod.e)*dt;if(mode==='cac'){tS+=dt;if(tS>=60){endCac();return}}if(mode==='sur'){tS+=dt;if(mu&&tS>(mN+1)*15){mN++;mut()}if(mu&&tS>45)gain('mut');if(tS>(sN+1)*12){sN++;preds.push({t:sN%3?'vir':'fag',x:Math.random()<.5?15:W-15,y:Math.random()*H,vx:0,vy:0,r:sN%3?10:27,w:0})}}if(parts.chl&&P.y<H*.5)energy=Math.min(100,energy+1.6*dt);
+ if(energy<=0){energy=0;hp-=6*dt}else if(energy>60)hp=Math.min(maxHp,hp+2*dt);
+ hitCd-=dt;
+ for(let i=preds.length-1;i>=0;i--){const q=preds[i],vx=P.x-q.x,vy=P.y-q.y,d=Math.hypot(vx,vy)||1,v=q.t==='vir'?92:q.t==='pre'?-85:52;q.w+=dt*3;
+  if(d<270){q.vx+=(vx/d*v-q.vx)*dt*2;q.vy+=(vy/d*v-q.vy)*dt*2}else{q.vx+=(Math.cos(q.w)*30-q.vx)*dt;q.vy+=(Math.sin(q.w*.8)*30-q.vy)*dt}
+  q.x=clamp(q.x+q.vx*dt,q.r,W-q.r);q.y=clamp(q.y+q.vy*dt,q.r,H-q.r);
+  if(q.t==='pre'){if(d<P.r+q.r){growth+=2;P.r=pr();energy=Math.min(100,energy+18);score++;sfx(700,.12);preds[i]=prey();preds[i].x=Math.random()<.5?10:W-10}continue}if(d<P.r+q.r*.8){
+   if(q.t==='fag'&&(P.r>q.r-3||(LV[gen-1].m&&growth>GOAL*.7))){growth+=4;P.r=pr();preds.splice(i,1);gain('fag');if(growth>=GOAL){end(true);return}}
+   else if(hitCd<=0){hitsL++;sfx(110,.3,'sawtooth');hp-=(q.t==='vir'?10:25)*(parts.wal?.6:1)*DF[df].d*mod.d;hitCd=.7;if(parts.lis&&q.t==='vir'){preds.splice(i,1);toast('🧫 Tus lisosomas digirieron al virus',2);continue}P.vx=-vx/d*260;P.vy=-vy/d*260;q.vx=vx/d*-200;q.vy=vy/d*-200}}}
+ if(hp<=0)end(false)}
+
+function drawMol(k,x,y,r,t,lab){const c=ctx;c.save();c.translate(x,y);c.rotate(t*.4+x*.01);c.strokeStyle=M[k].c;c.fillStyle=M[k].c+'66';c.lineWidth=2;c.shadowColor=M[k].c;c.shadowBlur=14;c.beginPath();
+ if(k==='glu'){for(let i=0;i<6;i++){const a=i*Math.PI/3;c.lineTo(Math.cos(a)*r,Math.sin(a)*r)}c.closePath();c.fill();c.stroke()}
+ else if(k==='lip'){c.arc(0,-r*.35,r*.55,0,6.3);c.fill();c.stroke();c.beginPath();c.moveTo(-r*.25,r*.2);c.lineTo(-r*.3,r);c.moveTo(r*.25,r*.2);c.lineTo(r*.3,r);c.stroke()}
+ else if(k==='aa'){c.arc(0,0,r*.55,0,6.3);c.fill();c.stroke();c.beginPath();c.arc(-r*.9,r*.3,r*.28,0,6.3);c.arc(r*.9,-r*.3,r*.28,0,6.3);c.stroke()}
+ else if(k==='nuc'){c.moveTo(0,-r);c.lineTo(r*.8,0);c.lineTo(0,r);c.lineTo(-r*.8,0);c.closePath();c.fill();c.stroke()}
+ else{for(let i=0;i<16;i++){const a=i*Math.PI/8,rr=i%2?r*.55:r*1.1;c.lineTo(Math.cos(a)*rr,Math.sin(a)*rr)}c.closePath();c.fill();c.stroke()}
+ c.restore();if(lab){c.fillStyle='rgba(220,240,235,.7)';c.font='10px sans-serif';c.textAlign='center';c.fillText(M[k].n,x,y+r+13)}}
+function drawCell(c,x,y,r,pp,t,a){c.save();c.translate(x,y);c.rotate(a);if(pp.pil){c.strokeStyle='#bff7e8';c.lineWidth=1.2;for(let i=0;i<16;i++){const q=i/16*6.283+Math.sin(t*2+i)*.05,l=r+7+(i%3)*3;c.beginPath();c.moveTo(Math.cos(q)*r,Math.sin(q)*r);c.lineTo(Math.cos(q)*l,Math.sin(q)*l);c.stroke()}}
+ if(pp.fla){c.strokeStyle='#9ff5df';c.lineWidth=2.5;c.beginPath();for(let i=0;i<=20;i++){const u=i/20;c.lineTo(-r-u*r*1.3,Math.sin(u*9-t*12)*r*.18*u)}c.stroke()}
+ const gr=c.createRadialGradient(-r*.3,-r*.35,r*.1,0,0,r);gr.addColorStop(0,'rgba(190,255,235,.55)');gr.addColorStop(.7,'rgba(70,200,170,.28)');gr.addColorStop(1,'rgba(40,150,150,.45)');c.save();c.shadowColor='#5ff5d0';c.shadowBlur=r*.6;c.beginPath();c.arc(0,0,r,0,6.3);c.fillStyle=gr;c.fill();c.restore();c.beginPath();c.arc(0,0,r,0,6.3);c.strokeStyle='#9ff5df';c.lineWidth=2;c.stroke();c.beginPath();c.arc(0,0,r-3,0,6.3);c.strokeStyle='rgba(255,255,255,.25)';c.lineWidth=1;c.stroke();c.beginPath();c.ellipse(-r*.35,-r*.45,r*.25,r*.12,-.6,0,6.3);c.fillStyle='rgba(255,255,255,.35)';c.fill();
+ if(pp.wal){c.beginPath();c.arc(0,0,r+4,0,6.3);c.strokeStyle='#e8d28a';c.lineWidth=3;c.stroke()}
+ if(pp.vac){c.beginPath();c.arc(-r*.1,r*.1,r*.3,0,6.3);c.fillStyle='rgba(180,230,255,.25)';c.fill();c.strokeStyle='rgba(200,240,255,.6)';c.lineWidth=1;c.stroke()}if(pp.lis){c.fillStyle='#ff6a4a';[[.45,.1],[.2,.55],[-.2,-.6]].forEach(m=>{c.beginPath();c.arc(r*m[0],r*m[1],r*.08,0,6.3);c.fill()})}if(pp.eye){c.beginPath();c.arc(r*.72,-r*.15,r*.17,0,6.3);c.fillStyle='#fff';c.fill();c.beginPath();c.arc(r*.77,-r*.15,r*.09,0,6.3);c.fillStyle='#d2203a';c.fill()}if(pp.nuc){const ng=c.createRadialGradient(r*.05,-r*.05,1,r*.1,0,r*.4);ng.addColorStop(0,'#c9b8ff');ng.addColorStop(1,'#6a4fd8');c.beginPath();c.arc(r*.1,0,r*.38,0,6.3);c.fillStyle=ng;c.fill();c.strokeStyle='#e6dcff';c.lineWidth=1.5;c.stroke();c.beginPath();c.arc(r*.1,0,r*.43,0,6.3);c.strokeStyle='rgba(230,220,255,.5)';c.setLineDash([2,3]);c.stroke();c.setLineDash([]);c.beginPath();c.arc(r*.16,-r*.06,r*.11,0,6.3);c.fillStyle='#fff3c9';c.fill()}
+ if(pp.mit){[[-.5,-.4,.5],[-.45,.45,-.4]].forEach(m=>{c.beginPath();c.ellipse(r*m[0],r*m[1],r*.22,r*.11,m[2],0,6.3);c.fillStyle='#ff9a5a';c.fill();c.strokeStyle='#ffd2a8';c.lineWidth=1;c.stroke();c.beginPath();c.ellipse(r*m[0],r*m[1],r*.12,r*.05,m[2],0,6.3);c.strokeStyle='#c4551f';c.stroke()})}
+ if(pp.chl){c.fillStyle='#4fdc5a';[[.5,.45,.3],[.55,-.4,-.3]].forEach(m=>{c.beginPath();c.ellipse(r*m[0],r*m[1],r*.2,r*.12,m[2],0,6.3);c.fill()})}
+ if(pp.rib){c.fillStyle='#fff';[[-.1,.6],[.25,.62],[-.6,.1],[.7,.05],[-.25,-.68]].forEach(m=>{c.beginPath();c.arc(r*m[0],r*m[1],Math.max(1.5,r*.05),0,6.3);c.fill()})}
+ c.restore()}
+function scene(){const c=ctx;
+ for(let i=0;i<3;i++){const x=W*(.18+.3*i)+Math.sin(time*.07+i)*30,l=c.createLinearGradient(x,0,x+80,H);l.addColorStop(0,'rgba(180,255,240,.10)');l.addColorStop(1,'rgba(180,255,240,0)');c.fillStyle=l;c.beginPath();c.moveTo(x,0);c.lineTo(x+60,0);c.lineTo(x+220,H);c.lineTo(x+90,H);c.fill()}
+ [[.8,1,1],[.12,.55,.5]].forEach(([fx,sc,al])=>{const cx=W*fx;c.globalAlpha=al;for(let y=-10;y<H+10;y+=13){const p=y*.025*sc+time*1.1,a=Math.sin(p)*38*sc,z=Math.cos(p),A=cx+a,B=cx-a,k=Math.floor((y+10)/13)%4;c.strokeStyle='rgba(160,230,255,'+(.25+.15*Math.abs(z))+')';c.lineWidth=2;c.beginPath();c.moveTo(A,y);c.lineTo(B,y);c.stroke();const c1=['#f4c542','#6fdc7a','#5aa9ff','#ff8a4c'][k],c2=['#6fdc7a','#f4c542','#ff8a4c','#5aa9ff'][k];c.shadowBlur=8;c.shadowColor=c1;c.fillStyle=c1;c.beginPath();c.arc(A,y,4.5*sc*(1+.3*z),0,6.3);c.fill();c.shadowColor=c2;c.fillStyle=c2;c.beginPath();c.arc(B,y,4.5*sc*(1-.3*z),0,6.3);c.fill();c.shadowBlur=0}c.globalAlpha=1});
+ for(let i=0;i<4;i++){const r=[46,30,60,36][i],x=W*(.12+.26*i)+Math.sin(time*.22+i*2)*40,y=H*(.25+.5*((i*3)%4)/3)+Math.cos(time*.18+i)*30;c.globalAlpha=.55;drawCell(c,x,y,r,{nuc:1,mit:1,rib:1,chl:i%2,fla:i%2?0:1,pil:i===1?1:0,wal:i===2?1:0},time,time*.1+i);c.globalAlpha=1}}
+function draw(){
+ const s1b=st==='s1'||st==='wait',g=ctx.createRadialGradient(W/2,H*.4,20,W/2,H/2,Math.max(W,H)*.8);g.addColorStop(0,s1b?'#3a2236':'#12414a');g.addColorStop(.6,s1b?'#161226':'#08242e');g.addColorStop(1,'#02070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);for(let i=0;i<4;i++){const bx=W*(.2+.2*i)+Math.sin(time*.1+i)*40,by=H*(.3+.15*((i*7)%4))+Math.cos(time*.12+i*2)*30,bg=ctx.createRadialGradient(bx,by,0,bx,by,170);bg.addColorStop(0,s1b?'rgba(255,140,80,.12)':'rgba(80,220,200,.10)');bg.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H)}
+ if(parts.chl&&(st==='s3'||st==='over')){const l=ctx.createLinearGradient(0,0,0,H*.5);l.addColorStop(0,'rgba(255,240,150,.22)');l.addColorStop(1,'rgba(255,240,150,0)');ctx.fillStyle=l;ctx.fillRect(0,0,W,H*.5)}
+ if(bub.length<30)for(let i=0;i<30;i++)bub.push({x:Math.random(),y:Math.random(),r:2+Math.random()*6,s:.01+Math.random()*.02});
+ ctx.fillStyle='rgba(160,230,220,.07)';for(const b of bub){b.y-=b.s*.016;if(b.y<-.05)b.y=1.05;ctx.beginPath();ctx.arc(b.x*W,b.y*H,b.r,0,6.3);ctx.fill()}
+ if(st==='menu')scene();if(st==='s1'||st==='s3'||st==='wait'||st==='over'||st==='menu'){
+  for(const m of mols)drawMol(m.k,m.x,m.y,m.r,time,st==='s1');
+  for(const q of preds){ctx.save();ctx.translate(q.x,q.y);ctx.shadowColor=q.t==='vir'?'#ff4060':'#d070f0';ctx.shadowBlur=14;if(q.t==='pre'){ctx.restore();ctx.save();ctx.filter='hue-rotate(110deg) saturate(1.5)';drawCell(ctx,q.x,q.y,q.r,{},time,Math.atan2(q.vy,q.vx));ctx.filter='none';ctx.restore();continue}
+   if(q.t==='vir'){ctx.rotate(time);ctx.strokeStyle='#ff5a6a';ctx.fillStyle='#7a1a2a';ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<6;i++){const a=i*Math.PI/3;ctx.lineTo(Math.cos(a)*q.r,Math.sin(a)*q.r)}ctx.closePath();ctx.fill();ctx.stroke();for(let i=0;i<6;i++){const a=i*Math.PI/3;ctx.beginPath();ctx.moveTo(Math.cos(a)*q.r,Math.sin(a)*q.r);ctx.lineTo(Math.cos(a)*(q.r+7),Math.sin(a)*(q.r+7));ctx.stroke()}}
+   else{ctx.beginPath();for(let i=0;i<=24;i++){const a=i/24*6.283,rr=q.r*(1+.12*Math.sin(a*4+time*3));ctx.lineTo(Math.cos(a)*rr,Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle='rgba(190,90,210,.3)';ctx.fill();ctx.strokeStyle='#d98cf0';ctx.lineWidth=2;ctx.stroke();ctx.beginPath();ctx.arc(q.r*.15,0,q.r*.3,0,6.3);ctx.fillStyle='rgba(120,40,150,.7)';ctx.fill()}
+   ctx.restore()}
+  if(parts.eye&&st==='s3')for(const q of preds){const d=Math.hypot(q.x-P.x,q.y-P.y);if(q.t!=='pre'&&d<260){ctx.strokeStyle='rgba(255,80,100,'+(.7-d/450)+')';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(q.x,q.y,q.r+9+Math.sin(time*6)*2,0,6.3);ctx.stroke();ctx.setLineDash([])}}if(P){ctx.globalAlpha=hitCd>0&&Math.floor(time*20)%2?.4:1;
+   if(st==='s1'){drawCell(ctx,P.x,P.y,P.r,{},time,P.a)}
+   else{const L=LV[gen-1];if(L&&L.m)for(let i=Math.floor(Math.min(growth,GOAL)/GOAL*7)+1;i>0;i--){const t=trail[trail.length-1-i*10];if(t)drawCell(ctx,t[0],t[1],12,i%3===1?{wal:1}:i%3===2?{mit:1,rib:1}:parts,time,t[2])}drawCell(ctx,P.x,P.y,P.r,parts,time,P.a)}ctx.globalAlpha=1}}}
+function bar(l,v,m,c){return `<span class="bar">${l}<i><b style="width:${clamp(v/m*100,0,100)}%;background:${c}"></b></i></span>`}
+function hud(){let h='';
+ if(st==='s1'||st==='wait')h=`<span class="chip">Etapa 1 · Sopa primordial</span>`+Object.keys(got).map(k=>`<span class="chip"><span class="dot" style="background:${M[k].c}"></span>${M[k].n} (${M[k].t}) ${got[k]}/${NEED}</span>`).join('');
+ else if(st==='s3'||st==='over')h=`<span class="chip">Nivel ${Math.min(gen,LV.length)} · ${LV[Math.min(gen,LV.length)-1].n} · ${sp||TYPES[type].n}</span>`+bar('Energía',energy,100,'#f4c542')+bar('Salud',hp,maxHp,'#ff6b7a')+(mode==='adv'?bar('División',growth,GOAL,'#5de0b8'):'<span class="chip">'+(mode==='sur'?'⏱ '+Math.round(tS)+' s':mode==='cac'?'⏱ '+Math.max(0,60-Math.round(tS))+' s · Presas: '+score:'Comidas: '+Math.round(growth))+'</span>');
+ else h=`<span class="chip">BioSpore</span>`;
+ h+='<button class="chip" onclick="tree()" style="cursor:pointer;color:var(--fg);font:inherit">🏆 Logros y árbol</button><button class="chip" onclick="info()" style="cursor:pointer;color:var(--fg);font:inherit">📖 Info</button>'+(mode==='lab'?'<button class="chip" onclick="edit()" style="cursor:pointer;color:var(--fg);font:inherit">🧪 Editor</button>':'');h+='<button class="chip bt" onclick="mt()">'+(mus?'🔊':'🔇')+'</button><button class="chip bt" onclick="pm()">☰ Menú</button>';if(st==='menu')h='<button class="chip bt" onclick="mt()">'+(mus?'🔊':'🔇')+'</button>';if(hud.l!==h){$('hud').innerHTML=h;hud.l=h}}
+function loop(ts){const dt=Math.min(.05,(ts-last)/1000||0);last=ts;time+=dt;
+ if(toastT>0){toastT-=dt;if(toastT<=0)$('toast').style.display='none'}
+ if(st==='s1'||st==='s3')upd(dt);else if(st==='menu')mols.forEach(m=>{m.x+=m.vx*dt*2;m.y+=m.vy*dt*2;if(m.x<-20)m.x=W+20;if(m.x>W+20)m.x=-20;if(m.y<-20)m.y=H+20;if(m.y>H+20)m.y=-20});draw();hud();requestAnimationFrame(loop)}
+loadO();addEventListener('pointerdown',au);addEventListener('keydown',au);rs();menu();requestAnimationFrame(loop);
+</script></body></html>
