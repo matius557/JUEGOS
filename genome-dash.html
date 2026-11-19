@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>GENOME DASH</title>
+<style>
+:root{--bg:#070b1c;--fg:#e8f3ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif;overflow:hidden;touch-action:manipulation;user-select:none}
+#w{height:100%;display:flex;align-items:center;justify-content:center}
+#box{position:relative;aspect-ratio:16/9;width:min(100%,calc(100dvh*16/9 - 20px))}
+#cv{width:100%;height:100%;display:block;border-radius:8px;background:#000;touch-action:none}
+.ov{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;gap:7px;background:#050914e6;padding:8px;text-align:center;overflow:auto;font-size:clamp(11px,2.2vw,17px);border-radius:8px}
+.ov:before,.ov:after{content:"";margin:auto}.ov.on{display:flex}
+.ov h1{margin:0;font-size:clamp(24px,7vw,52px);background:linear-gradient(90deg,#3dd9ff,#b06bff,#ff5fa8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ov h2,.ov h3,.ov p{margin:0;max-width:92%}.ov .e{color:#ffd166}
+button{--c:#00e5ff;background:#0b1433;color:#eaffff;border:2px solid var(--c);box-shadow:0 0 10px var(--c),inset 0 0 8px #ffffff18;text-shadow:0 0 6px var(--c);border-radius:10px;padding:7px 16px;font-weight:700;font-size:inherit;cursor:pointer}
+input:not([type=range]){background:#0b1433;color:#fff;border:2px solid #b44bff;border-radius:8px;padding:5px;max-width:60%}table{width:92%;text-align:center}.ov h1{filter:drop-shadow(0 0 10px #b44bff)}
+button:disabled{opacity:.35}#bt{position:absolute;top:4px;right:4px;display:flex;gap:4px;font-size:clamp(11px,2vw,15px)}#bt button{padding:3px 10px}
+.g{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}ul{margin:0;text-align:left;padding-left:18px}
+</style></head><body>
+<!-- INTRO: INSTITUTO CAMPOS GAMES (igual en todos los juegos) -->
+<div id="icgIntro" role="button" aria-label="Instituto Campos Games presenta. Tocá para continuar">
+<style>
+#icgIntro{position:fixed;inset:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;color:#fff;background:radial-gradient(ellipse at center,#12304a 0%,#05090c 70%);cursor:pointer;overflow:hidden;transition:opacity .7s ease,filter .7s ease;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+#icgIntro.icg-out{opacity:0;filter:blur(6px);pointer-events:none}
+#icgIntro .icg-shock{position:absolute;left:50%;top:42%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:6px solid #ffd27a;box-shadow:0 0 40px #ff8c1a,inset 0 0 30px #ff8c1a;opacity:0;pointer-events:none;animation:icgShock 1.1s .05s ease-out both}
+#icgIntro .icg-emblem{width:min(30vmin,170px);animation:icgPop 1s cubic-bezier(.2,1.5,.4,1) both;filter:drop-shadow(0 10px 25px #000c) drop-shadow(0 0 30px #e8b43c33)}
+#icgIntro .icg-emblem svg{width:100%;height:auto;display:block}
+#icgIntro .icg-brand{display:flex;flex-direction:column;line-height:1;animation:icgUp .7s .55s both}
+#icgIntro .icg-brand span{font:900 clamp(18px,4.2vmin,34px)/1.1 Inter,Arial,Helvetica,sans-serif;letter-spacing:4px;background:linear-gradient(180deg,#fff3c4,#e8b43c 60%,#a8741a);-webkit-background-clip:text;background-clip:text;color:transparent}
+#icgIntro .icg-brand b{font:700 clamp(12px,2.6vmin,18px) "Courier New",monospace;letter-spacing:12px;color:#86f6d9;margin-top:6px;padding-left:12px}
+#icgIntro .icg-brand sup{font-size:.6em;letter-spacing:0;margin-left:-8px;vertical-align:top;color:#e8b43c}
+#icgIntro .icg-pres{margin:10px 0 0;font:12px "Courier New",monospace;letter-spacing:3px;color:#8fa3ad;text-transform:uppercase;animation:icgUp .6s 1.1s both}
+#icgIntro .icg-tap{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);font:10px "Courier New",monospace;letter-spacing:2px;color:#6f8f98;animation:icgUp .5s 1.6s both}
+@keyframes icgShock{0%{opacity:1;transform:scale(.2)}100%{opacity:0;transform:scale(40)}}
+@keyframes icgPop{0%{opacity:0;transform:scale(.3) rotate(-12deg)}100%{opacity:1;transform:none}}
+@keyframes icgUp{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){#icgIntro *{animation:none!important}}
+</style>
+<div class="icg-shock"></div>
+<div class="icg-emblem"><svg viewBox="0 0 200 230" aria-hidden="true">
+<defs><linearGradient id="icgSh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f4f7a"/><stop offset="1" stop-color="#0b2240"/></linearGradient>
+<linearGradient id="icgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#e8b43c"/><stop offset="1" stop-color="#9c6a12"/></linearGradient></defs>
+<path d="M100 8L182 34V112C182 165 146 200 100 222C54 200 18 165 18 112V34Z" fill="url(#icgSh)" stroke="url(#icgGold)" stroke-width="7"/>
+<path d="M100 26L166 47V112C166 156 137 185 100 204C63 185 34 156 34 112V47Z" fill="none" stroke="#e8b43c" stroke-width="1.6" opacity=".7"/>
+<text x="100" y="104" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="62" fill="url(#icgGold)">IC</text>
+<g transform="translate(100 150)"><rect x="-44" y="-17" width="88" height="34" rx="17" fill="#86f6d9" stroke="#0b2240" stroke-width="3"/><path d="M-26 0h14M-19-7v14" stroke="#0b2240" stroke-width="5" stroke-linecap="round"/><circle cx="18" cy="-5" r="4.5" fill="#ed7db8"/><circle cx="28" cy="4" r="4.5" fill="#d6fa79"/></g>
+<path d="M58 182h84" stroke="#e8b43c" stroke-width="2" opacity=".6"/>
+</svg></div>
+<div class="icg-brand"><span>INSTITUTO CAMPOS</span><b>GAMES<sup>™</sup></b></div>
+<p class="icg-pres">presenta</p>
+<div class="icg-tap">TOCÁ PARA SALTAR</div>
+<script>
+(function(){var el=document.getElementById('icgIntro'),done=false;
+function go(e){if(done)return;done=true;if(e){e.stopPropagation();if(e.preventDefault)e.preventDefault();}el.classList.add('icg-out');setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},750);}
+el.addEventListener('pointerdown',go);el.addEventListener('click',function(e){e.stopPropagation();});
+setTimeout(go,3000);})();
+</script>
+</div>
+<!-- /INTRO -->
+<div id="w"><div id="box"><canvas id="cv"></canvas><div id="bt"><button data-a="pause">⏸</button><button data-a="rs">↻</button></div><div id="dlg" class="ov"></div></div></div>
+<script>
+'use strict';
+const $=s=>document.querySelector(s),W=800,H=450,GY=370,T=40,GRAV=2600,JV=760,cv=$('#cv'),cx=cv.getContext('2d'),D=$('#dlg');
+cv.width=W;cv.height=H;
+const save={un:1,done:[],cb:[0,0,0,0,0],arch:[],vol:.6,mute:false};
+try{Object.assign(save,JSON.parse(localStorage.getItem('gdash')||'{}'))}catch(e){}
+save.bp=save.bp||[];const store=()=>{try{localStorage.setItem('gdash',JSON.stringify(save))}catch(e){}};
+const CL={A:'#ffee00',T:'#00e5ff',C:'#ff2e88',G:'#b44bff',U:'#ff7a00',a:'#b6ff00'};const NE=['#ff2e88','#c6ff00','#ffea00','#ff7a00','#00ffd0','#ff2e88','#b6ff00','#ffb400','#ff00e6','#00e5ff'];
+// ---------- AUDIO ----------
+let AC,MG,MU,SX,mB=0,mus=null,nxt=0,stp=0,bpm=120,RK=null,RT=82.41,RS={c:0,r:0,li:6,lr:0};
+function aud(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();const cp=AC.createDynamicsCompressor();cp.threshold.value=-12;cp.knee.value=10;cp.ratio.value=4;cp.attack.value=.003;cp.release.value=.18;const og=AC.createGain();og.gain.value=.9;MG.connect(cp);cp.connect(og);og.connect(AC.destination);MU=AC.createGain();SX=AC.createGain();MU.connect(MG);SX.connect(MG)}catch(e){return}}if(AC.state=='suspended')AC.resume();setVol()}
+function setVol(){if(MG){MG.gain.value=save.mute?0:1;MU.gain.value=save.mv??.7;SX.gain.value=save.sv??.8}}
+function tone(f,d,ty,v,t0,f2){if(!AC)return;const t=AC.currentTime+(t0||0),o=AC.createOscillator(),g=AC.createGain();o.type=ty||'square';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v||.15,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(mB?MU:SX);o.start(t);o.stop(t+d+.02)}
+const SFX={jump:()=>tone(400,.12,'square',.08,0,800),coin:()=>{tone(880,.08,'triangle',.15);tone(1320,.12,'triangle',.15,.07)},ok:()=>[523,659,784].forEach((f,i)=>tone(f,.15,'triangle',.15,i*.1)),bad:()=>tone(200,.25,'sawtooth',.12,0,100),die:()=>tone(300,.4,'sawtooth',.18,0,40),win:()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.25,'triangle',.15,i*.12)),port:()=>tone(300,.3,'sine',.15,0,900)};
+// ---------- MÚSICA ROCK: guitarras distorsionadas, bajo, batería y solos (riffs originales) ----------
+function dist(k){const n=2048,c=new Float32Array(n);for(let i=0;i<n;i++){const x=i*2/n-1;c[i]=Math.tanh(k*x)/Math.tanh(k)}return c}
+function rkInit(){if(RK||!AC)return;const c=AC,R={},bq=(t,f,q,g)=>{const b=c.createBiquadFilter();b.type=t;b.frequency.value=f;if(q!=null)b.Q.value=q;if(g!=null)b.gain.value=g;return b},ch=(...n)=>{for(let i=0;i<n.length-1;i++)n[i].connect(n[i+1])};
+ const nb=c.createBuffer(1,c.sampleRate,c.sampleRate),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=Math.random()*2-1;R.nb=nb;
+ const L=c.sampleRate*1.3|0,ib=c.createBuffer(2,L,c.sampleRate);for(let k=0;k<2;k++){const d=ib.getChannelData(k);for(let i=0;i<L;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/L,3.5)}
+ R.rv=c.createConvolver();R.rv.buffer=ib;const rg=c.createGain();rg.gain.value=.45;ch(R.rv,rg,MU);
+ R.dr=c.createGain();R.dr.gain.value=.6;R.dr.connect(MU);
+ R.gi=c.createGain();R.ws=c.createWaveShaper();R.ws.oversample='4x';R.ws.curve=dist(14);R.go=c.createGain();R.go.gain.value=.2;
+ ch(R.gi,bq('highpass',110,.7),R.ws,bq('peaking',850,.9,4),bq('peaking',2600,1.2,3),bq('lowpass',4300,.8),bq('lowpass',7000),R.go,MU);
+ const gs=c.createGain();gs.gain.value=.15;ch(R.go,gs,R.rv);
+ R.li=c.createGain();const lw=c.createWaveShaper();lw.curve=dist(40);lw.oversample='4x';R.lo=c.createGain();R.lo.gain.value=.12;
+ ch(R.li,bq('highpass',250),lw,bq('peaking',1400,1,5),bq('lowpass',5000,.8),R.lo,MU);
+ const dl=c.createDelay(1),fb=c.createGain(),dg=c.createGain();dl.delayTime.value=.32;fb.gain.value=.3;dg.gain.value=.35;R.lo.connect(dl);dl.connect(fb);fb.connect(dl);ch(dl,dg,MU);const ls=c.createGain();ls.gain.value=.25;ch(R.lo,ls,R.rv);
+ R.bs=c.createGain();R.bs.gain.value=.55;const bw=c.createWaveShaper();bw.curve=dist(2.5);ch(R.bs,bw,bq('lowpass',900,.9),MU);
+ RK=R}
+function nz(t,d,v,ty,f,q,sd){const c=AC,s=c.createBufferSource(),b=c.createBiquadFilter(),g=c.createGain();s.buffer=RK.nb;b.type=ty;b.frequency.value=f;b.Q.value=q||.7;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);s.connect(b);b.connect(g);g.connect(RK.dr);if(sd){const r=c.createGain();r.gain.value=sd;g.connect(r);r.connect(RK.rv)}s.start(t,Math.random()*.4);s.stop(t+d+.05)}
+function ot(t,f,f2,pt,d,v,ty,de){const o=AC.createOscillator(),g=AC.createGain();o.type=ty||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+pt);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(de||RK.dr);o.start(t);o.stop(t+d+.05)}
+const KK=(t,v=1)=>{ot(t,150,45,.09,.38,v*1.2);nz(t,.015,v*.45,'highpass',3000)},
+ SN=(t,v=1)=>{nz(t,.22,v*.8,'bandpass',2000,.6,.4);nz(t,.08,v*.4,'highpass',5000);ot(t,220,160,.05,.12,v*.55,'triangle')},
+ HH=(t,v=1,o)=>nz(t,o?.3:.05,v*.3,'highpass',8500),
+ CR=(t,v=1)=>{nz(t,1.9,v*.42,'highpass',5000,.5,.3);nz(t,.6,v*.2,'bandpass',3500,1)},
+ TM=(t,f,v=1)=>{ot(t,f,f*.55,.25,.35,v*.9);nz(t,.04,v*.3,'bandpass',f*4,1)};
+function gt(t,s,d,pm,a){const c=AC;for(const sd of[-1,1]){const g=c.createGain(),p=c.createStereoPanner?c.createStereoPanner():c.createGain(),v=.26*(a||1);if(p.pan)p.pan.value=sd*.7;
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.004);g.gain.exponentialRampToValueAtTime(pm?v*.12:v*.6,t+Math.max(d,.02));g.gain.linearRampToValueAtTime(0,t+d+.03);
+ let n=g;if(pm){const f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=650;g.connect(f);n=f}n.connect(p);p.connect(RK.gi);
+ for(const iv of pm?[0,7]:[0,7,12]){const o=c.createOscillator();o.type='sawtooth';o.frequency.value=RT*Math.pow(2,(s+iv)/12);o.detune.value=sd*7+(Math.random()-.5)*4;o.connect(g);o.start(t);o.stop(t+d+.06)}}}
+function bs(t,s,d){const f=RT/2*Math.pow(2,(((s%12)+12)%12)/12),g=AC.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.5,t+.005);g.gain.exponentialRampToValueAtTime(.25,t+d);g.gain.linearRampToValueAtTime(0,t+d+.03);g.connect(RK.bs);for(const ty of['sawtooth','sine']){const o=AC.createOscillator();o.type=ty;o.frequency.value=f;o.connect(g);o.start(t);o.stop(t+d+.05)}}
+function ld(t,s,d,b){const c=AC,f=RT*2*Math.pow(2,s/12),g=c.createGain(),lf=c.createOscillator(),lg=c.createGain();
+ for(const ty of['sawtooth','square']){const x=c.createOscillator();x.type=ty;if(ty=='square')x.detune.value=8;x.frequency.setValueAtTime(b?f*.891:f,t);if(b)x.frequency.linearRampToValueAtTime(f,t+.09);lg.connect(x.frequency);x.connect(g);x.start(t);x.stop(t+d+.06)}
+ lf.frequency.value=5.8;lg.gain.setValueAtTime(0,t);lg.gain.linearRampToValueAtTime(d>.25?f*.018:0,t+Math.min(d,.35));lf.connect(lg);lf.start(t);lf.stop(t+d+.06);
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.006);g.gain.exponentialRampToValueAtTime(.18,t+Math.max(d,.03));g.gain.linearRampToValueAtTime(0,t+d+.05);g.connect(RK.li)}
+const PEN=[0,3,5,7,10,12,15,17,19,22,24,27];
+function rkStep(tr,s,t,sd){const b16=s%16,bar=s>>4,sec=(bar>>1)%tr.o.length,sn=tr.o[sec],pat=sn=='B'?tr.B:tr.A,pi=s%32,pr=st=='play'&&ob?P.x/ob.end:0,hot=pr>.7,fill=pi>=28&&sec%2==1;
+ if(tr.sw&&b16%4==2)t+=sd*tr.sw;
+ const c=pat[pi];
+ if(c=='.')RS.r=1;else if(c!='-'){RS.r=0;let n=1;while(pi+n<32&&pat[pi+n]=='-')n++;if(c=='x'){RS.c=0;gt(t,0,sd*.8,1,b16%4==0?1.15:1)}else{RS.c=parseInt(c,36);gt(t,RS.c,sd*n*.97,0,b16%4==0?1.1:1)}}
+ if(b16%2==0&&!RS.r)bs(t,RS.c,sd*1.7);
+ if(fill){if(pi==28){KK(t);SN(t)}else if(pi==29)SN(t,.75);else if(pi==30){KK(t);TM(t,170)}else TM(t,110)}
+ else{const d=tr.d,B=sn=='B',cr=b16==0&&(pi==0||B||hot);if(cr)CR(t,pi==0?1:.7);
+  if({r:[0,8,10],d:[0,6,8,10],f:[0,2,8,10],s:[0,8,11],h:[0,3,10]}[d].includes(b16))KK(t,b16==0?1:.85);
+  if((d=='h'?[8]:[4,12]).includes(b16))SN(t);
+  if(!cr&&(d=='d'||b16%2==0))HH(t,b16%4==0?1:.6,B&&b16%4==2)}
+ if((PS.sh&&st=='play')||sn=='S'||(hot&&sn=='B')){if(RS.lr>0)RS.lr--;else if(Math.random()<.12)RS.lr=1;else{const n=[1,2,2,2,3,4,6][Math.random()*7|0];RS.li=Math.max(0,Math.min(PEN.length-1,RS.li+[-2,-1,-1,1,1,2,0][Math.random()*7|0]));ld(t,PEN[RS.li],sd*n*.95,n>=3&&Math.random()<.5);RS.lr=n-1}}}
+function music(on){clearInterval(mus);mus=null;if(US){try{US.stop()}catch(e){}US=null}const L=lt();if(on&&AC&&L>=10&&UT[L-10]){US=AC.createBufferSource();US.buffer=UT[L-10].b;US.loop=true;US.connect(MU);US.start();return}if(on&&AC){rkInit();const tr=TK();RK.ws.curve=dist(tr.g);RT=82.41*Math.pow(2,tr.k/12);RS={c:0,r:0,li:6,lr:0};nxt=AC.currentTime+.06;stp=0;mus=setInterval(()=>{const tr=TK(),sd=60/(bpm*tr.b)/4;if(nxt<AC.currentTime-.1)nxt=AC.currentTime+.05;while(nxt<AC.currentTime+.15){rkStep(tr,stp,nxt,sd);nxt+=sd;stp++}},25)}}
+// ---------- NIVELES ----------
+// tokens: s d t=pinchos g G=huecos p P S=plataformas m=plataforma móvil o=fragmentos k=checkpoint q=puerta genética f w=portales de velocidad e=meta
+const LV=[
+{n:'El mundo del ADN',h:205,v:300,b:118,s:'s s o d g p k q d s t G S o k q s d g P s k q t d o G p e',
+cap:'El ADN guarda la información genética. Un nucleótido es su unidad básica (azúcar, fosfato y una base A, T, C o G). Un gen es un tramo de ADN con instrucciones para fabricar una proteína. Las bases se emparejan: A con T y C con G.',
+Q:[['Completá el par de bases: A — ?',['T','C','G'],0,'La adenina (A) siempre se empareja con la timina (T).'],['Cadena A-C-G-T. ¿Cuál es su complementaria?',['T-G-C-A','T-C-G-A','U-G-C-A'],0,'A se une con T, C con G, G con C y T con A.'],['¿Qué es un gen?',['La unidad básica del ADN (azúcar, fosfato y base)','Un tramo de ADN con la información para una proteína','Un conjunto de cromosomas'],1,'Un gen es un tramo de ADN que contiene instrucciones; la unidad básica es el nucleótido.']],
+sum:['ADN, gen y nucleótido: no son lo mismo','A–T y C–G']},
+{n:'Replicación',h:150,v:315,b:124,s:'s d g p t k q m s d P S G o k q F r r r C d t g m s k q t S p s G e',
+cap:'Antes de que la célula se divida, copia su ADN. La doble hélice se abre y cada cadena sirve de molde para fabricar una nueva. Es un proceso semiconservativo: cada molécula hija conserva una cadena original.',
+Q:[['¿Para qué se replica el ADN?',['Para tener copias de la información genética antes de dividirse','Para fabricar proteínas directamente','Para producir energía'],0,'La replicación asegura que cada célula hija reciba una copia completa del ADN.'],['Molde A-A-G-C-T. ¿Qué cadena nueva se forma?',['T-T-C-G-A','T-T-G-C-A','U-U-C-G-A'],0,'Se agrega la base complementaria: A→T, G→C, C→G, T→A.'],['Semiconservativa significa que cada ADN hijo tiene…',['dos cadenas originales','una cadena original y una nueva','dos cadenas nuevas'],1,'Cada molécula hija conserva una cadena de la molécula madre.']],
+sum:['La replicación copia el ADN antes de la división celular','Es semiconservativa']},
+{n:'Transcripción y ARN',h:285,v:325,b:128,s:'d t g P S m k q s d G f p t o k q F r r r r C t s m d S g k q G t d P m w e',
+cap:'En la transcripción, una cadena de ADN sirve de molde para fabricar ARN mensajero. El ARN tiene uracilo (U) en lugar de timina (T), es de cadena simple y lleva ribosa.',
+Q:[['Molde de ADN T-A-C-G. ¿Qué ARN se produce?',['A-T-G-C','A-U-G-C','U-A-G-C'],1,'T→A, A→U, C→G, G→C. En el ARN no hay timina.'],['¿Qué base está en el ARN pero no en el ADN?',['Uracilo','Timina','Adenina'],0,'El ARN usa uracilo (U) en lugar de timina (T).'],['Durante la transcripción se produce…',['una proteína a partir de ADN','ARN a partir de un molde de ADN','una copia doble de ADN'],1,'La transcripción usa una cadena de ADN como molde para sintetizar ARN.']],
+sum:['Transcripción: ADN → ARN','El ARN usa U en vez de T']},
+{n:'Síntesis de proteínas',h:30,v:340,b:132,s:'t d G m s k q d t f g P S m G k q t s d m P G w k q d t S G m e',
+cap:'En la traducción, el ribosoma lee el ARN mensajero de a tres bases (codones). El ARN de transferencia trae el aminoácido que corresponde a cada codón y los aminoácidos unidos forman una proteína.',
+Q:[['¿Qué es un codón?',['Tres bases consecutivas del ARNm que codifican un aminoácido','Un tipo de ribosoma','Una base del ADN'],0,'Cada codón del ARNm indica un aminoácido (o una señal de parada).'],['¿Cuál es la función del ARN de transferencia?',['Guardar el ADN','Traer el aminoácido correcto al ribosoma','Copiar el ADN'],1,'El ARNt reconoce el codón y aporta su aminoácido.'],['El ribosoma lee 9 bases del ARNm. ¿Cuántos aminoácidos agrega?',['3','9','1'],0,'9 bases son 3 codones, es decir, 3 aminoácidos.']],
+sum:['Ribosoma, ARNm y ARNt trabajan juntos','Codón = 3 bases = 1 aminoácido']},
+{n:'Mutaciones y genética',h:340,v:350,b:136,s:'d t G m P k q s t d f G S m k q t d P m G k q F r r r r r r C d t s S m w k q G t d f P m S k q d t G m e',
+cap:'Una mutación es un cambio en la secuencia del ADN: sustitución (cambia una base), inserción (se agrega una) o deleción (se pierde una). Pueden ser perjudiciales, beneficiosas o neutras: no todas causan enfermedades. ¡Vencé al Guardián del Genoma!',
+Q:[['A-T-G-C pasa a A-T-C-C. ¿Qué mutación es?',['Inserción','Sustitución','Deleción'],1,'Una base (G) fue cambiada por otra (C): sustitución.'],['A-T-G-C pasa a A-T-G-G-C. ¿Qué mutación es?',['Inserción','Deleción','Sustitución'],0,'Se agregó una base: inserción.'],['A-T-G-C pasa a A-G-C. ¿Qué mutación es?',['Sustitución','Inserción','Deleción'],2,'Se perdió una base (T): deleción.'],['¿Todas las mutaciones causan enfermedades?',['Sí, siempre','No: pueden ser perjudiciales, beneficiosas o neutras','Solo las inserciones'],1,'Muchas mutaciones son neutras y algunas son beneficiosas.'],['¿Cuál es el flujo de la información genética?',['Proteína → ARN → ADN','ADN → ARN → proteína','ARN → ADN → proteína'],1,'El ADN se transcribe a ARN y el ARN se traduce a proteína.']],
+sum:['Sustitución, inserción y deleción','No todas las mutaciones son dañinas']},
+{n:'La división celular',h:95,v:320,b:126,s:'d s o t g p k q d t G S m s k q F r r r r r C t d G P o k q m s d f S t g w p G e',
+cap:'Antes de dividirse, la célula duplica su ADN. En la mitosis se forman dos células idénticas; en la meiosis se forman gametos con la mitad de cromosomas.',
+Q:[['¿Cuántas células produce una mitosis?',['2 células idénticas','4 células distintas','1 célula'],0,'La mitosis da dos células hijas genéticamente iguales.'],['¿Qué células se forman por meiosis?',['Células de la piel','Gametos (óvulos y espermatozoides)','Glóbulos rojos'],1,'La meiosis produce gametos con la mitad de cromosomas.'],['Una célula humana tiene 46 cromosomas. ¿Cuántos tiene un gameto?',['46','23','92'],1,'Los gametos tienen la mitad: 23.']],
+sum:['Mitosis: 2 células idénticas','Meiosis: gametos con la mitad de cromosomas']},
+{n:'El código genético',h:175,v:335,b:132,s:'d t s G p k q f F r r r r r r C w U i i i I i N d t G S m k q s d P t m U I i i i N G t g p k q F r r r r r r r C d t S m e',
+cap:'El código genético relaciona codones con aminoácidos. AUG es el codón de inicio y codifica metionina; UAA, UAG y UGA son codones de terminación y no codifican aminoácido.',
+Q:[['¿Cuál es el codón de inicio?',['UAA','AUG','UGA'],1,'AUG marca el inicio y codifica metionina.'],['¿Qué hace un codón de terminación?',['Agrega un aminoácido especial','Indica el fin de la traducción','Inicia la replicación'],1,'UAA, UAG y UGA detienen la síntesis de la proteína.'],['ARNm: AUG-GCU-UAA. ¿Cuántos aminoácidos se unen?',['3','2','1'],1,'AUG y GCU codifican aminoácidos; UAA termina la traducción.']],
+sum:['AUG inicia; UAA, UAG y UGA terminan','Codones y aminoácidos']},
+{n:'Herencia genética',h:230,v:340,b:134,s:'l s d s t s d L s d G p t k q m S P G s k q U i I i i N l t s d s L o k q F r r r r r r r r C d t G m P S s t d e',
+cap:'Los alelos son versiones de un gen. El genotipo es la combinación de alelos (por ejemplo Aa) y el fenotipo es el rasgo observable. El alelo dominante se manifiesta con una sola copia.',
+Q:[['Genotipo Aa, con A dominante. ¿Qué fenotipo se observa?',['El del alelo dominante','El del alelo recesivo','Una mezcla siempre'],0,'El alelo dominante se manifiesta en heterocigotas.'],['Cruce Aa × Aa. ¿Qué proporción de hijos aa?',['1/4','1/2','3/4'],0,'El cuadro de Punnett da AA, Aa, Aa y aa: un cuarto es aa.'],['¿Qué es el fenotipo?',['Los alelos de un individuo','El rasgo observable','Un tipo de cromosoma'],1,'El genotipo son los alelos; el fenotipo es el rasgo que se observa.']],
+sum:['Genotipo (alelos) y fenotipo (rasgo)','Cruce Aa × Aa: 1/4 aa']},
+{n:'Evolución y diversidad',h:125,v:350,b:138,s:'d t G m S P k q f s t d G m w F r r r r r r r C k q P S m d t G U i I i i N s t d p G m k q F r r r r r r r r r C t d G m S P d e',
+cap:'Las mutaciones y la reproducción sexual generan variación genética. La selección natural favorece a los individuos mejor adaptados, que dejan más descendientes, y así cambian las poblaciones.',
+Q:[['¿Cuál es la fuente original de nueva variación genética?',['Las mutaciones','El ejercicio','El alimento'],0,'Las mutaciones crean alelos nuevos.'],['La selección natural actúa sobre…',['La variación entre individuos de una población','Organismos idénticos','Los deseos del organismo'],0,'Si hay variación heredable y distinto éxito reproductivo, la población cambia.'],['¿Evolucionan los individuos durante su vida?',['Sí, se adaptan y lo heredan','No: evolucionan las poblaciones a lo largo de generaciones','Solo los animales'],1,'La evolución es un cambio en las poblaciones.']],
+sum:['Mutaciones y variación genética','Selección natural: más descendientes para los mejor adaptados']},
+{n:'El Guardián del Genoma',h:300,v:360,b:140,s:'d t G m P S k q f s t d G m S P w F r r r r r r r r C k q U i I i i I i N d t G m P f S t d m w k q F r r r r r r r r r r r r C l s d s t s L G m P S t d k q U i i I i i i I N f t d G m S P w F r r r r r r r r r r r r r r r C k q d t G m P S t d G m e',
+cap:'¡Último desafío! Combiná saltos, vuelo y gravedad invertida, y repasá todo lo aprendido para vencer al Guardián del Genoma.',
+Q:[['Molde de ADN T-A-C-G. ¿Qué ARN se transcribe?',['A-U-G-C','A-T-G-C','U-A-G-C'],0,'T→A, A→U, C→G, G→C. El ARN no tiene timina.'],['¿Cuántas células hijas produce la mitosis?',['2','4','1'],0,'La mitosis produce dos células idénticas.'],['¿Qué codón inicia la traducción?',['UAA','AUG','UGA'],1,'AUG es el codón de inicio.'],['Cruce Aa × Aa. ¿Qué proporción muestra el rasgo dominante?',['1/4','1/2','3/4'],2,'AA, Aa y Aa muestran el rasgo dominante: 3/4.'],['¿Qué mutación quita una base?',['Sustitución','Inserción','Deleción'],2,'Perder una base es una deleción.']],
+sum:['Vencés al Guardián: repasaste ADN, ARN, proteínas, mitosis y herencia','No todas las mutaciones son dañinas']}];
+// ---------- ESTADO ----------
+let FX=0,DF=save.df??1,tk=save.tk??-1,UT=[],US=null,SP=0,SW=0,SD=0,PS={sh:0,dir:1,jm:1},CEIL=50,ci=0,ob,P={x:0,y:GY-36,vy:0,r:0,on:true},st='menu',att=1,score=0,cpx=0,hold=0,buf=0,deadT=0,ig=0,toast='',tt=0,ps=[],cg,wr=new Set(),qd=0,msg='',em=0,fl=0;
+const ptop=p=>p.b+Math.sin(performance.now()/500+p.ph)*p.m;
+const mult=()=>{let m=1;for(const p of ob.po)if(P.x>=p.x&&p.m)m=p.m;return m};
+const sk=()=>Math.min(4,save.done.length?Math.max(...save.done)+1:0);
+function build(i){
+ const l=LV[i];ob={pl:[],sp:[],co:[],cp:[],ga:[],po:[],gp:[],bl:[],cs:[],end:0};let x=14,qi=0,rc=0;
+ const sp=a=>ob.sp.push(a*T),pl=(a,w,h,m)=>ob.pl.push({x:a*T,w:w*T,h:20,b:GY-h,m:m||0,ph:a}),co=(a,h)=>ob.co.push({x:a*T+20,y:GY-h,g:0});
+ let ti=0;for(const k of l.s.split(' ')){ti++;if(DF==0&&ti%4==0&&'sdtgGm'.includes(k))continue;let w=1,g=6;
+  switch(k){
+  case 's':sp(x);break;
+  case 'd':sp(x);sp(x+1);w=2;if(DF==2){sp(x+2);w=3}break;
+  case 't':sp(x);sp(x+1);sp(x+2);w=3;break;
+  case 'g':{const gw=DF==2?3:2;ob.gp.push([x*T,(x+gw)*T]);co(x+.5,100);w=gw;break}
+  case 'G':ob.gp.push([x*T,(x+3)*T]);co(x+1,115);w=3;break;
+  case 'p':pl(x,4,80);co(x+1.5,115);w=4;break;
+  case 'P':pl(x,6,80);sp(x+3);sp(x+4);sp(x+5);co(x+3,115);w=6;break;
+  case 'S':pl(x,2,40);pl(x+2,2,80);co(x+2,115);w=4;break;
+  case 'm':ob.gp.push([x*T,(x+5)*T]);pl(x+1,3,55,20);co(x+2,110);w=5;break;
+  case 'o':co(x,60);co(x+1,85);co(x+2,60);w=3;break;
+  case 'k':g=3;break;
+  case 'q':ob.ga.push({x:x*T,q:qi++,d:0});g=9;break;
+  case 'f':ob.po.push({x:x*T,k:'f',m:1.2});g=4;break;
+  case 'w':ob.po.push({x:x*T,k:'w',m:1});g=4;break;
+  case 'F':ob.po.push({x:x*T,k:'F'});g=4;break;
+  case 'C':ob.po.push({x:x*T,k:'C'});g=9;break;
+  case 'U':ob.po.push({x:x*T,k:'U'});g=7;break;
+  case 'N':ob.po.push({x:x*T,k:'N'});g=9;break;
+  case 'l':ob.po.push({x:x*T,k:'l'});g=4;break;
+  case 'L':ob.po.push({x:x*T,k:'L'});g=5;break;
+  case 'i':ob.cs.push(x*T);break;
+  case 'I':ob.cs.push(x*T,(x+1)*T);w=2;break;
+  case 'r':{const n=rc++,gt=CEIL+30+(n*47)%110,gh=150+[25,0,-15][DF]-Math.min(40,n*2);ob.bl.push({x:x*T,y:CEIL,w:80,h:gt-CEIL},{x:x*T,y:gt+gh,w:80,h:GY-gt-gh});co(x+1,GY-gt-gh/2);w=2;g=4;break}
+  case 'e':ob.end=x*T;break}
+  x+=w+g}
+ let cur=-400;ob.gp.sort((a,b)=>a[0]-b[0]);
+ for(const q of ob.gp){ob.pl.push({x:cur,w:q[0]-cur,h:400,b:GY,m:0,ph:0,g:1});cur=q[1]}
+ ob.pl.push({x:cur,w:ob.end+1500-cur,h:400,b:GY,m:0,ph:0,g:1});
+ const q=SQ[i],al=q.a||'ATCG';q.o=q.o||q.t;q.t=DF==0?q.o.slice(0,q.nm?3:Math.max(2,Math.ceil(q.o.length*.6))):q.o;let k=0;ob.co.forEach((c,j)=>{if(j%[5,3,2][DF]==[4,2,1][DF]){const o=al.split('').filter(z=>z!=q.t[k%q.t.length]);c.L=o[j%o.length]}else c.L=q.t[k++%q.t.length]});
+}
+function reset(){SP=SW=SD=0;PS={sh:0,dir:1,jm:1};P={x:0,y:GY-36,vy:0,r:0,on:true};cpx=0;att=1;score=0;qd=0;ps=[];hold=0}
+function go(i,skip){aud();ci=i;build(i);reset();bpm=LV[i].b*[.92,1,1.08][DF];if(skip){hide();st='play';music(true)}else{st='cap';music(false);dlg(`<h2>Nivel ${i+1}: ${LV[i].n}</h2><p>${LV[i].cap}</p><p>🎸 Tema visual del nivel: <b>${SG[i].n}</b> · Música: <b>${TK().n}</b></p><p class="e">🪙 Cada moneda lleva una letra. Recogé en orden la secuencia de arriba a la izquierda: ${SQ[i].t.split('').join('–')} (${SQ[i].l}). Si recogés otra letra, solo suma puntos y no avanza la secuencia.</p><button data-a="cont">¡Vamos!</button>`)}}
+function burst(x,y,n,win){for(let i=0;i<n;i++){const c='ATCGU'[Math.random()*5|0];ps.push({x,y,vx:(Math.random()-.5)*440,vy:(Math.random()-(win?1.3:.8))*400,l:1,ch:c,c:CL[c]})}}
+function die(){if(st!='play')return;st='dead';deadT=.7;att++;SFX.die();save.bp[ci+DF*10]=Math.max(save.bp[ci+DF*10]||0,Math.min(99,Math.floor(P.x/ob.end*100)));store();burst(P.x+18,P.y+18,30)}
+function dlg(h){D.innerHTML=h;D.classList.add('on')}
+function hide(){D.classList.remove('on')}
+const snd=()=>`<div class="g">🎵<input id="mv" type="range" min="0" max="1" step=".05" value="${save.mv??.7}"> 🔊<input id="sv" type="range" min="0" max="1" step=".05" value="${save.sv??.8}"><button data-a="mute">${save.mute?'Activar sonido':'Silenciar'}</button></div>`;
+function menu(){st='menu';music(false);dlg(`<h1>GENOME DASH</h1><p>Nucleo, el explorador genético</p><div class="g"><button data-a="play">▶ Jugar</button><button data-a="lv">Niveles</button><button data-a="arch">Archivo genético</button></div><p>Espacio, clic o toque: saltar · Esc: pausa · R: reiniciar<br>En celular, jugá en horizontal.</p>${snd()}`)}
+function levels(){dlg(`<h2>Niveles</h2><div class="g">`+LV.map((l,i)=>`<button data-a="go" data-v="${i}" ${i+1>save.un?'disabled':''}>${i+1}. ${l.n} ${save.done.includes(i)?'✓':''} ${i+1>save.un?'🔒':''}</button>`).join('')+`</div><button data-a="menu">Volver</button>`)}
+function arch(){dlg(`<h2>🧬 Archivo genético (${save.arch.length})</h2>`+(save.arch.length?'<ul>'+save.arch.map(a=>`<li>${a}</li>`).join('')+'</ul>':'<p>Todavía vacío: resolvé puertas genéticas para completarlo.</p>')+`<button data-a="menu">Volver</button>`)}
+function pause(){if(st=='play'){st='pause';music(false);dlg(`<h2>Pausa</h2><div class="g"><button data-a="resume">Continuar</button><button data-a="rs">Reiniciar nivel</button><button data-a="mu">🎵 Elegir música</button><button data-a="menu">Menú</button></div>${snd()}`)}else if(st=='pause')act('resume')}
+function showQ(){const q=LV[ci].Q[cg.q];dlg(`<h3>${ci%5==4?'Fase '+(cg.q+1)+' · El Guardián del Genoma':'🧬 Puerta genética'}</h3><p>${q[0]}</p>`+q[1].map((o,j)=>`<button data-a="ans" data-v="${j}" ${wr.has(j)?'disabled':''}>${o}</button>`).join('')+(msg?`<p class="e">${msg}</p>`:''))}
+function win(){st='win';music(false);SFX.win();const got=ob.co.filter(c=>c.g).length;score+=500+Math.max(0,300-att*30);
+ if(!save.done.includes(ci))save.done.push(ci);{const k=ci+'_'+DF;save.sc=save.sc||{};save.sc[k]=Math.max(save.sc[k]||0,Math.min(12000,score));const s=save.st=save.st||{w:0,a:0,s:0,p:0};s.w++;s.a+=att;if(SD)s.s++;if(SD&&!SW)s.p++;if(DF==2)save.hd=[...new Set([...(save.hd||[]),ci])];lbSend()}save.un=Math.min(10,Math.max(save.un,ci+2));save.cb[ci]=Math.max(save.cb[ci]||0,got);
+ LV[ci].sum.forEach(s=>{if(!save.arch.includes(s))save.arch.push(s)});store();burst(P.x+18,P.y,60,1);
+ setTimeout(()=>dlg(`<h2>${ci==9?'🏆 ¡Derrotaste al Guardián del Genoma!':'¡Nivel completado!'}</h2><p>100% · Fragmentos ${got}/${ob.co.length} · Intentos ${att} · Puntos ${score}</p><p>Secuencia ${SQ[ci].t}: ${SD?(SW?'⭐ completa':'🌟 perfecta'):'incompleta'}</p><p>Aprendiste:</p><ul>${LV[ci].sum.map(s=>`<li>${s}</li>`).join('')}</ul>${ci==9?'<p>Completaste la aventura genética. Nucleo evolucionó al máximo.</p>':''}<div class="g"><button data-a="again">Jugar de nuevo</button>${ci<9?'<button data-a="next">Siguiente nivel</button>':''}<button data-a="menu">Menú</button></div>`),900)}
+function act(a,v){aud();switch(a){
+ case 'play':go(Math.min(save.un-1,9));break;
+ case 'lv':levels();break;case 'arch':arch();break;case 'menu':menu();break;
+ case 'go':go(+v);break;case 'again':go(ci);break;case 'next':go(ci+1);break;
+ case 'cont':hide();st='play';music(true);break;
+ case 'resume':hide();st='play';music(true);break;
+ case 'pause':pause();break;
+ case 'rs':if(st!='menu'&&st!='win'&&st!='cap'&&st!='intro')go(ci,true);break;
+ case 'mute':save.mute=!save.mute;setVol();store();event.target.textContent=save.mute?'Activar sonido':'Silenciar';break;
+ case 'ans':{const q=LV[ci].Q[cg.q],j=+v;if(j==q[2]){SFX.ok();score+=150;qd++;if(!save.arch.includes(q[3])){save.arch.push(q[3]);store()}st='qok';dlg(`<h3>✅ ¡Correcto!</h3><p>${q[3]}</p><button data-a="qdone">Continuar</button>`)}else{SFX.bad();wr.add(j);msg='Todavía no. '+q[3]+' Probá de nuevo.';showQ()}break}
+ case 'qdone':cg.d=1;hide();hold=0;buf=0;ig=.45;st='play';break}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b){const a=b.dataset.a;if(X[a])X[a](b.dataset.v);else act(a,b.dataset.v);b.blur()}});
+document.addEventListener('input',e=>{if(e.target.id=='mv'||e.target.id=='sv'){aud();save[e.target.id]=+e.target.value;setVol();store()}});
+addEventListener('keydown',e=>{if(e.target.tagName=='INPUT'&&e.code!='Escape')return;if(st=='intro'){aud();if(IT<0)introStart();else endIntro();e.preventDefault();return}if(['Space','ArrowUp','KeyW'].includes(e.code)){e.preventDefault();aud();if(!hold)buf=.12;hold=1}if(e.code=='Escape')pause();if(e.code=='KeyR')act('rs')});
+addEventListener('keyup',e=>{if(['Space','ArrowUp','KeyW'].includes(e.code))hold=0});
+cv.addEventListener('pointerdown',()=>{aud();if(st=='intro'){if(IT<0)introStart();else endIntro();return}hold=1;buf=.12});addEventListener('pointerup',()=>hold=0);
+// ---------- FÍSICA ----------
+function step(dt){
+ if(ig>0){ig-=dt;hold=0;buf=0}
+ let ns={sh:0,dir:1,jm:1};for(const p of ob.po)if(P.x>=p.x){if(p.k=='F')ns.sh=1;if(p.k=='C')ns.sh=0;if(p.k=='U')ns.dir=-1;if(p.k=='N')ns.dir=1;if(p.k=='l')ns.jm=.8;if(p.k=='L')ns.jm=1}
+ if(ns.sh!=PS.sh){P.vy=0;P.on=false}if(ns.dir!=PS.dir)P.on=false;PS=ns;
+ const l=LV[ci],pvB=P.y+36,m=mult();buf-=dt;P.x+=l.v*m*[.85,1,1.15][DF]*dt;
+ if(PS.sh){P.vy=Math.max(-380,Math.min(380,P.vy+(hold?-1500:1100)*dt));P.y=Math.max(CEIL,Math.min(GY-30,P.y+P.vy*dt));if(hold)ps.push({x:P.x-6,y:P.y+14,vx:-120,vy:80,l:.3,ch:'·',c:'#ffd166'})}
+ else if(P.on&&(hold||buf>0)){P.vy=-JV*PS.jm*PS.dir;P.on=false;buf=0;SFX.jump();fl=.12}
+ if(!PS.sh){P.vy+=GRAV*PS.dir*dt;P.y+=P.vy*dt}
+ const x1=P.x+4,x2=P.x+32;let land=false,bad=false;
+ for(const p of ob.pl){if(PS.sh||x2<=p.x||x1>=p.x+p.w)continue;const top=ptop(p);
+  if(P.vy>=0&&pvB<=top+(p.m?14:3)&&P.y+36>=top){P.y=top-36;P.vy=0;land=true}
+  else if(P.y+36>top+12&&P.y<top+p.h)bad=true}
+ for(const s of ob.sp)if(P.x+30>s+12&&P.x+6<s+28&&P.y+30>GY-30&&P.y+6<GY)bad=true;
+ for(const b of ob.bl)if(P.x+30>b.x&&P.x+6<b.x+b.w&&P.y+(PS.sh?22:30)>b.y&&P.y+6<b.y+b.h)bad=true;
+ for(const s of ob.cs)if(P.x+30>s+12&&P.x+6<s+28&&P.y+6<CEIL+30)bad=true;
+ if(P.y>H+60)bad=true;
+ if(PS.dir<0&&P.y<=CEIL){P.y=CEIL;P.vy=0;land=true}
+ if(land&&!P.on)burst(P.x+18,P.y+36,3);
+ P.on=land;
+ if(PS.sh)P.r=0;else if(!land)P.r+=5.4*dt;else{const tg=Math.round(P.r/(Math.PI/2))*Math.PI/2;P.r+=(tg-P.r)*Math.min(1,dt*20)}
+ for(const c of ob.co)if(!c.g&&Math.abs(P.x+18-c.x)<26&&Math.abs(P.y+18-c.y)<26){c.g=1;score+=100;SFX.coin();burst(c.x,c.y,10);pick(c)}
+ for(const c of ob.cp)if(P.x>=c&&c>cpx){cpx=c;toast='Checkpoint ✔';tt=1.5;SFX.ok()}
+ for(const p of ob.po)if(!p.s&&P.x>=p.x){p.s=1;toast={f:'¡Velocidad x1,2!',w:'Velocidad normal',F:'🚀 Modo nave',C:'Modo cubo',U:'Gravedad invertida',N:'Gravedad normal',l:'Salto corto',L:'Salto normal'}[p.k];tt=1.5;SFX.port()}
+ if(bad){die();return}
+ for(const g of ob.ga)if(!g.d&&P.x>=g.x){st='q';cg=g;wr.clear();msg='';showQ();return}
+ if(P.x>=ob.end)win();
+ em-=dt;if(em<=0){em=.04;const c=(sk()>=2?'ATCGU':'ATCG')[Math.random()*(sk()>=2?5:4)|0];ps.push({x:P.x,y:P.y+8+Math.random()*20,vx:-70,vy:(Math.random()-.5)*50,l:.6,ch:c,c:sk()>=2?'#ff9f5a':CL[c]})}
+}
+function upd(dt){if(st=='intro'&&IT>=0){const q=IT;IT+=dt;if(IT>(US?16:10))endIntro()}
+ if(st=='play')step(dt);
+ else if(st=='dead'){deadT-=dt;if(deadT<=0){P.x=0;P.y=GY-36;P.vy=0;P.r=0;P.on=true;PS={sh:0,dir:1,jm:1};SP=SW=SD=0;ob.co.forEach(c=>c.g=0);ob.po.forEach(p=>p.s=0);em=0;music(false);music(true);st='play'}}
+ for(const p of ps){p.l-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=300*dt}ps=ps.filter(p=>p.l>0);if(ps.length>250)ps.splice(0,ps.length-250);
+ if(tt>0)tt-=dt;if(fl>0)fl-=dt;
+}
+// ---------- DIBUJO ----------
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function nuc(c,x,y,r,s,t,vy){
+ c.save();c.translate(x+18,y+18);c.rotate(r);
+ c.shadowColor=s>3?`hsl(${t*150%360},100%,60%)`:'#2ee6d6';c.shadowBlur=s?18:10;
+ c.fillStyle='#0b1433';rr(c,-18,-18,36,36,9);c.fill();c.shadowBlur=0;
+ for(let q=0;q<(s>0?2:1);q++){c.save();if(q){c.scale(.65,.65);c.globalAlpha=.7}
+  const cols=q?['#b06bff','#2ee6d6']:['#3dd9ff','#ff5fa8'];c.lineWidth=3.4;c.lineCap='round';
+  for(let k=0;k<2;k++){c.strokeStyle=cols[k];c.beginPath();for(let i=-16;i<=16;i+=2){const a=Math.sin(i*.3+t*5+k*3.14+q)*11;i<-15?c.moveTo(a,i):c.lineTo(a,i)}c.stroke()}
+  c.restore()}
+ c.font='bold 6px monospace';c.lineWidth=1.2;
+ for(let k=0;k<5;k++){const i=-13+k*6.5,a=Math.sin(i*.3+t*5)*11,b='ATCGA'[k];c.strokeStyle='#ffffff40';c.beginPath();c.moveTo(a,i);c.lineTo(-a,i);c.stroke();c.fillStyle=CL[b];c.fillText(b,a-2,i+2)}
+ if(s>=3)for(let j=0;j<3;j++){const a=t*3+j*2.1;c.fillStyle='#ffd166';c.beginPath();c.arc(Math.cos(a)*25,Math.sin(a)*25,3,0,7);c.fill()}
+ c.fillStyle='#fff';c.beginPath();c.arc(-6,-3,4.4,0,7);c.arc(6,-3,4.4,0,7);c.fill();
+ c.fillStyle='#111';const o=Math.max(-1.5,Math.min(2,vy/400));c.beginPath();c.arc(-5,-3+o,2.2,0,7);c.arc(7,-3+o,2.2,0,7);c.fill();
+ c.strokeStyle='#fff';c.lineWidth=1.3;c.beginPath();c.arc(0,5,4,.2,2.9);c.stroke();
+ c.restore()}
+const SQ=[
+{t:'ATCG',l:'Fragmento de ADN: A–T y C–G',e:'Cada letra es una base del ADN; se aparean A con T y C con G.'},
+{t:'TAGC',l:'Molde A-T-C-G → complementaria',e:'La complementaria de A-T-C-G es T-A-G-C (A–T, C–G).'},
+{t:'AUGCA',a:'ACGUT',l:'Molde T-A-C-G-T → ARNm',e:'Transcripción: T→A, A→U, C→G, G→C. El ARN usa U en vez de T.'},
+{t:'AUGGCU',a:'ACGU',nm:['Metionina (inicio)','Alanina'],l:'Codones del ARNm: AUG, GCU',e:'El ribosoma lee codones y el ARNt trae cada aminoácido.'},
+{t:'ATCCA',l:'A-T-G-C-A → versión mutada',e:'La G cambió por C: una sustitución (mutación puntual).'},
+{t:'ATGC',l:'Copia para cada célula hija',e:'En la mitosis cada célula hija recibe una copia idéntica del ADN.'},
+{t:'AUGUGGUAA',a:'ACGU',nm:['Metionina (inicio)','Triptófano','Terminación (stop)'],l:'AUG inicio · UGG · UAA stop',e:'AUG inicia, UGG codifica triptófano y UAA termina la traducción.'},
+{t:'AaAa',a:'Aa',l:'Dos genotipos Aa',e:'Aa es heterocigota: con A dominante se observa el fenotipo dominante.'},
+{t:'ATGA',l:'A-T-G-C → variante',e:'Una variante con una letra distinta es variación genética: materia prima de la selección natural.'},
+{t:'AUGGCUUAA',a:'ACGU',nm:['Metionina (inicio)','Alanina','Terminación (stop)'],l:'ADN TAC CGA ATT → ARNm',e:'ADN→ARNm→proteína: AUG Met, GCU Ala, UAA stop.'}];
+function pick(c){const q=SQ[ci];if(SD)return;if(c.L==q.t[SP]){SP++;score+=50;SFX.ok();burst(c.x,c.y,14);if(SP==q.t.length){SD=1;FX=1;burst(P.x+18,P.y,40,1);score+=SW?300:600;SFX.win();toast=(SW?'⭐ Secuencia completa. ':'🌟 ¡Perfecta! ')+q.e;tt=4}else{toast=q.nm&&SP%3==0?q.t.slice(SP-3,SP)+' = '+q.nm[SP/3-1]:'Letra '+c.L+' ✔';tt=2}}else{SW=1;if(DF==2)SP=0;toast='Necesitás '+q.t[SP]+' ('+q.l+')';tt=1.6}}
+const DN=['Explorador genético','Mutación activa','Genoma extremo'],DC=['#5dff7a','#b44bff','#ff3b4e'],DE=['🟢','🟣','🔴'],esc=s=>String(s).replace(/[^A-Za-z0-9_]/g,'');
+let DBH=null,UID=null;
+try{const c=window.claude;if(c)c.use('db').then(d=>{DBH=d;return c.use('user')}).then(u=>u&&u.id()).then(i=>{UID=i}).catch(()=>{})}catch(e){}
+const bp=i=>save.bp[i+DF*10]||0,tot=()=>{const t=[0,0,0];for(const k in(save.sc||{}))t[k.split('_')[1]]+=save.sc[k];return t},bdg=x=>(x.h?'🔴':'')+(x.h>=10?'👑':'')+(x.q>=10?'🧬':'')+(x.p>=10?'🌟':'');
+function bt(a,l,c,v){return`<button data-a=${a} ${v!==undefined?'data-v='+v:''} style=--c:${c||'#00e5ff'}>${l}</button>`}
+function lbSend(){if(!DBH||!UID||!save.nm)return;const t=tot(),s=save.st||{},key=t.join();if(save.ls==key)return;save.ls=key;store();DBH.doc('lb/'+UID).set({n:save.nm.toLowerCase(),nm:save.nm,s:t,w:save.done.length,a:s.a||0,q:s.s||0,p:s.p||0,h:(save.hd||[]).length,t:Date.now()}).then(()=>SFX.ok()).catch(()=>{})}
+function menu(){st='menu';music(false);dlg(`<h1>GENOME DASH</h1><p>Nucleo, el explorador genético · ${DE[DF]} ${DN[DF]}</p><div class=g>${bt('play','▶ JUGAR','#c6ff00')}${bt('lv','SELECCIONAR NIVEL')}${bt('dif','DIFICULTAD',DC[DF])}${bt('lb','RANKING GLOBAL','#ff2e88')}${bt('pf','MI PERFIL','#b44bff')}${bt('lg','LOGROS','#ffea00')}${bt('cf','🎵 ELEGIR MÚSICA','#c6ff00')}${bt('cf','CONFIGURACIÓN','#ff7a00')}${bt('cr','CRÉDITOS','#00ffd0')}</div><p>Espacio, clic o toque: saltar o subir · Esc: pausa · R: reiniciar</p>`)}
+function levels(){dlg(`<h2>Niveles · ${DE[DF]} ${DN[DF]}</h2><div class=g>`+LV.map((l,i)=>bt('go',`${i+1}. ${l.n}${save.done.includes(i)?' ✓':''}<br><small>Récord ${bp(i)}%${i+1>save.un?' 🔒':''}</small>`,`hsl(${l.h},100%,60%)`,i).replace('<button',i+1>save.un?'<button disabled':'<button')).join('')+`</div><div class=g>${bt('dif','Dificultad',DC[DF])}${bt('menu','Volver')}</div>`)}
+const LG=[['Primer salto: superá el nivel 1',()=>save.done.includes(0)],['Mitad de la aventura: 5 niveles',()=>save.done.length>=5],['Genoma completo: 10 niveles',()=>save.done.length>=10],['Secuenciador: 10 secuencias completas',()=>(save.st||{}).s>=10],['Perfección: una secuencia sin errores',()=>(save.st||{}).p>=1],['Genoma extremo: un nivel en difícil',()=>(save.hd||[]).length>=1],['Leyenda: 10 niveles en difícil',()=>(save.hd||[]).length>=10]];
+const X={
+dif(){dlg(`<h2>Dificultad</h2>`+[0,1,2].map(d=>bt('df',`${DE[d]} ${DN[d].toUpperCase()}<br><small>${['Menos obstáculos, velocidad -15%, secuencias cortas, vuelo amplio','Obstáculos y velocidad estándar, secuencias completas','Más obstáculos, velocidad +15%, vuelo estrecho; una letra equivocada reinicia la secuencia'][d]}</small>`,DC[d],d)).join('')+bt('menu','Volver'))},
+df(v){DF=+v;save.df=DF;store();menu()},
+async lb(v){const d=v===undefined?DF:+v,my=tot()[d];let h=`<h2>GENOME LEADERBOARD</h2><div class=g>${[0,1,2].map(i=>bt('lb',DE[i]+' '+['Fácil','Medio','Difícil'][i],DC[i],i)).join('')}</div>`;
+if(!DBH||!UID)h+=`<p class=e>⚠ Ranking global no conectado: necesita abrir el juego publicado en claude.ai con sesión iniciada. Solo se muestra tu récord local.</p><p>Tu puntuación ${DE[d]}: ${my}</p>`;
+else{dlg(h+'<p>Cargando…</p>');try{const s=await DBH.collection('lb').get(),r=s.docs.map(x=>({id:x.id,...x.data()})).filter(x=>x.s&&x.s[d]>0).sort((a,b)=>b.s[d]-a.s[d]),i=r.findIndex(x=>x.id==UID);if(i>=0)save.br=Math.min(save.br||99,i+1);store();h+=`<table><tr><th>#</th><th>Jugador</th><th>Puntos</th><th>Insignias</th></tr>`+r.slice(0,10).map((x,j)=>`<tr${x.id==UID?' style=color:#c6ff00':''}><td>${j+1}</td><td>${esc(x.nm)}</td><td>${x.s[d]}</td><td>${bdg(x)}</td></tr>`).join('')+`</table><p>Tu récord: ${my} · Puesto: ${i<0?'—':i+1} de ${r.length}</p>`}catch(e){h+='<p class=e>No se pudo leer el ranking.</p>'}}
+dlg(h+bt('menu','Volver'))},
+async nm(){const n=esc($('#nmi').value).slice(0,12);if(n.length<3)return X.pf('El nombre necesita 3 a 12 letras o números');if(DBH&&UID){try{const s=await DBH.collection('lb').where('n','==',n.toLowerCase()).get();if(s.docs.some(x=>x.id!=UID))return X.pf('Ese nombre ya está en uso')}catch(e){}}save.nm=n;save.ls='';store();lbSend();X.pf('Nombre guardado')},
+pf(m){const t=tot(),s=save.st||{a:0,s:0,p:0};dlg(`<h2>Mi perfil</h2>${typeof m=='string'?'<p class=e>'+m+'</p>':''}<div class=g><input id=nmi maxlength=12 placeholder='Nombre de usuario' value='${save.nm||''}'>${bt('nm','Guardar nombre','#b44bff')}</div><p>🟢 ${t[0]} · 🟣 ${t[1]} · 🔴 ${t[2]}</p><p>Niveles superados: ${save.done.length}/10 · Intentos en victorias: ${s.a} · Secuencias: ${s.s} (perfectas ${s.p}) · Mejor puesto: ${save.br&&save.br<99?save.br:'—'}</p><p>Logros: ${LG.filter(g=>g[1]()).length}/${LG.length}</p><div class=g>${bt('arch','Archivo genético')}${bt('menu','Volver')}</div>`)},
+lg(){dlg(`<h2>Logros</h2><ul>`+LG.map(g=>`<li>${g[1]()?'✅':'⬜'} ${g[0]}</li>`).join('')+`</ul>${bt('menu','Volver')}`)},
+cf(m){dlg(`<h2>Configuración</h2>${typeof m=='string'?'<p class=e>'+m+'</p>':''}${snd()}<h3>🎸 Playlist rock</h3><div class=g>${[bt('tk','Auto (según nivel)',tk<0?'#c6ff00':'#00e5ff',-1)].concat(TRK.map((t,i)=>bt('tk','🎵 '+t.n,tk==i?'#c6ff00':'#00e5ff',i)),UT.map((t,i)=>bt('tk','📁 '+t.n,tk==i+10?'#c6ff00':'#ff7a00',i+10))).join('')}</div><div class=g>${bt('nx','⏭ Siguiente','#b44bff')}</div><p><small>Riffs de rock originales tocados en vivo por el juego: guitarras distorsionadas, bajo, batería y solos.</small></p>${st=='pause'?bt('pb','Volver'):bt('menu','Volver')}`)},
+pb(){st='play';pause()},mu(){X.cf()},tk(v){tk=+v;save.tk=tk;store();aud();music(true);X.cf()},nx(){const n=10+UT.length;X.tk(tk>=n-1?-1:tk+1)},
+cr(){dlg(`<h2>Créditos</h2><p>GENOME DASH · diseño y código generados con Claude · música rock y efectos sintetizados en vivo con Web Audio · contenido para secundaria</p>${bt('menu','Volver')}`)}};
+const TRK=[
+{n:'Voltaje Genético',k:0,g:14,d:'d',b:1,o:'AABASB',A:'x-x-x-x-5-x-3-x-x-x-x-x-7-5-3-.-',B:'0-------5---3---0-------7---5-3-'},
+{n:'Riff de la Doble Hélice',k:0,g:9,d:'r',b:.95,o:'AABASB',A:'0---.-.-3-5-.-.-0---.-.-a-c-7-5-',B:'5-------3-------0-------7-5-3-2-'},
+{n:'Ribosoma Dinamita',k:5,g:12,d:'r',b:1,o:'AABASB',A:'0-.-0-.-0-.-3-5-.-0-.-0-.-a-7-.-',B:'x-x-x-x-x-x-x-x-5-5-5-5-3-3-7---'},
+{n:'Autopista del ARN',k:5,g:11,d:'r',b:1,o:'AABASB',A:'0-------.-.-0-.-5---3-------x-x-',B:'0---0---5---5---7---7---5-3-0---'},
+{n:'Campanas del Guardián',k:0,g:20,d:'h',b:.9,o:'AABBSB',A:'x-x-x-x-x-x-x-x-c---a---7---5---',B:'0-----0-----3---5-----5-----7---'},
+{n:'Mitosis Toda la Noche',k:3,g:10,d:'s',sw:.3,b:.95,o:'AABASB',A:'0-.-0-0-3-.-5-.-0-.-0-0-5-.-7-.-',B:'5-------0-------3-------7---5---'},
+{n:'Para los que Codifican',k:5,g:16,d:'r',b:1,o:'AABASB',A:'0-x-x-x-x-x-x-x-3-x-x-x-5---3---',B:'0-------------5-3-------------7-'},
+{n:'Boogie del Alelo',k:0,g:12,d:'s',sw:.3,b:1,o:'AABASB',A:'x-x-0-x-x-x-5-3-x-x-0-x-x-x-7-5-',B:'0---.-0-5---.-5-7---.-7-5-3-2-0-'},
+{n:'Disparo Evolutivo',k:5,g:14,d:'d',b:1.05,o:'AABASB',A:'0-0-x-0-x-0-3-5-0-0-x-0-x-0-7-5-',B:'a-------7-------5-------3---5---'},
+{n:'Que Haya Genoma',k:0,g:18,d:'f',b:1.12,o:'AABASBSB',A:'x-x-x-x-3-x-x-x-x-x-x-x-5-3-7-5-',B:'0---0---3---3---5---5---7-5-3-2-'}],TK=()=>tk<0?TRK[ci]:TRK[tk]||TRK[0];
+async function addTracks(fs,nm){aud();const s=$('#is');if(s)s.textContent='Cargando…';if(!AC){if(s)s.textContent='Este navegador no permite audio';return}for(const f of [...fs]){const ab=await f.arrayBuffer(),n=nm||f.name.replace(/\.[^.]+$/,'').slice(0,28);if(f.size>25e6||(UT.length>=12&&!UT.some(u=>u.n==n)))continue;try{const b=await AC.decodeAudioData(ab.slice(0)),o=UT.findIndex(u=>u.n==n);if(o>=0)UT.splice(o,1);UT.push({n,b});idbPut(n,ab);if(s)s.textContent='✔ Cargada: '+n}catch(e){if(s)s.textContent='✖ No se pudo leer ese archivo'}}if(st=='cap')go(ci);else if(st!='intro')X.cf(UT.length?'Pistas guardadas en este navegador':'No se pudo leer el archivo de audio')}
+let IT=-1;
+const SG=[['Thunderstruck','thunder'],['Back in Black','back in black'],['TNT','tnt'],['Highway to Hell','highway'],['Hells Bells','hells bells'],['You Shook Me All Night Long','shook me'],['For Those About to Rock','those about'],['Dirty Deeds Done Dirt Cheap','dirty deeds'],['Shoot to Thrill','shoot to'],['Let There Be Rock','let there be']].map(a=>({n:a[0],k:a[1]}));
+const lt=()=>{if(tk>=0)return tk;const j=UT.findIndex(u=>u.n.toLowerCase().includes(SG[ci].k));return j>=0?j+10:-1};
+const FXS=[
+t=>{const c=Math.floor(t*.55),ph=t*.55-c;if(ph<.1){cx.fillStyle=`rgba(255,255,255,${(.1-ph)*3})`;cx.fillRect(0,0,W,H);cx.strokeStyle='#e8f6ff';cx.lineWidth=3;cx.shadowColor='#88ccff';cx.shadowBlur=12;cx.beginPath();let x=100+(c*137)%600,y=0;cx.moveTo(x,y);while(y<GY){x+=((c*7+y)%5-2)*18;y+=37;cx.lineTo(x,y)}cx.stroke();cx.shadowBlur=0}},
+()=>{},
+t=>{for(let i=0;i<6;i++){const x=((i*150-P.x*.4)%900+900)%900-50,y=120+(i%3)*70+Math.sin(t*2+i)*6;cx.fillStyle='#d62828';cx.fillRect(x,y,14,44);cx.fillStyle='#fff';cx.font='bold 8px sans-serif';cx.fillText('TNT',x,y+26);cx.fillStyle='#ffd60a';cx.beginPath();cx.arc(x+7+Math.sin(t*30+i)*2,y-6,3+Math.random()*2,0,7);cx.fill()}const e=(t%5)/5;if(e<.06){cx.fillStyle=`rgba(255,140,0,${.5-e*8})`;cx.fillRect(0,0,W,H)}},
+t=>{for(let x=0;x<W;x+=14){const h=26+Math.sin(t*9+x*.13)*14+Math.sin(t*5+x)*6;cx.fillStyle=x%28?'#ff7a00':'#ffd60a';cx.globalAlpha=.55;cx.beginPath();cx.moveTo(x,H);cx.lineTo(x+7,H-h);cx.lineTo(x+14,H);cx.fill()}cx.globalAlpha=1},
+t=>{const r=((t*.5)%1)*420;cx.strokeStyle=`rgba(255,255,255,${Math.max(0,.5-r/900)})`;cx.lineWidth=6;cx.beginPath();cx.arc(W/2,190,r,0,7);cx.stroke()},
+t=>{const p=(t*3)%2;cx.fillStyle=`hsla(${t*90%360},100%,60%,${p<.2?.1:.03})`;cx.fillRect(0,0,W,H)},
+t=>{const p=(t*.8)%1;if(p<.35){cx.fillStyle=`rgba(255,${120+p*300|0},0,${.7-p*2})`;for(const s of[0,W]){const d=s?-1:1;cx.beginPath();cx.moveTo(s,H);cx.lineTo(s+d*(260*p+40),H*.2+p*120);cx.lineTo(s+d*(260*p+90),H*.25+p*130);cx.fill()}}},
+t=>{const g=cx.createRadialGradient(W/2,H/2,150,W/2,H/2,520);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,`rgba(180,0,20,${.45+Math.sin(t*4)*.1})`);cx.fillStyle=g;cx.fillRect(0,0,W,H)},
+t=>{for(let i=0;i<3;i++){const a=Math.sin(t*1.1+i*2.1)*.6,x=150+i*250;cx.fillStyle=`hsla(${[0,50,300][i]},100%,65%,.1)`;cx.beginPath();cx.moveTo(x,0);cx.lineTo(x+a*300-50,H);cx.lineTo(x+a*300+50,H);cx.fill()}}];
+FXS.push(t=>{FXS[0](t);FXS[3](t);FXS[8](t)});
+function songFx(t){const g=ci==1?'grayscale(1) contrast(1.25)':'';if(cv.style.filter!=g)cv.style.filter=g;FXS[ci](t)}
+const idb=()=>new Promise((s,j)=>{const r=indexedDB.open('gd',1);r.onupgradeneeded=()=>r.result.createObjectStore('t',{keyPath:'n'});r.onsuccess=()=>s(r.result);r.onerror=j});
+async function idbPut(n,d){try{(await idb()).transaction('t','readwrite').objectStore('t').put({n,d})}catch(e){}}
+async function idbLoad(){try{const rq=(await idb()).transaction('t').objectStore('t').getAll();rq.onsuccess=async()=>{for(const x of rq.result){if(UT.some(u=>u.n==x.n))continue;try{UT.push({n:x.n,b:await AC.decodeAudioData(x.d.slice(0))})}catch(e){}}}}catch(e){}}
+function introStart(){IT=0;music(true)}
+function endIntro(){st='menu';cv.style.filter='';menu()}
+function introDraw(t){
+ cv.style.filter='';const k=Math.max(IT,0),on=IT>=0,beat=on&&(k*2)%1<.15&&Math.floor(k*2)%4==0;
+ cx.fillStyle='#05030f';cx.fillRect(0,0,W,H);
+ for(let i=0;i<4;i++){const a=Math.sin(t*1.3+i*1.7)*.5,x=100+i*200;cx.fillStyle=`hsla(${i*80+t*60},100%,60%,${on?.15:.06})`;cx.beginPath();cx.moveTo(x,0);cx.lineTo(x+a*260-60,H);cx.lineTo(x+a*260+60,H);cx.fill()}
+ if(beat){cx.fillStyle='#ffffff66';cx.fillRect(0,0,W,H);cx.strokeStyle='#fff';cx.lineWidth=3;cx.beginPath();let x=W*.3+Math.random()*W*.4,y=0;cx.moveTo(x,y);while(y<260){x+=Math.random()*60-30;y+=40;cx.lineTo(x,y)}cx.stroke()}
+ cx.fillStyle='#14102a';cx.fillRect(0,330,W,120);cx.fillStyle='#ff2e88';cx.fillRect(0,330,W,3);
+ for(const x of[40,690]){cx.fillStyle='#1b1b24';cx.fillRect(x,250,70,80);cx.strokeStyle='#ffee00';cx.lineWidth=2;cx.strokeRect(x,250,70,80);cx.fillStyle='#333';cx.beginPath();cx.arc(x+35,290,22,0,7);cx.fill()}
+ cx.fillStyle='#0a0714';for(let i=0;i<26;i++){const x=i*32+(i%3)*5,y=398+Math.sin(t*6+i)*6-(i%4)*5;cx.beginPath();cx.arc(x,y,16,0,7);cx.fill();cx.fillRect(x-14,y,28,60);if(i%3==0)cx.fillRect(x+10,y-28+Math.sin(t*9+i)*8,5,28)}
+ const hop=on?Math.abs(Math.sin(k*3.1))*55:0;
+ cx.save();cx.translate(W/2,262-hop);cx.rotate(Math.sin(t*5)*(on?.14:.04));cx.scale(2.4,2.4);cx.translate(-18,-18);
+ nuc(cx,0,0,0,4,t,0);
+ cx.fillStyle='#1d2a8f';cx.beginPath();cx.arc(18,1,15,Math.PI,0);cx.fill();cx.fillStyle='#fff';cx.fillRect(2,0,34,3);
+ cx.fillStyle='#e8212e';cx.beginPath();cx.ellipse(27,38,13,10,.5,0,7);cx.fill();cx.strokeStyle='#8a5a2b';cx.lineWidth=3;cx.beginPath();cx.moveTo(27,38);cx.lineTo(-20,14);cx.stroke();cx.strokeStyle='#3dd9ff';cx.beginPath();cx.moveTo(30,24);cx.lineTo(28+Math.sin(t*18)*4,38);cx.stroke();
+ cx.restore();
+ cx.textAlign='center';cx.shadowColor='#ff2e88';cx.shadowBlur=18;
+ if(!on){cx.fillStyle='#fff';cx.font='bold 26px sans-serif';cx.globalAlpha=.6+.4*Math.sin(t*5);cx.fillText('🤘 TOCÁ PARA ROCKEAR',W/2,80);cx.globalAlpha=1}
+ else{const e=1-Math.min(1,k/1.5);cx.font='bold 64px sans-serif';cx.fillStyle='#00e5ff';cx.fillText('GENOME',W/2-e*e*600,100);cx.fillStyle='#ff2e88';cx.fillText('DASH',W/2+e*e*600,168);if(k>3){cx.shadowBlur=0;cx.fillStyle='#fffa';cx.font='14px sans-serif';cx.fillText('Tocá para continuar',W/2,320)}}
+ cx.shadowBlur=0;cx.textAlign='left'}
+function ship(c,x,y,vy,t){c.save();c.translate(x+20,y+12);c.rotate(Math.max(-.6,Math.min(.6,vy/700)));c.shadowColor='#2ee6d6';c.shadowBlur=14;c.fillStyle='#0b1433';c.beginPath();c.moveTo(24,0);c.lineTo(-18,-12);c.lineTo(-18,12);c.closePath();c.fill();c.shadowBlur=0;c.lineWidth=3;for(let k=0;k<2;k++){c.strokeStyle=k?'#ff5fa8':'#3dd9ff';c.beginPath();for(let i=-18;i<=20;i+=2){const a=Math.sin(i*.3+t*6+k*3.14)*8;i<-17?c.moveTo(i,a):c.lineTo(i,a)}c.stroke()}c.fillStyle='#fff';c.beginPath();c.arc(8,-2,3.5,0,7);c.fill();c.fillStyle='#111';c.beginPath();c.arc(9,-2,1.8,0,7);c.fill();c.restore()}
+function bg(t){
+ const l=LV[ci],h=l.h+Math.floor(P.x/(ob.end||1)*4)*22,cam=P.x-150,pulse=1-((performance.now()/(60000/l.b))%1);
+ const g=cx.createLinearGradient(0,0,0,H);g.addColorStop(0,`hsl(${h},70%,7%)`);g.addColorStop(1,`hsl(${h},60%,17%)`);cx.fillStyle=g;cx.fillRect(0,0,W,H);
+ for(let i=0;i<9;i++){const px=((i*197-cam*(.08+i%3*.05))%1000+1000)%1000-100,py=40+(i*83)%260,r=22+(i*13)%38+pulse*3;cx.fillStyle=`hsla(${h+i*12},80%,60%,.07)`;cx.strokeStyle=`hsla(${h+i*12},80%,70%,.18)`;cx.beginPath();cx.arc(px,py,r,0,7);cx.fill();cx.stroke()}
+ if(ci<3){const sin=wx=>Math.sin(wx*.02);const A=ci==1?30+26*Math.sin(cam*.003):50;cx.lineWidth=3;
+  for(let s=0;s<(ci==2?1:2);s++){cx.strokeStyle=`hsla(${h+s*60},90%,65%,.35)`;cx.beginPath();for(let x=0;x<=W;x+=8){const y=190+sin(x+cam*.3+s*3.14)*A;x?cx.lineTo(x,y):cx.moveTo(x,y)}cx.stroke()}
+  if(ci!=2){cx.lineWidth=1.5;cx.strokeStyle=`hsla(${h},90%,70%,.18)`;for(let x=-((cam*.3)%32);x<W;x+=32){const a=sin(x+cam*.3)*A;if(ci==1&&Math.sin(cam*.003)>.4)continue;cx.beginPath();cx.moveTo(x,190+a);cx.lineTo(x,190-a);cx.stroke()}}}
+ else if(ci==3){cx.fillStyle=`hsla(${h},80%,60%,.08)`;cx.strokeStyle=`hsla(${h},90%,70%,.3)`;cx.lineWidth=3;cx.beginPath();cx.ellipse(400,235,330,95+pulse*5,0,0,7);cx.fill();cx.stroke();cx.beginPath();cx.ellipse(400,120,230,70,0,0,7);cx.fill();cx.stroke();cx.font='bold 18px monospace';cx.fillStyle=`hsla(${h},90%,75%,.4)`;for(let x=-((cam*.5)%90);x<W;x+=90)cx.fillText('AUG',x,200)}
+ else{for(let i=0;i<9;i++){const k=Math.floor(t*5+i*7);cx.fillStyle=`hsla(${330+(k%3)*20},90%,60%,.08)`;cx.fillRect((k*97+i*131)%W,(k*53+i*47)%300,30+(k*13)%80,6+(k*7)%20)}}
+ cx.font='bold 14px monospace';for(let i=0;i<14;i++){const c='ATCGU'[i%5];cx.fillStyle=CL[c]+'44';cx.fillText(c,((i*61-cam*.5)%W+W)%W,(i*97+t*30)%H)}
+ if(ci==4||ci==9){const hp=1-qd/LV[ci].Q.length,bx=670,by=140;cx.save();cx.translate(bx,by+Math.sin(t*2)*8);cx.globalAlpha=st=='win'?.3:.85;cx.fillStyle='#2a0a3a';cx.strokeStyle='#ff5fa8';cx.lineWidth=4;cx.beginPath();for(let i=0;i<6;i++){const a=i*Math.PI/3+t*.4;cx.lineTo(Math.cos(a)*(60+pulse*6),Math.sin(a)*(60+pulse*6))}cx.closePath();cx.fill();cx.stroke();cx.fillStyle='#ffd166';cx.beginPath();cx.arc(-18,-8,9,0,7);cx.arc(18,-8,9,0,7);cx.fill();cx.fillStyle='#000';cx.fillRect(-24,-14,12,6);cx.fillRect(12,-14,12,6);cx.restore();cx.globalAlpha=1;cx.fillStyle='#0008';cx.fillRect(bx-60,45,120,8);cx.fillStyle='#ff4d8d';cx.fillRect(bx-60,45,120*hp,8);cx.fillStyle='#fff';cx.font='11px sans-serif';cx.textAlign='center';cx.fillText('El Guardián del Genoma',bx,40);cx.textAlign='left'}
+}
+function draw(t){if(st=='intro'){introDraw(t);return}
+ bg(t);songFx(t);const cam=P.x-150,l=LV[ci],h=l.h,v0=cam-60,v1=cam+W+60,pulse=1-((performance.now()/(60000/l.b))%1);
+ cx.save();cx.translate(-cam,0);
+ for(const p of ob.pl){if(p.x>v1||p.x+p.w<v0)continue;const y=ptop(p);
+  if(p.g){const a=Math.max(p.x,v0),b=Math.min(p.x+p.w,v1);cx.fillStyle=`hsl(${h},50%,11%)`;cx.fillRect(a,y,b-a,H-y);cx.fillStyle=`hsl(${h},90%,${55+pulse*15}%)`;cx.fillRect(a,y,b-a,3);cx.font='bold 12px monospace';for(let x=Math.ceil(a/T)*T;x<b;x+=T){const c='ATCGTAGC'[Math.abs(x/T)%8];cx.fillStyle=CL[c];cx.fillText(c,x+14,y+26)}}
+  else{cx.fillStyle=p.m?'#5b2bb0':`hsl(${h},60%,30%)`;rr(cx,p.x,y,p.w,p.h,6);cx.fill();cx.strokeStyle=p.m?'#d6a8ff':`hsl(${h},95%,65%)`;cx.lineWidth=2;cx.stroke();cx.fillStyle='#ffffff55';for(let x=p.x+T/2;x<p.x+p.w;x+=T)cx.fillRect(x-1,y+4,2,12)}}
+ for(const s of ob.sp){if(s>v1||s<v0)continue;cx.fillStyle=NE[ci];cx.strokeStyle='#fff';cx.shadowColor=NE[ci];cx.shadowBlur=8;cx.lineWidth=2;cx.beginPath();cx.moveTo(s+2,GY);cx.lineTo(s+20,GY-38);cx.lineTo(s+38,GY);cx.closePath();cx.fill();cx.stroke();cx.fillStyle='#fff';cx.font='bold 11px monospace';cx.shadowBlur=0;cx.fillText('ATCG'[(s/T)&3],s+15,GY-6)}
+ cx.fillStyle=`hsla(${h},90%,60%,.5)`;cx.fillRect(v0,CEIL-4,W+120,4);
+ for(const b of ob.bl){if(b.x>v1||b.x+b.w<v0)continue;cx.fillStyle='#3b1d7a';cx.strokeStyle='#d6a8ff';cx.lineWidth=2;rr(cx,b.x,b.y,b.w,b.h,6);cx.fill();cx.stroke()}
+ for(const s of ob.cs){cx.fillStyle=NE[ci];cx.beginPath();cx.moveTo(s+2,CEIL);cx.lineTo(s+20,CEIL+38);cx.lineTo(s+38,CEIL);cx.fill()}
+ for(const c of ob.co){if(c.g||c.x>v1||c.x<v0)continue;const k=Math.sin(t*4+c.x);cx.strokeStyle=CL[c.L]||'#ffee00';cx.shadowColor=cx.strokeStyle;cx.shadowBlur=12;cx.fillStyle='#0b1433cc';cx.lineWidth=3;cx.beginPath();cx.arc(c.x,c.y,14+k,0,7);cx.fill();cx.stroke();cx.shadowBlur=0;cx.fillStyle='#fff';cx.font='bold 17px monospace';cx.textAlign='center';cx.fillText(c.L,c.x,c.y+6);cx.textAlign='left'}
+ for(const c of ob.cp){cx.fillStyle=c<=cpx?'#5dffa0':'#ffffff66';cx.fillRect(c,GY-70,3,70);cx.beginPath();cx.moveTo(c+3,GY-70);cx.lineTo(c+30,GY-58);cx.lineTo(c+3,GY-46);cx.fill()}
+ for(const g of ob.ga){cx.fillStyle=`hsla(${h+40},100%,65%,${g.d?.08:.25+pulse*.15})`;cx.fillRect(g.x,GY-230,10,230);cx.fillStyle='#fff';cx.font='bold 13px sans-serif';if(!g.d)cx.fillText('?',g.x+1,GY-110)}
+ for(const p of ob.po){cx.strokeStyle={f:'#ffd166',w:'#3dd9ff',F:'#b06bff',C:'#5dffa0',U:'#ff5fa8',N:'#ff9f5a',l:'#fff',L:'#999'}[p.k];cx.lineWidth=4;cx.beginPath();cx.ellipse(p.x,GY-80,12,70,0,0,7);cx.stroke()}
+ cx.fillStyle=`hsla(${t*200%360},100%,65%,.5)`;cx.fillRect(ob.end,0,16,GY);
+ for(const p of ps){cx.globalAlpha=Math.min(1,p.l*1.6);cx.fillStyle=p.c;cx.font='bold 13px monospace';cx.fillText(p.ch,p.x,p.y)}cx.globalAlpha=1;
+ if(st!='dead'){let y=P.y;if(st=='win'){y=GY-36-Math.abs(Math.sin(t*6))*34;}if(PS.sh&&st!='win')ship(cx,P.x,P.y,P.vy,t);else nuc(cx,P.x,y,st=='win'?0:P.r,sk(),t,P.vy);if(fl>0){cx.strokeStyle='#fff';cx.globalAlpha=fl*6;cx.beginPath();cx.arc(P.x+18,P.y+18,28,0,7);cx.stroke();cx.globalAlpha=1}}
+ cx.restore();
+ const pct=Math.min(100,Math.floor(P.x/ob.end*100)),got=ob.co.filter(c=>c.g).length;
+ cx.fillStyle='#0009';rr(cx,W/2-150,10,300,12,6);cx.fill();cx.fillStyle='#2ee6d6';if(pct)rr(cx,W/2-150,10,300*pct/100,12,6),cx.fill();
+ cx.fillStyle='#fff';cx.font='bold 13px sans-serif';cx.textAlign='center';cx.fillText(pct+'%',W/2,38);cx.textAlign='left';cx.fillText(`🧬 ${got}/${ob.co.length}   Intentos ${att}`,12,22);cx.fillText(`Puntos ${score}   Nv ${ci+1}   Récord ${bp(ci)}% · ${DE[DF]} ${['Fácil','Medio','Difícil'][DF]}`,12,40);
+ {const q=SQ[ci],n=q.t.length,bw=n>6?14:18,bs=bw+3;cx.font='bold '+(bw-4)+'px monospace';cx.textAlign='center';for(let i=0;i<n;i++){const x=12+i*bs,y=48,d=i<SP;cx.fillStyle=d?'#1f9d55':'#ffffff22';rr(cx,x,y,bw,bw,3);cx.fill();if(i==SP&&!SD){cx.strokeStyle='#ffd166';cx.lineWidth=2;cx.stroke();cx.fillStyle='#ffd16699';cx.fillText(q.t[i],x+bw/2,y+bw-4)}if(d){cx.fillStyle='#fff';cx.fillText(q.t[i],x+bw/2,y+bw-4)}}cx.fillStyle='#fffc';cx.font='11px sans-serif';cx.textAlign='left';cx.fillText(q.l,12,48+bw+13)}
+ if(FX>0){cx.strokeStyle=`hsl(${t*400%360},100%,60%)`;cx.lineWidth=6;cx.strokeRect(4,4,W-8,H-8);FX-=.015}
+ if(tt>0){cx.textAlign='center';cx.font='bold 16px sans-serif';cx.globalAlpha=Math.min(1,tt);cx.fillText(toast,W/2,90);cx.globalAlpha=1;cx.textAlign='left'}
+}
+let last=0;
+function loop(ts){const dt=Math.min((ts-last)/1000||.016,.033);last=ts;upd(dt);draw(ts/1000);requestAnimationFrame(loop)}
+build(0);st='intro';try{aud()}catch(e){}requestAnimationFrame(loop);
+</script></body></html>
