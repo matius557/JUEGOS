@@ -3,17 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Puntajes PISA, historia e indicadores de Uruguay y otros países para analizar los sistemas educativos.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="👉 Radar Educativo · Uruguay frente a PISA y la OCDE">
-<meta property="og:description" content="Puntajes PISA, historia e indicadores de Uruguay y otros países para analizar los sistemas educativos.">
-<meta property="og:url" content="https://matius557.github.io/JUEGOS/radar-educativo/">
-<meta property="og:image" content="https://matius557.github.io/JUEGOS/portadas/radar-educativo.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#07111f">
-<title>Radar Educativo · Uruguay frente a PISA y la OCDE</title>
+<title>Comparativa Educativa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -174,12 +164,12 @@ table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
-<div id="splash" role="button" tabindex="0" aria-label="Entrar a la app"><div class="m">Marchecos Apps</div><div class="s">Radar Educativo · tocá para entrar</div></div>
+<div id="splash" role="button" tabindex="0" aria-label="Entrar a la app"><div class="m">Marchecos Apps</div><div class="s">Comparativa Educativa · tocá para entrar</div></div>
 
 <header class="top">
   <div class="bar">
     <button class="home" id="homeBtn" type="button" aria-label="Volver al inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Inicio</button>
-    <div class="ttl" id="ttl">Radar Educativo</div>
+    <div class="ttl" id="ttl">Comparativa Educativa</div>
     <div class="mode" role="group" aria-label="Modo"><button type="button" data-mode="basico">Básico</button><button type="button" data-mode="avanzado">Avanzado</button></div>
   </div>
   <nav class="subtabs" id="subtabs" role="tablist"></nav>
@@ -354,7 +344,19 @@ const SRC=[
  ["BID – PISA 2025 en América Latina","https://publications.iadb.org/publications/spanish/document/PISA-en-America-Latina-y-el-Caribe-2025-Como-le-fue-a-la-Region.pdf"],
  ["OCDE – Sueldos docentes (EAG 2026, D3)","https://www.oecd.org/en/publications/education-at-a-glance-2026_b4968bbc-en/full-report/how-much-are-teachers-and-school-heads-paid_a6233c97"],
  ["UNESCO UIS – Perfil ODS 4 Uruguay","https://uis.unesco.org/sites/default/files/country-profile/Uruguay.pdf"]
+ ,["Caso grupos en Montevideo (con páginas)"],
+ ["ANEP-DGEIP – Manual de indicadores 2025 (matrícula pág. 44; tamaño de grupo pág. 73)","https://www.dgeip.edu.uy/documentos/2025/planeamientoed/2025_Manual-Indicadores-Planeamiento-Educativo.pdf"],
+ ["DGES – Presentación del Monitor Educativo Liceal 2026","https://www.dges.edu.uy/comunicacion/noticias/se-presento-monitor-educativo-liceal-2026"],
+ ["Durazno Digital – Monitor 2026: 95.535 (EMB) + 74.290 (EMS) = 169.825 estudiantes","https://www.duraznodigital.uy/2026/09/monitor-liceal-casi-98-de-los-alumnos.html"],
+ ["Monitor Educativo Liceal (datos por curso y departamento)","http://servicios.ces.edu.uy/monitorces/servlet/portada"],
+ ["MEF – Rendición de Cuentas 2025, Tomo III (ANEP, págs. 433–437)","https://www.gub.uy/ministerio-economia-finanzas/comunicacion/publicaciones/proyecto-poder-ejecutivo-tomos"],
+ ["INEEd – Impacto distributivo del gasto 2024 (págs. 17–18)","https://www.ineed.edu.uy/images/publicaciones/informes/Impacto-distributivo-del-gasto-publico-en-educacion-Uruguay-2024.pdf"],
+ ["INEEd – Evaluación centros María Espínola (págs. 46–47)","https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-centros-Maria-Espinola.pdf"],
+ ["ATD XLIII (julio 2026), págs. impresas 35, 57, 59 (345 millones de dólares sin ejecutar), 62–64 y 66: sin link público, va en el pack de fuentes","https://claude.ai/artifact/QjqL5hbQ5wKkkw1y5w7hk8"],
+ ["la diaria – Caggiani y el ajuste de grupos 2027","https://ladiaria.com.uy/educacion/articulo/2026/11/pablo-caggiani-dijo-que-si-en-2027-se-ajustan-grupos-por-falta-de-estudiantes-los-recursos-se-destinaran-a-otros-cargos-docentes/"],
+ ["Documento: ¿Por qué no tiene sentido reducir grupos en Montevideo?","https://claude.ai/artifact/QjqL5hbQ5wKkkw1y5w7hk8"]
 ];
+
 SRC.push(["Nuevos documentos usados"],
  ["OCDE – Education at a Glance 2026 (libro completo)","https://www.oecd.org/en/publications/education-at-a-glance-2026_b4968bbc-en"],
  ["INEEd – Estudio de salud ocupacional docente (2020)","https://redi.anii.org.uy/jspui/bitstream/20.500.12381/3783/1/Estudio.pdf"],
@@ -465,7 +467,7 @@ function lines(area,codes){
 
 /* ====== VISTAS ====== */
 const VIEWS={
- home:{t:"Radar Educativo"},
+ home:{t:"Comparativa Educativa"},
  pisa:{t:"Datos PISA",subs:[["res","Resultados"],["radar","Radar"],["sis","Sistema educativo"],["sisradar","Radar del sistema"],["rel","Qué se relaciona"]]},
  hist:{t:"Historia de la educación pública",subs:[]},
  evo:{t:"Evolución de las pruebas PISA",subs:[]},
@@ -764,7 +766,7 @@ function vConf(){
  <p>En casi todos los países PISA encuentra grupos <b>más grandes</b> que el dato oficial (entre 9% y 18%), porque cuenta desde el alumno: un grupo de 35 pesa más que uno de 12. En Uruguay salen iguales (26 y 26,1 en 2025), lo que es raro. Aplicando la diferencia normal de la OCDE, el grupo que vive un alumno típico es bastante mayor que el promedio oficial.</p>
  <p>Por departamento (ciclo básico 2026) los promedios van de 21,2 (Durazno) a 26,4 (Montevideo); sacando los 3 más altos y los 3 más bajos, el centro da <b>23,6</b>. La diferencia real está <b>dentro</b> de cada departamento: liceos de ciudad con grupos llenos y liceos chicos con grupos de 12 a 15.</p>
  <p class="note">ANEP no publica el tamaño de cada grupo ni de cada liceo como dato abierto. Se puede pedir por acceso a la información pública (Ley 18.381).</p></section>`;
- h+=`<section class="card"><h2>El grupo en marzo y a fin de año</h2><p class="lead">El tamaño oficial se calcula con los inscriptos. Durante el año una parte deja de ir (desvinculación dentro del año, Monitor Liceal).</p>
+ h+=`<section class="card"><h2>El grupo en marzo y a fin de año</h2><p class="lead">El tamaño oficial divide la matrícula entre los grupos. ANEP no aclara en qué momento del año toma el dato: su manual define como matriculado a todo el que estuvo inscripto y asignado a un grupo en algún momento del año, pero el Monitor no publica la fecha. Durante el año una parte deja de ir (desvinculación dentro del año, Monitor Liceal).</p>
  <div style="overflow-x:auto"><table><thead><tr><th style="text-align:left">Curso</th><th>Oficial</th><th>Dejan en el año</th><th>A fin de año</th><th>Visto por alumno*</th></tr></thead><tbody>
  <tr><td>Ciclo básico 2025</td><td style="text-align:center">24,7</td><td style="text-align:center">9,0%</td><td style="text-align:center">≈22,5</td><td style="text-align:center">≈28</td></tr>
  <tr><td>1° bachillerato 2024</td><td style="text-align:center">27,9</td><td style="text-align:center">14,8%</td><td style="text-align:center">≈23,8</td><td style="text-align:center"><b>≈31,6</b></td></tr>
@@ -773,6 +775,7 @@ function vConf(){
  <tr><td>3° bachillerato 2025</td><td style="text-align:center">20,1</td><td style="text-align:center">s/d</td><td style="text-align:center">—</td><td style="text-align:center">≈22,8</td></tr>
  </tbody></table></div>
  <p>En ciclo básico la desvinculación dentro del año <b>subió</b> de 8,5% (2023) a 9,0% (2025); en 1° de bachillerato, de 14,8% a <b>18,7%</b>: casi 1 de cada 5.</p>
+ ${concl("<b>¿Por qué importa en qué momento se mide?</b> Medido al inicio, el número parte de la expectativa de que todos los alumnos van a continuar y terminar. Medido a mitad o al final, cuando muchos ya abandonaron, da el abandono por hecho y puede usarse para justificar cerrar grupos en lugar de luchar contra él. ANEP debería aclarar cuándo mide y publicar las dos cifras por liceo: inscriptos al inicio y alumnos que siguen asistiendo.")}
  <p class="note">* Oficial ÷ 0,882, la diferencia típica entre el dato oficial y PISA en la OCDE (estimación, no medición). "A fin de año" = oficial × (1 − % que deja). Fuente: Monitor Educativo Liceal, liceos oficiales, Plan EBI y Plan EMS.</p></section>`;
  h+=`<section class="card"><h2>Pasar de grado no es aprobar todo</h2><p class="lead">Monitor Liceal, liceos oficiales, 2025. "Promovidos" incluye a quienes pasan con materias pendientes, según las reglas de cada plan.</p>
  <div style="overflow-x:auto"><table><thead><tr><th style="text-align:left">Grado</th><th>Promueven</th><th>Aprueban todo</th><th>Pasan sin aprobar todo</th></tr></thead><tbody>
@@ -792,7 +795,7 @@ function vConf(){
  <p>La mitad de los alumnos de 9° y de 1° de bachillerato supera las 30 faltas en el año, y en 8° y 9° creció unos 7 puntos desde 2023. Sin embargo la asistencia oficial informada es 86,5%, porque cuenta como presente al que fue parte del día.</p>
  <p class="note">"Inasistencias fictas": las faltas a cada materia convertidas a días completos. PISA 2025: 13,9% de los alumnos de 15 años faltó un día entero en las dos semanas previas a la prueba (OCDE: 22,4%). No son comparables directamente.</p></section>`;
  h+=`<section class="card"><h2>Lo que mejora</h2><ul><li><b>Extraedad</b> (alumnos mayores que la edad del grado) en 7°: 45% en 2008, 23,4% en 2023 y <b>19,1%</b> en 2026. Repiten mucho menos que antes.</li><li><b>Desvinculación de un año a otro</b> en ciclo básico: 3,6% (2023) → 3,3% (2024). En 1° de bachillerato es más alta: 8,4% → 7,9%.</li></ul></section>`;
-h+=`<section class="card"><h2>⁈ Un total oficial que no cierra</h2><p>El Monitor Liceal informa para 2026 una matrícula de ciclo básico de <b>169.825</b> alumnos, contra ≈95.500 en 2025 (+78% en un año, en todos los departamentos a la vez). Pero por grado da 32.574 en 2° y 30.594 en 3°, como siempre. Para llegar al total, 1° tendría que tener 106.000 alumnos. El total está mal sumado; la matrícula real ronda los 96.000.</p></section>`;
+h+=`<section class="card"><h2>⁈ Un total oficial que no cierra</h2><p>El Monitor Liceal informa para 2026 una matrícula de ciclo básico de <b>169.825</b> alumnos, contra ≈95.500 en 2025 (+78% en un año, en todos los departamentos a la vez). Pero por grado da 32.574 en 2° y 30.594 en 3°, como siempre. Para llegar al total, 1° tendría que tener 106.000 alumnos. La matrícula real de ciclo básico ronda los 96.000. Está confirmado: es la suma de ciclo básico (95.535) y bachillerato (74.290) en planes para adolescentes, que la propia DGES informó por separado en la presentación del Monitor 2026; ese total quedó rotulado como ciclo básico. Los demás indicadores del Monitor revisados (tamaño de grupo, desvinculación, promoción, aprobación, faltas) no muestran ese salto, así que no parecen haber usado ese total. Ningún cálculo de esta app lo usa: se usan las sumas grado por grado.</p></section>`;
 h+=`<section class="card"><h2>Lo que no se puede comparar con PISA</h2><ul>${CGRP.flatMap(G=>G.nc||[]).map(s=>`<li>${esc(s)}</li>`).join("")}<li>Desvinculación de un año a otro (Monitor Liceal, ciclo básico): 3,6% en 2023 y 3,3% en 2024; Montevideo, Salto y Río Negro cerca del 5%, Soriano 1,8%. Con el plan anterior, en 3° el 41% superó las 30 faltas (2022).</li></ul></section>`}
  h+=`<section class="card"><h2>Sin puntaje</h2><ul>${CGRP.filter(G=>G.ref).map(G=>`<li><b>${G.g}:</b> ${esc(G.ref)}</li>`).join("")}</ul></section>`;
  M.innerHTML=h;
@@ -836,7 +839,9 @@ function vPres(){
  </tbody></table></div>
  <p><b>El 79% de lo no gastado está en un solo programa: "Administración de la educación"</b>, y casi todo en sueldos pagados con <b>fondos propios</b> (recursos con afectación especial): de $2.397 M asignados se usaron $227 M. Lo más probable es que buena parte sea el <b>Fondo de Inasistencias</b>, que se arma con los descuentos por faltas docentes y queda guardado de un año a otro.</p>
  <p>En cambio, la plata de Rentas Generales para sueldos se usó casi toda (≈$756 M sin gastar sobre $99.305 M), y la de edificios y equipamiento, el 98,3%.</p>
+ 
  <p class="note">Fuente: Contaduría General de la Nación, Rendición de Cuentas 2025, Tomo III, Inciso 25 (cuadros por programa, tipo de gasto y fuente de financiamiento). Que sea el Fondo de Inasistencias es una inferencia: el cuadro no lo nombra.</p></section>`;
+ h+=`<section class="card"><h2>Mantenimiento de liceos: congelado desde 2015</h2><p class="lead">La División de Infraestructura de Secundaria recibe 47 millones de pesos uruguayos por año desde 2015, siempre el mismo número, sin ajuste por inflación (XLIII ATD, 2026). Como los precios suben, cada año compra menos.</p><h3 style="margin:6px 0 0">Lo que compra, en % de lo que compraba en 2015</h3><div class="chart">${lineChart([[2015, 100.0], [2016, 91.2], [2017, 85.9], [2018, 79.8], [2019, 74.0], [2020, 67.4], [2021, 62.5], [2022, 57.3], [2023, 54.1], [2024, 51.6], [2025, 49.4]],{x0:2015,x1:2025,ymin:0,ymax:100,ticks:[0,25,50,75,100],u:"%",label:"Valor real del presupuesto de mantenimiento"})}</div><h3 style="margin:10px 0 0">Lo que le faltó cada año para no perder valor (millones de pesos uruguayos de 2025)</h3>${miniBars([["2016", 8.4], ["2017", 13.5], ["2018", 19.2], ["2019", 24.8], ["2020", 31.1], ["2021", 35.7], ["2022", 40.6], ["2023", 43.7], ["2024", 46.1], ["2025", 48.2]],"",{max:55,label:"Pérdida anual"})}${concl("En 2025 ese presupuesto compra <b>la mitad (49%)</b> de lo que compraba en 2015: los precios subieron 2,03 veces. Sumando los 11 años (2015–2025), recibió ≈736 millones de pesos uruguayos de 2025, cuando para mantener su valor tendría que haber recibido ≈1.048 millones: <b>dejó de recibir ≈311 millones de pesos uruguayos de 2025, un 30% de lo que le correspondía</b>. El número no baja, pero en términos reales el presupuesto viene en declive todos los años.")}<p class="note">Cálculo propio (M): 47 millones de pesos uruguayos por año (ATD 2026) ajustados con el índice de precios al consumo promedio anual del INE (vía Banco Mundial), 2015 = 100. Pérdida de cada año = lo que hubiera sido con ajuste − 47, llevado a pesos de 2025.</p></section>`;
 h+=`<section class="card"><h2>Por quinquenio</h2><p class="lead">Cada gobierno vota un presupuesto de 5 años y cada año lo ajusta con la Rendición de Cuentas.</p><div style="overflow-x:auto"><table><thead><tr><th style="text-align:left">Período</th><th>% gastado</th><th>Sin gastar (${puL()})</th></tr></thead><tbody>${PRES.P.map(p=>`<tr><td>${p[0]}</td><td style="text-align:center">${p[1].toLocaleString("es-UY")}%</td><td style="text-align:center">${fm(pu(p[2]))}</td></tr>`).join("")}</tbody></table></div>${concl("ANEP gasta casi todo lo que se le asigna, pero lo que queda sin gastar creció en plata desde 2019 y se concentra en fondos propios (como el Fondo de Inasistencias). El problema mayor es el tamaño del presupuesto: de lo que ANEP pide, se aprueba una parte chica.")}<p class="note">* 2025–2029: solo 2025 por ahora. El porcentaje se compara mejor que la plata, porque el presupuesto de hoy es 5 veces el de 1985.</p></section>`;
  h+=`<section class="card"><h2>Lo pedido vs. lo aprobado</h2><p>Aumentos sobre la base que pidió ANEP para 2026–2029 y lo que votó el Parlamento (millones de pesos corrientes):</p>${pedChart()}
  <ul><li>2026–2029: pidió <b>$57.039 M</b> y se aprobaron <b>$9.544 M</b> (17%).</li><li>2023 y 2024: el Poder Ejecutivo otorgó el <b>67,7%</b> y el <b>68,5%</b> de lo pedido.</li><li>Rendición de Cuentas 2026: las direcciones pidieron ≈$6.000 M, el CODICEN ≈$3.000 M y el Poder Ejecutivo propone ≈<b>$300 M</b> (10%); a Secundaria le tocarían ≈$120 M.</li></ul>
@@ -908,6 +913,22 @@ function vConcl(){
  <p><b>¿Más tiempo y más recursos alcanza?</b> Los centros María Espínola (de 12 en 2021 a 59 en 2025) no mostraron, hasta 2025, efectos estadísticamente significativos en lectura ni matemática, y la promoción fue muy parecida a la de liceos comparables. El INEEd lo atribuye a un problema de diseño (no se diferenció lo suficiente de lo que ya existía), a una implementación muy desigual entre centros y a un monitoreo débil.</p>
  ${concl("La plata llega a quienes más la necesitan, y eso está bien. Pero agregar horas y programas no mejora los aprendizajes por sí solo: importa <b>cómo</b> se diseña, se implementa y se sigue cada política. Es la misma lección que deja la comparación con otros países.")}
  <p class="note">Fuentes: INEEd (2026), Impacto distributivo del gasto público en educación en Uruguay en 2024; INEEd (2026), Evaluación de los centros María Espínola.</p></section>
+ <section class="card"><h3 style="margin-top:0">8. Caso actual: el recorte de grupos en Montevideo (noviembre de 2026)</h3>
+ <p>La Dirección de Secundaria propuso eliminar 65 grupos de liceos de Montevideo en 2027; tras un paro de ADES se recuperaron 25 y siguen en discusión 40. El presidente de ANEP, Pablo Caggiani, dijo que no habrá recorte de horas, que lo liberado irá a otros cargos y que ANEP tendrá 300 millones de pesos uruguayos más.</p>
+ <ul><li><b>Es cierto que hay menos alumnos</b>, pero la caída fuerte está en primaria: en ciclo básico la matrícula de liceos públicos se mantuvo en ≈96.000 (2023–2026); en 1° de bachillerato bajó de 30.256 a 27.843.</li>
+ <li><b>Montevideo tiene los grupos más grandes del país</b> (26,4 alumnos de promedio oficial en ciclo básico 2026, contra 21,2 en Durazno). Si sobran grupos, sobran en el interior.</li>
+ <li><b>Los grupos se arman en marzo:</b> entre 9% (ciclo básico) y 19% (1° de bachillerato) de los alumnos deja durante el año; un grupo chico en octubre estaba lleno en marzo.</li>
+ <li><b>Cuánto trabajo se pierde:</b> 40 grupos × ≈38 horas semanales (de 45 minutos) ≈ 1.500 horas semanales, el trabajo de ≈75 docentes con 20 horas.</li>
+ <li><b>Los 300 millones de pesos uruguayos</b> son ≈0,3% del gasto anual de ANEP (≈112.000 millones de pesos uruguayos) y el 10% de lo que ANEP pidió.</li>
+ <li><b>La promesa de reasignar no se puede verificar:</b> ANEP no publica grupos ni cargos por liceo, y entre 2020 y 2025 dejó sin gastar ≈18.200 millones de pesos uruguayos de 2025 (≈440 millones de dólares).</li>
+ <li><b>El mantenimiento de los liceos está congelado:</b> la División de Infraestructura de Secundaria tiene 47 millones de pesos uruguayos por año desde 2015, sin ajuste por inflación (ATD 2026). Como los precios subieron 2,03 veces entre 2015 y 2025 (IPC del INE), perdió cerca de la mitad de su poder de compra: para comprar lo mismo que en 2015 harían falta ≈95 millones de pesos uruguayos de 2025. El número no baja, pero en términos reales viene en declive.</li></ul>
+ ${concl("Con menos alumnos y los mismos grupos, el gasto por alumno sube sin agregar un peso: Uruguay gasta ≈4.400 dólares (por poder de compra) por alumno de liceo, contra ≈16.300 del tercio de países con mejores resultados. Recortar grupos, y justo en Montevideo, desaprovecha esa oportunidad.")}
+ <p class="note">Fuentes: la diaria y La Mañana (19–20 de noviembre de 2026), Monitor Educativo Liceal, Contaduría General de la Nación, OCDE.</p></section>
+ <section class="card"><h3 style="margin-top:0">9. Lo bueno y lo malo de lo que hace ANEP</h3>
+ <p>Este análisis suma tres cosas al debate: datos medidos de otra forma (como el tamaño de grupo visto desde el alumno), números que la discusión no usaba (la plata sin gastar y el mantenimiento congelado) y propuestas concretas de qué debería publicar ANEP.</p>
+ <p><b>✔ Lo que hace bien</b></p><ul><li>Gasta casi todo lo que le asignan: ≈97% de su presupuesto anual.</li><li>Su gasto llega a quienes más lo necesitan: el 10% con menos ingresos recibe ≈35% del gasto por estudiante (INEEd, 2026).</li><li>Bajó mucho la repetición: la extraedad en 7° pasó de 45% (2008) a 19,1% (2026).</li><li>Publica bastantes datos en el Monitor Educativo Liceal, que es lo que permitió este análisis.</li></ul>
+ <p><b>✘ Lo que hace mal</b></p><ul><li>Mide el tamaño de grupo con promedios simples que esconden los grupos llenos de las ciudades, y no aclara en qué momento del año lo mide.</li><li>No publica datos por liceo: sus decisiones sobre grupos y cargos no se pueden verificar.</li><li>Deja plata guardada en fondos propios sin explicar para qué se usará.</li><li>Mantiene congelado desde 2015 el mantenimiento de los liceos (47 millones de pesos uruguayos por año, sin ajuste por inflación).</li><li>Publicó un total mal rotulado: 169.825 alumnos como ciclo básico, cuando era ciclo básico (95.535) más bachillerato (74.290).</li></ul>
+ ${concl("<b>Los datos de abandono deben servir para atacar el problema, no para darlo por hecho.</b> Saber que entre el 9% y el 19% de los alumnos deja durante el año sirve para detectar a tiempo quiénes están por irse y retenerlos; armar grupos más chicos o cerrar grupos previendo ese abandono es dar por perdidos a esos alumnos antes de empezar. Para ser justos: no gastar todo no es ilegal y la caída de alumnos es real. Lo que se discute es cómo se responde: con menos alumnos, la oportunidad es mejorar la enseñanza con los mismos recursos, no recortar.")}</section>
  <section class="card"><h3 style="margin-top:0">Límites de este análisis</h3><ul><li>Correlación no es causa: los países ricos gastan más y también tienen familias con más recursos, que explican buena parte de los puntajes.</li><li>Los datos de Uruguay mezclan fuentes (ANEP, OCDE, PISA) y años distintos.</li><li>Las conclusiones de políticas son lecturas posibles de los datos, no recomendaciones oficiales.</li></ul></section>`;
 }
 
@@ -932,7 +953,7 @@ function vHall(){
  <li><b>Pasar no es aprobar:</b> entre 14 y 24 de cada 100 pasan de grado con materias pendientes; "aprueban todo" viene bajando mientras la promoción se mantiene.</li>
  <li><b>Presupuesto:</b> ANEP gasta ≈97% de lo asignado; el porcentaje bajó desde 2019 y 2020–2025 es el período con más dinero sin gastar desde 1985 (≈$18.200 millones de 2025). De los aumentos pedidos para 2026–2029 se aprobó el 17%.</li>
  <li><b>Lo que mejora:</b> la extraedad en 7° bajó de 45% (2008) a 19% (2026) y la desvinculación de un año a otro es ≈3%.</li>
- <li><b>⁈ Error oficial:</b> el Monitor informa 169.825 alumnos de ciclo básico en 2026, cuando la suma por grados da ≈96.000.</li></ol></section>
+ <li><b>⁈ Total oficial mal rotulado:</b> el Monitor informa 169.825 alumnos de ciclo básico en 2026, cuando la suma por grados da ≈96.000; es la suma de ciclo básico (95.535) y bachillerato (74.290).</li></ol></section>
  <section class="card"><h2>Lectura general</h2><p class="lead">Interpretación de los datos anteriores; no es un dato oficial.</p>
  <p>El sistema retiene a los alumnos en la matrícula, pero no tanto en el aula. Inscriptos, promoción y asistencia oficial se ven bien; los indicadores más finos (faltas, aprobar todo, abandono durante el año) muestran un desgaste que empeoró desde 2023, sobre todo en 8°, 9° y 1° de bachillerato.</p>
  <p>Los datos oficiales no son falsos, pero suelen usar la medida más favorable: promedio de grupos y no de alumnos, presente si fue parte del día, promovido aunque deba materias. Por eso esta app muestra la otra medida al lado.</p>
