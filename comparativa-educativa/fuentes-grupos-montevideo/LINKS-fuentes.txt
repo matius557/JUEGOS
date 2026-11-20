@@ -1,0 +1,61 @@
+FUENTES — ¿Por qué no tiene sentido reducir grupos en Montevideo?
+Prof. Lic. Matías Marcelino · Marchecos Apps · noviembre 2026
+
+
+LA NOTA ANALIZADA
+- la diaria — Caggiani: si en 2027 se ajustan grupos, los recursos van a otros cargos
+  https://ladiaria.com.uy/educacion/articulo/2026/11/pablo-caggiani-dijo-que-si-en-2027-se-ajustan-grupos-por-falta-de-estudiantes-los-recursos-se-destinaran-a-otros-cargos-docentes/
+- La Mañana — Menos alumnos, menos grupos y menos horas docentes
+  https://www.xn--lamaana-7za.uy/actualidad/menos-alumnos-menos-grupos-y-menos-horas-docentes/
+- Telenoche — ADES anunció la recuperación de 25 grupos
+  https://www.telenoche.com.uy/nacionales/ades-anuncio-la-recuperacion-25-grupos-liceos-y-caggiani-defendio-la-reorganizacion-n5407525
+
+MATRÍCULA Y TAMAÑO DE GRUPO (ANEP)
+- Monitor Educativo Liceal (DGES) — datos por curso, grado y departamento
+  http://servicios.ces.edu.uy/monitorces/servlet/portada
+  (Exportaciones .xlsx incluidas en la carpeta monitor-liceal-xlsx)
+- DGES — Se presentó el Monitor Educativo Liceal 2026
+  https://www.dges.edu.uy/comunicacion/noticias/se-presento-monitor-educativo-liceal-2026
+  (Presentación oficial del Monitor 2026)
+- Durazno Digital — Monitor liceal 2026 (cifras 95.535 + 74.290 = 169.825 estudiantes)
+  https://www.duraznodigital.uy/2026/09/monitor-liceal-casi-98-de-los-alumnos.html
+  (No se encontró el PDF de la presentación; estas son las fuentes publicadas de esas cifras)
+- ANEP-DGEIP — Manual de indicadores de planeamiento educativo 2025
+  https://www.dgeip.edu.uy/documentos/2025/planeamientoed/2025_Manual-Indicadores-Planeamiento-Educativo.pdf
+  (Indicador 2 «Matrícula total»: pág. 44 impresa (46 del PDF). Indicador 11 «Tamaño medio de grupo»: pág. 73 impresa (75 del PDF). En el pack: pdf/02)
+- ANEP — Anexo estadístico 2020
+  https://www.anep.edu.uy/sites/default/files/images/Archivos/publicaciones-direcciones/DSPP/anexos/Anexo%20estad%C3%ADstico%202020.pdf
+  (Serie histórica de asignación y ejecución presupuestal. En el pack: pdf/06)
+
+PRESUPUESTO Y DINERO SIN EJECUTAR
+- ATD XLIII Nacional Ordinaria (Minas, julio 2026) — informe completo
+  (Sin link público conocido: va el PDF en el pack (pdf/01). Páginas del PDF: p. 34 reserva técnica 1.900 millones de pesos uruguayos y 7.000 horas de apoyo (120 millones); p. 56 pedido vs. aprobado 2026–2029; p. 58 345 millones de dólares sin ejecutar 2020–2025 (67,66 % / 68,53 %); p. 61 los 300 millones de pesos uruguayos de la Rendición 2026; p. 62 Fondo de Inasistencias 1.953 millones; p. 63 961 millones sin usar; p. 65 mantenimiento congelado en 47 millones de pesos uruguayos por año. (La página impresa es la del PDF + 1.))
+- MEF / CGN — Rendición de Cuentas 2025, Tomo III (Gastos corrientes e inversiones)
+  https://www.gub.uy/ministerio-economia-finanzas/comunicacion/publicaciones/proyecto-poder-ejecutivo-tomos
+  (Inciso 25 ANEP: págs. 433–437. En el pack: pdf/05)
+- TOCAF 2024 (normas de ejecución del gasto)
+  https://chlaep.org.uy/wp-content/uploads/2025/01/TOCAF_-2024.docx.pdf
+- INE — Serie histórica de la Unidad Indexada y del IPC
+  https://www.gub.uy/instituto-nacional-estadistica/datos-y-estadisticas/estadisticas/series-historicas-ui
+  (Usado para ajustar por inflación (pesos uruguayos de 2025))
+
+GASTO POR ESTUDIANTE Y COMPARACIÓN INTERNACIONAL
+- INEEd — Impacto distributivo del gasto público en educación, Uruguay 2024
+  https://www.ineed.edu.uy/images/publicaciones/informes/Impacto-distributivo-del-gasto-publico-en-educacion-Uruguay-2024.pdf
+  (pág. 17 gráfico 1 (liceo común 117.797 pesos uruguayos de 2024 por estudiante); pág. 18 (35 % / 0,5 %). En el pack: pdf/03)
+- INEEd — Evaluación de los centros María Espínola
+  https://www.ineed.edu.uy/images/publicaciones/informes/Evaluacion-centros-Maria-Espinola.pdf
+  (Conclusiones: págs. 46–47. En el pack: pdf/04)
+- Banco Mundial — Gasto en educación, % del gasto del gobierno (SE.XPD.TOTL.GB.ZS)
+  https://data.worldbank.org/indicator/SE.XPD.TOTL.GB.ZS
+- FMI — Factor de paridad de poder adquisitivo (PPPEX), Uruguay
+  https://www.imf.org/external/datamapper/PPPEX@WEO/URY
+  (26,67 pesos uruguayos por dólar PPA (2024))
+- Acceso a la información pública — Ley 18.381
+  https://www.impo.com.uy/bases/leyes/18381-2008
+
+MATERIALES PROPIOS
+- Documento: ¿Por qué no tiene sentido reducir grupos en Montevideo?
+  https://claude.ai/artifact/QjqL5hbQ5wKkkw1y5w7hk8
+- App Comparativa Educativa
+  https://claude.ai/artifact/5199a450-9b1b-47af-8943-bacaf82fbdf6
